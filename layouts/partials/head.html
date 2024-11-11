@@ -1,5 +1,5 @@
 <meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1" />
 {{- $title := ( .Title ) -}}
 {{- $siteTitle := ( .Site.Title ) -}}
 {{- if .IsHome -}}
@@ -17,7 +17,7 @@
 {{ printf `
 <link rel="%s" type="%s" href="%s" title="%s" />` .Rel .MediaType.Type .Permalink $.Site.Title | safeHTML }}
 {{ end -}}
-<link rel="canonical" href="{{ .Permalink }}">
+<link rel="canonical" href="{{ .Permalink }}" />
 {{ $options := (dict "targetPath" "css/style.css" "outputStyle" "compressed") }}
 {{ $style := resources.Get "scss/main.scss" | toCSS $options | minify | fingerprint }}
 <link rel="stylesheet" type="text/css" media="screen" href="{{ $style.Permalink }}"
