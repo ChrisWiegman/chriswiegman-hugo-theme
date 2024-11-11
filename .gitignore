@@ -1,1 +1,5 @@
+# Ignore Apple files
 .DS_Store
+
+# Ignore the release zips
+*.zip
