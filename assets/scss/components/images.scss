@@ -1,0 +1,43 @@
+img {
+  margin: 0 auto 2rem auto;
+  max-width: 100%;
+  height: auto;
+  vertical-align: bottom;
+  text-align: center;
+
+  .alignleft {
+    /*rtl:ignore*/
+    float: left;
+    /*rtl:ignore*/
+    margin-left: 0;
+    margin-right: 1em;
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+  }
+
+  .alignright {
+    /*rtl:ignore*/
+    float: right;
+    /*rtl:ignore*/
+    margin-right: 0;
+    margin-left: 1em;
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+  }
+}
+
+figure {
+  display: table;
+  margin: 0 auto;
+
+  img.with-caption {
+    margin-bottom: 0;
+  }
+
+  figcaption {
+    display: table-caption;
+    caption-side: bottom;
+    margin: 0.5em 1em 2em 1em;
+    font-size: 0.8rem;
+  }
+}

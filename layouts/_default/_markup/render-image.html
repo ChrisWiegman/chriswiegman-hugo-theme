@@ -1,0 +1,37 @@
+{{- $image_file := .Destination -}}
+{{- $image := resources.Get $image_file -}}
+{{- $imgSrc := "" -}}
+{{- $imgSrcSet := slice -}}
+{{- with $widths := site.Params.imageSizes -}}
+{{- range $widths -}}
+{{- $srcUrl := (printf "%gx" . | $image.Resize).RelPermalink -}}
+{{- if eq $imgSrc "" -}}
+{{- $imgSrc = $srcUrl -}}
+{{- end -}}
+{{- $imgSrcSet = $imgSrcSet | append (printf "%s %gw" $srcUrl .) -}}
+{{- end -}}
+{{- $imgSrcSet = (delimit $imgSrcSet ",") -}}
+{{- end -}}
+
+{{- if .IsBlock -}}
+<figure>
+    {{- if gt $image.Width 850 -}}
+    <img {{ with .Title }} class="with-caption" {{ end }} width="{{ $image.Width }}" height="{{ $image.Height }}"
+        src="{{ $image.RelPermalink }}" alt="{{ . }}" decoding="async" fetchpriority="high" srcset="{{ $imgSrcSet }}"
+        sizes="{{ site.Params.imageSizeString }}" />
+    {{- else -}}
+    <img{{ with .Title }} class="with-caption" {{ end }} width="{{ $image.Width }}" height="{{ $image.Height }}"
+        src="{{ $image.RelPermalink }}" alt="{{ . }}" decoding="async" fetchpriority="high" />
+    {{- end -}}
+    {{- with .Title }}<figcaption>{{ . }}</figcaption>{{- end -}}
+</figure>
+{{- else -}}
+{{- if gt $image.Width 850 -}}
+<img width="{{ $image.Width }}" height="{{ $image.Height }}" src="{{ $image.RelPermalink }}" alt="{{ . }}"
+    decoding="async" fetchpriority="high" srcset="{{ $imgSrcSet }}" sizes="{{ site.Params.imageSizeString }}" {{- with
+    .Title }} title="{{ . }}" {{ end -}} />
+{{- else -}}
+<img width="{{ $image.Width }}" height="{{ $image.Height }}" src="{{ $image.RelPermalink }}" alt="{{ . }}"
+    decoding="async" fetchpriority="high" {{- with .Title }} title="{{ . }}" {{ end -}} />
+{{- end -}}
+{{- end -}}

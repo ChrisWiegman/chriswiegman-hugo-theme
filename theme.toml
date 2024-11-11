@@ -1,0 +1,13 @@
+name = "Chris Wiegman's Hugo Theme"
+license = "MIT"
+licenselink = "https://github.com/ChrisWiegman/chriswiegman-hugo-theme/blob/main/LICENSE.txt"
+description = "The ever-evolving Hugo theme in use at chriswiegman.com"
+homepage = "https://github.com/ChrisWiegman/chriswiegman-hugo-theme"
+tags = ["blog", "minal"]
+features = ["search"]
+min_version = "0.136.0"
+
+# If the theme has a single author
+[author]
+    name = "Chris Wiegman"
+    homepage = "https://chriswiegman.com"

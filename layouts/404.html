@@ -1,0 +1,16 @@
+{{ define "main" }}
+<article class="archive">
+    <div class="container">
+        <div class="content-header">
+            <h1 class="title post-title p-name" itemprop="name headline">Content not found.</span></h1>
+            <p>The URL you're looking for was not found on this site. Please use the form below to find the content
+                you're looking for.</p>
+        </div>
+
+        {{ partial "form.html" . }}
+
+        {{ partial "filter.html" . }}
+
+    </div>
+</article>
+{{ end }}

@@ -1,0 +1,118 @@
+body {
+  main {
+    article {
+
+      .content-header,
+      .content-categories {
+        padding: 0 2rem 2rem 2rem;
+        text-align: center;
+
+        .meta {
+          padding-top: 0.4rem;
+        }
+
+        .tags,
+        .categories {
+          align-items: center;
+          display: flex;
+          flex-wrap: wrap;
+          gap: 0.5rem;
+          justify-content: center;
+          margin: 1.5rem 0 0 0;
+
+          a {
+            border: 1px solid $border-light;
+            border-radius: 8px;
+            color: $text-bright;
+            display: inline-block;
+            font-size: 0.9rem;
+            font-weight: 600;
+            line-height: normal;
+            padding: 0.4rem 0.6rem;
+            vertical-align: middle;
+          }
+
+          a:hover {
+            background: $reverse;
+            border-color: $primary;
+            color: $primary;
+          }
+        }
+      }
+
+      .content {
+
+        p,
+        ul,
+        ol {
+          font-size: 1.3rem;
+          margin: 0 0 2rem;
+        }
+
+        .highlight,
+        blockquote {
+          background-color: #282828;
+          border-radius: 8px;
+          border: 1px solid $border-light;
+          font-size: 1.3rem;
+          margin: 2.5em 0;
+
+          pre {
+            width: 95%;
+            margin: 1rem;
+            overflow-x: auto;
+          }
+
+          p {
+            padding: 0 1rem;
+          }
+        }
+
+        blockquote {
+          background-color: $background-code;
+          font-family: monospace;
+
+          p {
+            margin: 0;
+            padding: 1rem;
+          }
+
+          blockquote {
+            border: none;
+            font-style: italic;
+            margin: 0 0 0 2rem;
+
+            p {
+              font-size: 0.8rem;
+            }
+          }
+        }
+      }
+    }
+
+    .prevnext {
+      padding-top: 0;
+
+      a {
+        border-bottom: none;
+      }
+
+      .prev {
+        max-width: 49%;
+        float: left;
+      }
+
+      .next {
+        max-width: 49%;
+        float: right;
+        text-align: right;
+      }
+
+      &:after {
+        content: " ";
+        display: block;
+        clear: both;
+      }
+    }
+  }
+}

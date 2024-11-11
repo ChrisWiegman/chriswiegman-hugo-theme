@@ -1,0 +1,31 @@
+{{ define "main" }}
+<article class="archive">
+    <div class="container">
+        {{ $pages := where site.RegularPages "Type" "in" site.Params.mainSections }}
+        <div class="content-header">
+            <h1 class="title post-title p-name" itemprop="name headline">All Posts</h1>
+            <p class="description"><span class="post-count">{{ $pages.Len }}</span> posts found.</p>
+        </div>
+
+        {{ partial "form.html" . }}
+
+        {{ partial "filter.html" . }}
+
+        <div class="content e-content" itemprop="articleBody"> <!-- Group by year. -->
+            {{- range $pages.GroupByDate "2006" }}
+            <div class="posts-group">
+                <h2 class="main-header">{{ .Key }}</h2>
+                <div class="posts">
+                    {{ range $index, $post := .Pages }}
+                    <a class="post" href="{{ .Permalink }}">
+                        <h3 class="post-title">{{$post.Title}}</h3> <span class="post-day">{{ dateFormat "Jan 2" .Date
+                            }}</span>
+                    </a>
+                    {{- end }}
+                </div>
+            </div>
+            {{- end }}
+        </div>
+    </div>
+</article>
+{{ end }}

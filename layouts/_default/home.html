@@ -1,0 +1,16 @@
+{{ define "main" }}
+<article class="hero">
+    {{ .Content }}
+
+    <div class="container">
+        <h2 class="main-header"><span>Recent Posts</span> <a href="/blog">View All</a></h2>
+        {{ $pages := where site.RegularPages "Type" "in" site.Params.mainSections }}
+        {{ range $index, $post := first 12 $pages }}
+        {{ .Render "title" }}
+        <a class="post" href="{{.Permalink}}">
+            <h3 class="post-title">{{ $post.Title }}</h3> <span class="post-day">{{ dateFormat "2 Jan" .Date }}</span>
+        </a>
+        {{- end }}
+    </div>
+</article>
+{{ end }}

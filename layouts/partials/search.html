@@ -1,0 +1,13 @@
+<script id="search-result-template" type="text/x-js-template">
+    <div id="summary-${key}">
+        <a class="post" href="${link}">
+            <h3 class="post-title">${title}</h3> <span class="post-day">${date}</span>
+        </a>
+    </div>
+</script>
+{{ $search := resources.Get "scripts/search.js" }}
+{{ $plugins := resources.GetRemote "https://releases.jquery.com/git/jquery-3.x-git.js" }}
+{{ $global := resources.GetRemote "https://cdn.jsdelivr.net/npm/fuse.js/dist/fuse.js" }}
+{{ $bundle := slice $plugins $global $search | resources.Concat "js/bundle.js" }}
+{{ $js :=  $bundle | resources.Minify }}
+<script src="{{ $js.RelPermalink }}"></script>

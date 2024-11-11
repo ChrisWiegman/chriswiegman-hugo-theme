@@ -1,0 +1,17 @@
+{{ define "main" }}
+<article class="archive">
+    <div class="container">
+        <div class="content-header">
+            <h1 class="title post-title p-name" itemprop="name headline">Search results for: <span id="search-term"
+                    class="term"></span></h1>
+            <p class="description"><span class="post-count" id="search-count"></span> posts found.</p>
+        </div>
+
+        {{ partial "form.html" . }}
+
+        {{ partial "results.html" . }}
+    </div>
+</article>
+
+{{ partial "search.html" . }}
+{{ end }}
