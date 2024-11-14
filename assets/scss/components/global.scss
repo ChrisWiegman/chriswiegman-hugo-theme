@@ -141,7 +141,7 @@ header {
 
 main {
   margin-top: 60px;
-  min-height: calc(100vh - 215px);
+  min-height: calc(100vh - 145px);
 
   article,
   .prevnext {
@@ -215,8 +215,6 @@ footer {
   width: 100%;
   background: $navbar;
   padding: 1rem 0;
-  bottom: 0;
-  position: absolute;
 
   .content {
     align-items: center;
