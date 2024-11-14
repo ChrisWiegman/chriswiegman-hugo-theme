@@ -26,9 +26,13 @@
 <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 <link rel="shortcut icon" href="/favicon.ico" />
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
-<meta name="apple-mobile-web-app-title" content="C Wiegman" />
+{{- if isset .Site.Params "mobilewebapptitle" -}}
+<meta name="apple-mobile-web-app-title" content="{{ .Site.Params.MobileWebAppTitle }}" />
+{{- end -}}
 <link rel="manifest" href="/site.webmanifest" />
-<meta name="fediverse:creator" content="@chris@mastodon.chriswiegman.com" />
+{{- if isset .Site.Params "fediversecreator" -}}
+<meta name="fediverse:creator" content="{{ .Site.Params.FediverseCreator }}" />
+{{- end -}}
 {{- if .Site.Params.OpenGraph -}}
 {{- template "_internal/opengraph.html" . -}}
 {{- end -}}
