@@ -215,6 +215,8 @@ footer {
   width: 100%;
   background: $navbar;
   padding: 1rem 0;
+  bottom: 0;
+  position: absolute;
 
   .content {
     align-items: center;
