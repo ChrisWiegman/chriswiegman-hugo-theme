@@ -6,7 +6,7 @@
 	</ul>
 	<div class="copyright"> <span class="copyright-date">Copyright© {{ now.Year }}</span>{{- if isset .Site.Params "license" -}} | <a
 			title="{{ .Site.Params.License.Title }}"
-			href="{{ .Site.Params.License.Link }}" rel="license">{{ .Site.Params.License.Name }}</a>{{- end -}} |
-		<a href="/policies/">Policies</a>
+			href="{{ .Site.Params.License.Link }}" rel="license">{{ .Site.Params.License.Name }}</a>{{- end -}}{{- if isset .Site.Params "policies" -}} |
+		<a href="{{.Site.Params.Policies}}">Policies</a>{{- end -}}
 	</div>
 </div>
