@@ -51,6 +51,7 @@ release: clean
 		--exclude="*.gitignore" \
 		--exclude="*Makefile" \
 		--exclude="*README.md" \
+		--exclude="*CHANGELOG.md" \
 		--exclude="*.zip" \
 		chriswiegman-hugo-theme/chriswiegman-hugo-theme.$(call ARGS,defaultstring).zip \
 		chriswiegman-hugo-theme/*
