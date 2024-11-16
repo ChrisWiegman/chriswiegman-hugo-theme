@@ -1,12 +1,12 @@
 <div class="content">
 	<ul class="menu">
 		{{ range .Site.Menus.footer.ByWeight }}
-		<li><a title="{{ .Title }}" href="{{ .URL }}">{{ .Name }}</a></li>
-		{{ end }}
+        <li><a title="{{ .Title }}" href="{{ .URL }}">{{ .Name }}</a></li>
+        {{ end }}
 	</ul>
-	<div class="copyright"> <span class="copyright-date">Copyright© {{ now.Year }}</span> | <a
-			title="Attribution-ShareAlike 4.0 International (CC BY-SA 4.0) license"
-			href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="license">Creative Commons Licensed</a> |
+	<div class="copyright"> <span class="copyright-date">Copyright© {{ now.Year }}</span>{{- if isset .Site.Params "license" -}} | <a
+			title="{{ .Site.Params.License.Title }}"
+			href="{{ .Site.Params.License.Link }}" rel="license">{{ .Site.Params.License.Name }}</a>{{- end -}} |
 		<a href="/policies/">Policies</a>
 	</div>
 </div>
