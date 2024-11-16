@@ -31,7 +31,14 @@ See the following example for the configuration of my own site:
       710,
       300
     ],
-    "imageSizeString": "(max-width: 850px) 850w, (max-width: 710px) 710w, (max-width: 300px) 300w"
+    "imageSizeString": "(max-width: 850px) 850w, (max-width: 710px) 710w, (max-width: 300px) 300w",
+    "license": {
+      "name": "Creative Commons Licensed",
+      "title": "Attribution-ShareAlike 4.0 International (CC BY-SA 4.0) license",
+      "link": "https://creativecommons.org/licenses/by-nc-sa/4.0/"
+    },
+    "policies": "/policies",
+    "headerIcon": "images/2024/11/logo.png"
   },
   "minify": {
     "minifyOutput": true
@@ -47,23 +54,41 @@ See the following example for the configuration of my own site:
     "main": [
       {
         "name": "About",
+        "title": "About Chris Wiegman",
         "pageRef": "/about",
         "weight": 10
       },
       {
         "name": "Uses",
+        "title": "My tools, both digital and analogue",
         "pageRef": "/uses",
         "weight": 20
       },
       {
         "name": "Blog",
+        "title": "A list of all blog posts on this site going back to 2008",
         "pageRef": "/blog",
         "weight": 30
       },
       {
         "name": "Contact",
+        "title": "Reach me via email",
         "url": "mailto:contact@chriswiegman.com",
         "weight": 40
+      }
+    ],
+    "footer": [
+      {
+        "name": "About",
+        "title": "About Chris Wiegman",
+        "pageRef": "/about",
+        "weight": 10
+      },
+      {
+        "name": "RSS",
+        "title": "Subscribe to this site in your favorite feed reader",
+        "pageRef": "/index.xml",
+        "weight": 20
       }
     ]
   },
