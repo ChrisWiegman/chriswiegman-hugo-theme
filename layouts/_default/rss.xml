@@ -26,7 +26,7 @@
         <item>
             <title>{{ .Title }}</title>
             {{- $pagePermalink := .Permalink -}}
-            {{- with $featured_image := .Params.featured_image -}}
+            {{- with $featured_image := index .Params.images 0 -}}
                 {{- $image := resources.Get $featured_image -}}
                 {{- with $image -}}
                 {{ $jpg := $image.Process "jpg" }}

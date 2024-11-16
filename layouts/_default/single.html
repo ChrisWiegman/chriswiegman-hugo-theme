@@ -16,7 +16,7 @@
         </div>
 
         <div class="content e-content" itemprop="articleBody">
-            {{- with $featured_image := .Params.featured_image -}}
+            {{- with $featured_image := index .Params.images 0 -}}
             {{- $image := resources.Get $featured_image -}}
             {{- with $image -}}
             {{- $imgSrc := "" -}}
