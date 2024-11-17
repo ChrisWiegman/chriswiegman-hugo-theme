@@ -21,7 +21,7 @@ a.post {
   margin-left: -1rem;
   margin-right: -1rem;
   padding: 0.4rem 1rem;
-  color: $text-dark;
+  color: $text;
 
   &:hover {
     border: 1px solid transparent;
@@ -35,7 +35,7 @@ a.post {
   }
 
   .post-title {
-    color: $text-dark;
+    color: $text;
     display: grid;
     -webkit-filter: brightness(1);
     filter: brightness(1);
