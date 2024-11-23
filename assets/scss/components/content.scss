@@ -18,7 +18,7 @@ body {
           flex-wrap: wrap;
           gap: 0.5rem;
           justify-content: center;
-          margin: 1.5rem 0 0 0;
+          margin: 0;
 
           a {
             border: 1px solid $border-light;
@@ -26,7 +26,6 @@ body {
             color: $text-bright;
             display: inline-block;
             font-size: 0.9rem;
-            font-weight: 600;
             line-height: normal;
             padding: 0.4rem 0.6rem;
             vertical-align: middle;
@@ -95,6 +94,7 @@ body {
 
       a {
         border-bottom: none;
+        font-weight: 600;
       }
 
       .prev {

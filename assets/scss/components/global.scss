@@ -149,7 +149,6 @@ main {
       border-top: 2px solid transparent;
       border-bottom: 2px solid $primary;
       color: $link;
-      font-weight: 600;
 
       &:hover {
         background: $primary;
@@ -161,7 +160,7 @@ main {
     h1 {
       font-size: 2.5rem;
       font-weight: 700;
-      margin-bottom: 0.75rem;
+      margin-bottom: 0.5rem;
       color: $text-bright;
     }
 
