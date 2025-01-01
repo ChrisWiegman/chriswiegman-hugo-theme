@@ -84,20 +84,6 @@ footer {
         display: inline;
       }
     }
-
-    a {
-      color: $text;
-      gap: 0.5rem;
-      padding: 0.5rem;
-      border-radius: 8px;
-      font-size: 0.9rem;
-      align-items: center;
-
-      &:hover {
-        color: $text-bright;
-        background: $navbar-hover;
-      }
-    }
   }
 }
 
@@ -118,6 +104,20 @@ header {
     padding: 0 1.5rem;
     height: 100%;
     justify-content: space-between;
+
+    a {
+      color: $text;
+      gap: 0.5rem;
+      padding: 0.5rem;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      align-items: center;
+
+      &:hover {
+        color: $text-bright;
+        background: $navbar-hover;
+      }
+    }
 
     .menu {
       text-align: center;
@@ -221,13 +221,30 @@ footer {
     flex-direction: column;
     gap: 0.5rem;
 
+    a {
+      color: $text;
+
+      &:hover {
+        color: $text-bright;
+        background: $navbar-hover;
+      }
+    }
+
     ul {
       margin: 0;
+
+      li {
+        padding: 0.25rem;
+      }
     }
 
     .copyright,
     .copyright a {
       font-size: 0.7rem;
+
+      a {
+        border-bottom: 1px solid $text;
+      }
     }
 
     .copyright {
