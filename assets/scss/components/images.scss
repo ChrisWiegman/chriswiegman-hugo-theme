@@ -4,6 +4,7 @@ img {
   height: auto;
   vertical-align: bottom;
   text-align: center;
+  border-radius: 12px;
 
   .alignleft {
     /*rtl:ignore*/
@@ -39,5 +40,6 @@ figure {
     caption-side: bottom;
     margin: 0.5em 1em 2em 1em;
     font-size: 0.8rem;
+    text-align: center;
   }
 }
