@@ -93,7 +93,6 @@ header {
   left: 0;
   width: 100%;
   background: $navbar;
-  border-bottom: 1px solid $border-light;
   height: 60px;
   z-index: 2000;
 
@@ -210,7 +209,6 @@ main {
 
 footer {
   border-bottom: none;
-  border-top: 1px solid $border-light;
   width: 100%;
   background: $navbar;
   padding: 1rem 0;
