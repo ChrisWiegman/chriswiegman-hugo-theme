@@ -7,7 +7,7 @@
         {{ $pages := where site.RegularPages "Type" "in" site.Params.mainSections }}
         {{ range $index, $post := first 10 $pages }}
         {{ .Render "title" }}
-        <a class="post" href="{{.Permalink}}">
+        <a class="post" href="{{.RelPermalink}}">
             <h3 class="post-title">{{ $post.Title }}</h3> <span class="post-day">{{ dateFormat "2 Jan" .Date }}</span>
         </a>
         {{- end }}

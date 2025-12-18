@@ -17,7 +17,7 @@
                 <h2 class="main-header">{{ .Key }}</h2>
                 <div class="posts">
                     {{ range $index, $post := .Pages }}
-                    <a class="post" href="{{ .Permalink }}">
+                    <a class="post" href="{{ .RelPermalink }}">
                         <h3 class="post-title">{{$post.Title}}</h3> <span class="post-day">{{ dateFormat "Jan 2" .Date
                             }}</span>
                     </a>

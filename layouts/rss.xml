@@ -16,24 +16,24 @@
     <channel>
         <title>{{ if eq .Title .Site.Title }}{{ .Site.Title }}{{ else }}{{ with .Title }}{{.}} on {{
         end }}{{ .Site.Title }}{{ end }}</title>
-        <link>{{ .Permalink }}</link>
+        <link>{{ .RelPermalink }}</link>
         <description>{{.Site.Params.Description }}</description>
         {{ if not .Date.IsZero }} <lastBuildDate>{{ .Date.Format "Mon, 02 Jan 2006 15:04:05 -0700" | safeHTML }}</lastBuildDate>{{ end }}
-        {{ with .OutputFormats.Get "RSS" }} {{ printf "<atom:link href= %q rel= \"self\" type= %q />" .Permalink .MediaType | safeHTML }} {{ end }}
+        {{ with .OutputFormats.Get "RSS" }} {{ printf "<atom:link href= %q rel= \"self\" type= %q />" .RelPermalink .MediaType | safeHTML }} {{ end }}
         <sy:updatePeriod>hourly</sy:updatePeriod>
         <sy:updateFrequency>1</sy:updateFrequency>
         {{ range $pages }}
         <item>
             <title>{{ .Title }}</title>
-            {{- $pagePermalink := .Permalink -}}
+            {{- $pagePermalink := .RelPermalink -}}
             {{- with $featured_image := index .Params.images 0 -}}
                 {{- $image := resources.Get $featured_image -}}
                 {{- with $image -}}
                 {{ $jpg := $image.Process "jpg" }}
-                    <enclosure url="{{ $jpg.Permalink }}" type="image/jpg"></enclosure>
+                    <enclosure url="{{ $jpg.RelPermalink }}" type="image/jpg"></enclosure>
                 {{- end -}}
             {{- end }}
-            <link>{{ .Permalink }}</link>
+            <link>{{ .RelPermalink }}</link>
             <dc:creator>{{ printf "<![CDATA[" | safeHTML }}Chris Wiegman{{- printf "]]>" | safeHTML }}</dc:creator>
             {{- if .Params.categories -}}
             {{- range .Params.categories -}}
@@ -47,9 +47,9 @@
             {{- end -}}
             <pubDate>{{ .Date.Format "Mon, 02 Jan 2006 15:04:05 -0700" | safeHTML }}</pubDate>
             {{ with .Site.Author.email }}<author>{{.}}{{ with $.Site.Author.name }} ({{.}}){{end}}</author>{{end}}
-            <guid>{{ .Permalink }}</guid>
-            {{- $content := replaceRE "a href=\"(#.*?)\"" (printf "%s%s%s" "a href=\"" .Permalink "$1\"") .Content -}}
-            {{- $content = replaceRE "img src=\"(.*?)\"" (printf "%s%s%s" "img src=\"" .Permalink "$1\"") $content -}}
+            <guid>{{ .RelPermalink }}</guid>
+            {{- $content := replaceRE "a href=\"(#.*?)\"" (printf "%s%s%s" "a href=\"" .RelPermalink "$1\"") .Content -}}
+            {{- $content = replaceRE "img src=\"(.*?)\"" (printf "%s%s%s" "img src=\"" .RelPermalink "$1\"") $content -}}
             <description> {{ printf "<![CDATA[" | safeHTML }}{{ .Summary | transform.Plainify | safeHTML }}{{- printf "]]>" | safeHTML }}</description>
             <content:encoded>{{ printf "<![CDATA[" | safeHTML }}{{ $content | safeHTML }}{{- printf "]]>" | safeHTML }}</content:encoded>
         </item>

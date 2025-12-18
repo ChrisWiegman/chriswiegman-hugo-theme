@@ -45,7 +45,7 @@ function populateResults(result) {
     let displayDate = `${day} ${month}, ${year}`
 
     //replace values
-    var output = render(templateDefinition, { key: key, title: value.item.title, link: value.item.permalink, date: displayDate });
+    var output = render(templateDefinition, { key: key, title: value.item.title, link: value.item.RelPermalink, date: displayDate });
     $('#search-results').append(output);
 
   });

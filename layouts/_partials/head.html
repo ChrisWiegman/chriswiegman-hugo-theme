@@ -10,16 +10,18 @@
 <meta name="description"
 	content="{{ with .Description }}{{ . }}{{ else }}{{if .IsPage}}{{ .Summary }}{{ else }}{{ with .Site.Params.description }}{{ . }}{{ end }}{{ end }}{{ end }}">
 {{- if not .IsHome -}}
-<meta name="keywords"content="{{ if .IsPage}}{{ range $index, $tag := .Params.tags }}{{ $tag }},{{ end }}{{ else }}{{ range $plural, $terms := .Site.Taxonomies }}{{ range $term, $val := $terms }}{{ printf "%s," $term }}{{ end }}{{ end }}{{ end }}" />
+<meta name="keywords"
+	content="{{ if .IsPage}}{{ range $index, $tag := .Params.tags }}{{ $tag }},{{ end }}{{ else }}{{ range $plural, $terms := .Site.Taxonomies }}{{ range $term, $val := $terms }}{{ printf "
+	%s," $term }}{{ end }}{{ end }}{{ end }}" />
 {{- end -}}
 {{ with .OutputFormats.Get "rss" -}}
 {{ printf `
-<link rel="%s" type="%s" href="%s" title="%s" />` .Rel .MediaType.Type .Permalink $.Site.Title | safeHTML }}
+<link rel="%s" type="%s" href="%s" title="%s" />` .Rel .MediaType.Type .RelPermalink $.Site.Title | safeHTML }}
 {{- end -}}
-<link rel="canonical" href="{{ .Permalink }}" />
+<link rel="canonical" href="{{ .RelPermalink }}" />
 {{ $options := (dict "targetPath" "css/style.css" "outputStyle" "compressed") }}
 {{ $style := resources.Get "scss/main.scss" | toCSS $options | minify | fingerprint }}
-<link rel="stylesheet" type="text/css" media="screen" href="{{ $style.Permalink }}"
+<link rel="stylesheet" type="text/css" media="screen" href="{{ $style.RelPermalink }}"
 	integrity="{{ $style.Data.Integrity }}" />
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
