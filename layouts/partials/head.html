@@ -11,7 +11,8 @@
 	content="{{ with .Description }}{{ . }}{{ else }}{{if .IsPage}}{{ .Summary }}{{ else }}{{ with .Site.Params.description }}{{ . }}{{ end }}{{ end }}{{ end }}">
 {{- if not .IsHome -}}
 <meta name="keywords"
-	content="{{ if .IsPage}}{{ range $index, $tag := .Params.tags }}{{ $tag }},{{ end }}{{ else }}{{ range $plural, $terms := .Site.Taxonomies }}{{ range $term, $val := $terms }}{{ printf "%s," $term }}{{ end }}{{ end }}{{ end }}" />
+	content="{{ if .IsPage}}{{ range $index, $tag := .Params.tags }}{{ $tag }},{{ end }}{{ else }}{{ range $plural, $terms := .Site.Taxonomies }}{{ range $term, $val := $terms }}{{ printf "
+	%s," $term }}{{ end }}{{ end }}{{ end }}" />
 {{- end -}}
 {{ with .OutputFormats.Get "rss" -}}
 {{ printf `
@@ -33,9 +34,49 @@
 {{- if isset .Site.Params "fediversecreator" -}}
 <meta name="fediverse:creator" content="{{ .Site.Params.FediverseCreator }}" />
 {{- end -}}
+{{- /* Open Graph and Twitter Card defaults if not set */ -}}
+{{- if not .Site.Params.OpenGraph -}}
+<meta property="og:title" content="{{ .Title }}" />
+<meta property="og:description"
+	content="{{ with .Description }}{{ . }}{{ else }}{{if .IsPage}}{{ .Summary }}{{ else }}{{ with .Site.Params.description }}{{ . }}{{ end }}{{ end }}{{ end }}" />
+<meta property="og:type" content="{{ if .IsPage }}article{{ else }}website{{ end }}" />
+<meta property="og:url" content="{{ .Permalink }}" />
+{{ with .Params.images }}
+<meta property="og:image" content="{{ index . 0 }}" />{{ end }}
+{{- end -}}
+{{- if not .Site.Params.TwitterCards -}}
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="{{ .Title }}" />
+<meta name="twitter:description"
+	content="{{ with .Description }}{{ . }}{{ else }}{{if .IsPage}}{{ .Summary }}{{ else }}{{ with .Site.Params.description }}{{ . }}{{ end }}{{ end }}{{ end }}" />
+{{ with .Params.images }}
+<meta name="twitter:image" content="{{ index . 0 }}" />{{ end }}
+{{- end -}}
 {{- if .Site.Params.OpenGraph -}}
 {{- template "_internal/opengraph.html" . -}}
 {{- end -}}
 {{- if .Site.Params.TwitterCards -}}
 {{- template "_internal/twitter_cards.html" . -}}
 {{- end -}}
+{{- /* JSON-LD structured data for articles */ -}}
+{{ if .IsPage }}
+<script type="application/ld+json">
+{
+	"@context": "https://schema.org",
+	"@type": "Article",
+	"headline": "{{ .Title }}",
+	"datePublished": "{{ .Date.Format "2006-01-02T15:04:05Z07:00" }}",
+	"dateModified": "{{ .Lastmod.Format "2006-01-02T15:04:05Z07:00" }}",
+	"author": {
+		"@type": "Person",
+		"name": "{{ with .Params.author }}{{ . }}{{ else }}{{ .Site.Author.name }}{{ end }}"
+	},
+	"description": "{{ with .Description }}{{ . }}{{ else }}{{if .IsPage}}{{ .Summary }}{{ else }}{{ with .Site.Params.description }}{{ . }}{{ end }}{{ end }}{{ end }}",
+	"mainEntityOfPage": {
+		"@type": "WebPage",
+		"@id": "{{ .Permalink }}"
+	},
+	"image": [{{ with .Params.images }}{{ range $i, $img := . }}{{ if $i }}, {{ end }}"{{ $img }}"{{ end }}{{ end }}]
+}
+</script>
+{{ end }}
