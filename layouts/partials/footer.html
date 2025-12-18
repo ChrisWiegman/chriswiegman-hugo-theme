@@ -1,21 +1,12 @@
-<footer class="site-footer">
-	<div class="content">
-		<nav class="footer-nav" aria-label="Footer navigation">
-			<ul class="menu">
-				{{ range .Site.Menus.footer.ByWeight }}
-				<li><a title="{{ .Title }}" href="{{ .URL }}">{{ .Name }}</a></li>
-				{{ end }}
-			</ul>
-		</nav>
-		<div class="copyright">
-			<span class="copyright-date">Copyright © {{ now.Year }}</span>
-			{{- if isset .Site.Params "license" }}
-			| <a title="{{ .Site.Params.License.Title }}" href="{{ .Site.Params.License.Link }}" rel="license">{{
-				.Site.Params.License.Name }}</a>
-			{{- end -}}
-			{{- if isset .Site.Params "policies" }}
-			| <a href="{{ .Site.Params.Policies }}">Policies</a>
-			{{- end -}}
-		</div>
+<div class="content">
+	<ul class="menu">
+		{{ range .Site.Menus.footer.ByWeight }}
+		<li><a title="{{ .Title }}" href="{{ .URL }}">{{ .Name }}</a></li>
+		{{ end }}
+	</ul>
+	<div class="copyright"> <span class="copyright-date">Copyright© {{ now.Year }}</span>{{- if isset .Site.Params
+		"license" }} | <a title="{{ .Site.Params.License.Title }}" href="{{ .Site.Params.License.Link }}"
+			rel="license">{{ .Site.Params.License.Name }}</a>{{- end -}}{{- if isset .Site.Params "policies"}} |
+		<a href="{{.Site.Params.Policies}}">Policies</a>{{- end -}}
 	</div>
-</footer>
+</div>

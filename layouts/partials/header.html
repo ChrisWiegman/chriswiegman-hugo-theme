@@ -1,24 +1,15 @@
-<header class="site-header">
-    <div class="content">
-        {{- $image := "" -}}
-        {{- if isset .Site.Params "headericon" -}}
-        {{- $image = resources.Get .Site.Params.HeaderIcon -}}
-        {{- $image = $image.Resize "20x webp icon" -}}
-        {{- end -}}
-        <span class="site-title">
-            <a href="{{ .Site.BaseURL }}">
-                {{- if isset .Site.Params "headericon" -}}
-                <img src="{{$image.RelPermalink}}" alt="{{ .Site.Title }} logo" width="20" height="20" />
-                {{- end -}}
-                {{ .Site.Title }}
-            </a>
-        </span>
-        <nav class="main-nav" aria-label="Main navigation">
-            <ul class="menu">
-                {{ range .Site.Menus.main.ByWeight }}
-                <li><a title="{{ .Title }}" href="{{ .URL }}">{{ .Name }}</a></li>
-                {{ end }}
-            </ul>
-        </nav>
-    </div>
-</header>
+<div class="content">
+    {{- $image := "" -}}
+    {{- if isset .Site.Params "headericon" -}}
+    {{- $image = resources.Get .Site.Params.HeaderIcon -}}
+    {{- $image = $image.Resize "20x webp icon" -}}
+    {{- end -}}
+    <span class="site-title"><a href="{{ .Site.BaseURL }}">{{- if isset .Site.Params "headericon" -}}<img
+                src="{{$image.RelPermalink}}" alt="" />{{- end -}}
+            {{.Site.Title}}</a></span>
+    <ul class="menu">
+        {{ range .Site.Menus.main.ByWeight }}
+        <li><a title="{{ .Title }}" href="{{ .URL }}">{{ .Name }}</a></li>
+        {{ end }}
+    </ul>
+</div>

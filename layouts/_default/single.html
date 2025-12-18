@@ -1,26 +1,21 @@
 {{ define "main" }}
-<article class="h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+<article class="h-entry" itemscope="" itemtype="http://schema.org/BlogPosting">
     <div class="container">
-        <header class="content-header">
-            {{ if eq .Section "posts" }}
-            <div class="meta">
-                <time class="dt-published" datetime="{{ .Date.Format " 2006-01-02T15:04:05Z07:00" }}">{{ .Date.Format
-                    "Monday, 2 January, 2006" }}</time>
-            </div>
+        <div class="content-header">
+            {{if eq .Section "posts"}}
+            <div class="meta"><time class="dt-published">{{ dateFormat "Monday, 2 January, 2006" .Date }}</time></div>
             {{ end }}
-            <h1 class="post-title" itemprop="name headline">{{ .Title }}</h1>
-            {{ if eq .Section "posts" }}{{ if .Params.tags }}
-            <nav class="tags" aria-label="Tags">
-                <ul>
-                    {{ range .Params.tags }}
-                    <li><a href="{{ " /tags/" | relLangURL }}{{ . | urlize }}" title="{{ . }}">{{ . }}</a></li>
-                    {{ end }}
-                </ul>
-            </nav>
+            <h1 class="post-titlee" itemprop="name headline">{{ .Title }}</h1>
+            {{if eq .Section "posts"}}{{if .Params.tags }}
+            <div class="tags">
+                {{ range .Params.tags }}
+                <a href="{{ "/tags/" | relLangURL }}{{ . | urlize }}" title="{{ . }}">{{ . }}</a>
+                {{ end }}
+            </div>
             {{ end }}{{ end }}
-        </header>
+        </div>
 
-        <section class="content e-content" itemprop="articleBody">
+        <div class="content e-content" itemprop="articleBody">
             {{- with $featured_image := index .Params.images 0 -}}
             {{- $image := resources.Get $featured_image -}}
             {{- with $image -}}
@@ -39,20 +34,20 @@
             <figure>
                 {{- if gt $image.Width 850 -}}
                 <img width="{{ $image.Width }}" height="{{ $image.Height }}" src="{{ $image.RelPermalink }}"
-                    alt="Featured image for {{ .Title }}" decoding="async" fetchpriority="high"
-                    srcset="{{ $imgSrcSet }}" sizes="{{ site.Params.imageSizeString }}" />
+                    alt="{{ .Title }}" decoding="async" fetchpriority="high" srcset="{{ $imgSrcSet }}"
+                    sizes="{{ site.Params.imageSizeString }}" />
                 {{- else -}}
                 <img width="{{ $image.Width }}" height="{{ $image.Height }}" src="{{ $image.RelPermalink }}"
-                    alt="Featured image for {{ .Title }}" decoding="async" fetchpriority="high" />
+                    alt="{{ .Title }}" decoding="async" fetchpriority="high" />
                 {{- end -}}
             </figure>
             {{- end -}}
             {{- end -}}
-            {{ .Content }}
-        </section>
+            {{ .Content}}
+        </div>
     </div>
-    {{ if eq .Section "posts" }}
-    <nav class="navigation prevnext" aria-label="Post navigation">
+    {{if eq .Section "posts"}}
+    <div class="navigation prevnext">
         {{ $pages := .CurrentSection.Pages.ByWeight }}
         {{ with $pages.Prev . }}
         <span class="prev">← <a href="{{ .RelPermalink }}" rel="prev">{{ .Title }}</a></span>
@@ -60,7 +55,7 @@
         {{ with $pages.Next . }}
         <span class="next"><a href="{{ .RelPermalink }}" rel="next">{{ .Title }}</a> →</span>
         {{ end }}
-        </div>
-        {{ end }}
+    </div>
+    {{ end }}
 </article>
 {{ end }}

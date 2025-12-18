@@ -1,128 +1,122 @@
-// Variables (ensure these are defined in variables.scss or similar)
-// $border-light, $text-bright, $reverse, $primary, $background-code
+body {
+  main {
+    article {
 
-main article {
-  .content-search {
-    margin: -1.25rem 0 1rem 0;
-  }
+      .content-search {
+        margin: -1.25rem 0 1rem 0;
+      }
 
-  .content-header,
-  .content-categories {
-    padding: 0 2rem 2rem;
-    text-align: center;
-  }
+      .content-header,
+      .content-categories {
+        padding: 0 2rem 2rem 2rem;
+        text-align: center;
 
-  .meta {
-    padding-top: 0.4rem;
-  }
+        .meta {
+          padding-top: 0.4rem;
+        }
 
-  .tags,
-  .categories {
-    align-items: center;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem;
-    justify-content: center;
-    margin: 0;
-  }
+        .tags,
+        .categories {
+          align-items: center;
+          display: flex;
+          flex-wrap: wrap;
+          gap: 0.5rem;
+          justify-content: center;
+          margin: 0;
 
-  .tags a,
-  .categories a {
-    border: 1px solid $border-light;
-    border-radius: 8px;
-    color: $text-bright;
-    display: inline-block;
-    font-size: 0.9rem;
-    line-height: normal;
-    padding: 0.4rem 0.6rem;
-    vertical-align: middle;
-    transition: background 0.2s, border-color 0.2s, color 0.2s;
-  }
+          a {
+            border: 1px solid $border-light;
+            border-radius: 8px;
+            color: $text-bright;
+            display: inline-block;
+            font-size: 0.9rem;
+            line-height: normal;
+            padding: 0.4rem 0.6rem;
+            vertical-align: middle;
+          }
 
-  .tags a:hover,
-  .categories a:hover {
-    background: $reverse;
-    border-color: $primary;
-    color: $primary;
-  }
+          a:hover {
+            background: $reverse;
+            border-color: $primary;
+            color: $primary;
+          }
+        }
+      }
 
-  .content {
+      .content {
 
-    p,
-    ul,
-    ol {
-      font-size: 1.3rem;
-      margin-bottom: 2rem;
+        p,
+        ul,
+        ol {
+          font-size: 1.3rem;
+          margin: 0 0 2rem;
+        }
+
+        .highlight,
+        blockquote {
+          background-color: #282828;
+          border-radius: 8px;
+          border: 1px solid $border-light;
+          font-size: 1.3rem;
+          margin: 2.5em 0;
+
+          pre {
+            width: 95%;
+            margin: 1rem;
+            overflow-x: auto;
+          }
+
+          p {
+            padding: 0 1rem;
+          }
+        }
+
+        blockquote {
+          background-color: $background-code;
+          font-family: monospace;
+
+          p {
+            margin: 0;
+            padding: 1rem;
+          }
+
+          blockquote {
+            border: none;
+            font-style: italic;
+            margin: 0 0 0 2rem;
+
+            p {
+              font-size: 0.8rem;
+            }
+          }
+        }
+      }
     }
 
-    .highlight,
-    blockquote {
-      background-color: #282828;
-      border-radius: 8px;
-      border: 1px solid $border-light;
-      font-size: 1.3rem;
-      margin: 2.5em 0;
+    .prevnext {
+      padding-top: 0;
+
+      a {
+        border-bottom: none;
+        font-weight: 600;
+      }
+
+      .prev {
+        max-width: 49%;
+        float: left;
+      }
+
+      .next {
+        max-width: 49%;
+        float: right;
+        text-align: right;
+      }
+
+      &:after {
+        content: " ";
+        display: block;
+        clear: both;
+      }
     }
-
-    .highlight pre,
-    blockquote pre {
-      width: 95%;
-      margin: 1rem;
-      overflow-x: auto;
-    }
-
-    .highlight p,
-    blockquote p {
-      padding: 0 1rem;
-    }
-
-    blockquote {
-      background-color: $background-code;
-      font-family: monospace;
-    }
-
-    blockquote>p {
-      margin: 0;
-      padding: 1rem;
-    }
-
-    blockquote blockquote {
-      border: none;
-      font-style: italic;
-      margin-left: 2rem;
-    }
-
-    blockquote blockquote p {
-      font-size: 0.8rem;
-    }
-  }
-}
-
-main .prevnext {
-  padding-top: 0;
-
-  a {
-    border-bottom: none;
-    font-weight: 600;
-  }
-
-  .prev,
-  .next {
-    max-width: 49%;
-  }
-
-  .prev {
-    float: left;
-  }
-
-  .next {
-    float: right;
-    text-align: right;
-  }
-
-  &:after {
-    content: " ";
-    display: block;
-    clear: both;
   }
 }
