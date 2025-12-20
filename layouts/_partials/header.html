@@ -4,8 +4,8 @@
     {{- $image = resources.Get .Site.Params.HeaderIcon -}}
     {{- $image = $image.Resize "20x webp icon" -}}
     {{- end -}}
-    <span class="site-title"><a href="{{ .Site.BaseURL }}">{{- if isset .Site.Params "headericon" -}}<img
-                src="{{$image.RelPermalink}}" alt="" />{{- end -}}
+    <span class="site-title"><a href="/">{{- if isset .Site.Params "headericon" -}}<img src="{{$image.RelPermalink}}"
+                alt="" />{{- end -}}
             {{.Site.Title}}</a></span>
     <ul class="menu">
         {{ range .Site.Menus.main.ByWeight }}
