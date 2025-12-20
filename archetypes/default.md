@@ -1,8 +1,11 @@
 ---
+{{- /* Current time in Central US */ -}}
+{{- $central := now | time.In "America/Chicago" -}}
+
+{{- /* Convert to UTC */ -}}
+{{- $utc := $central }}
 title: "{{ replace .File.ContentBaseName `-` ` ` | title }}"
-date: {{ time.Now.Format "2006-01-02" }}
-description: ""
+date: {{ $utc | time.Format "2006-01-02T15:04:05-07:00" }}
 draft: true
-categories: []
-tags: []
+type: page
 ---
