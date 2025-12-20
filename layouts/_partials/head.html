@@ -10,7 +10,9 @@
 <meta name="description"
 	content="{{ with .Description }}{{ . }}{{ else }}{{if .IsPage}}{{ .Summary }}{{ else }}{{ with .Site.Params.description }}{{ . }}{{ end }}{{ end }}{{ end }}">
 {{- if not .IsHome -}}
-<meta name="keywords" content="{{ if .IsPage}}{{ range $index, $tag := .Params.tags }}{{ $tag }},{{ end }}{{ else }}{{ range $plural, $terms := .Site.Taxonomies }}{{ range $term, $val := $terms }}{{ printf "%s," $term }}{{ end }}{{ end }}{{ end }}" />
+<meta name="keywords"
+	content="{{ if .IsPage}}{{ range $index, $tag := .Params.tags }}{{ $tag }},{{ end }}{{ else }}{{ range $plural, $terms := .Site.Taxonomies }}{{ range $term, $val := $terms }}{{ printf "
+	%s," $term }}{{ end }}{{ end }}{{ end }}" />
 {{- end -}}
 {{ with .OutputFormats.Get "rss" -}}
 {{ printf `
@@ -24,6 +26,7 @@
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="icon" type="image/x-icon" href="./favicon.ico">
 <link rel="manifest" href="/site.webmanifest">
 {{- if isset .Site.Params "mobilewebapptitle" -}}
 <meta name="apple-mobile-web-app-title" content="{{ .Site.Params.MobileWebAppTitle }}" />
