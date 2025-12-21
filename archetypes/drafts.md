@@ -1,6 +1,6 @@
 ---
 title: "{{ replace .File.ContentBaseName `-` ` ` | title }}"
-description: ''
+description: ""
 draft: true
 categories:
   -
