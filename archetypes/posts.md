@@ -25,6 +25,8 @@ title: '{{ replaceRE "^[0-9]{2}-[0-9]{2}-" "" $base | humanize | title }}'
 date: {{ $centralStamp | time.In "America/Chicago" | time.Format "2006-01-02T15:04:05-07:00" }}
 description: ''
 draft: true
+images:
+  - 
 categories:
   -
 tags:
