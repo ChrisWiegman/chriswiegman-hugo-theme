@@ -37,8 +37,6 @@ a.post {
   .post-title {
     color: $text;
     display: grid;
-    -webkit-filter: brightness(1);
-    filter: brightness(1);
     font-size: 1.2rem;
     margin: 0;
   }
