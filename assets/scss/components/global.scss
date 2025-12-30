@@ -152,6 +152,7 @@ main {
       &:hover {
         background: $primary;
         border-top: 2px solid $primary;
+        border-radius: 5px;
         color: $reverse;
       }
     }
