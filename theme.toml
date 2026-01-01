@@ -3,7 +3,7 @@ license = "MIT"
 licenselink = "https://github.com/ChrisWiegman/chriswiegman-hugo-theme/blob/main/LICENSE.txt"
 description = "The ever-evolving Hugo theme in use at chriswiegman.com"
 homepage = "https://github.com/ChrisWiegman/chriswiegman-hugo-theme"
-tags = ["blog", "minal"]
+tags = ["blog", "minimal"]
 features = ["search"]
 min_version = "0.152.0"
 
