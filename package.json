@@ -1,0 +1,29 @@
+{
+  "name": "chriswiegman-hugo-theme",
+  "version": "1.8.5",
+  "description": "Developer tooling for the Hugo theme for chriswiegman.com",
+  "keywords": [
+    "Hugo",
+    "Changie",
+    "Changelog",
+    "Tools"
+  ],
+  "homepage": "https://github.com/ChrisWiegman/chriswiegman-hugo-theme#readme",
+  "bugs": {
+    "url": "https://github.com/ChrisWiegman/chriswiegman-hugo-theme/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ChrisWiegman/chriswiegman-hugo-theme.git"
+  },
+  "license": "MIT",
+  "author": "Chris Wiegman",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "devDependencies": {
+    "changie": "^1.24.0"
+  }
+}

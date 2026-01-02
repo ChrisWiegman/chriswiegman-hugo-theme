@@ -3,3 +3,6 @@
 
 # Ignore the release zips
 *.zip
+
+# Ignore node modules
+node_modules/

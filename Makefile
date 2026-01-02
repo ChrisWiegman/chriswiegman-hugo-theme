@@ -1,39 +1,25 @@
 ARGS = `arg="$(filter-out $@,$(MAKECMDGOALS))" && echo $${arg:-${1}}`
 
 .PHONY: change
-change:
-	docker run \
-		--rm \
-		--platform linux/amd64 \
-		--mount type=bind,source=$(PWD),target=/src \
-		-w /src \
-		-it \
-		ghcr.io/miniscruff/changie \
-		new
+change: install
+	npx changie new
 
 .PHONY: clean
 clean:
 	rm -rf \
-		*.zip
+		*.zip \
+		node_modules
 
 .PHONY: changelog
-changelog:
-	docker run \
-		--rm \
-		--platform linux/amd64 \
-		--mount type=bind,source=$(PWD),target=/src \
-		-w /src \
-		-it \
-		ghcr.io/miniscruff/changie \
-		batch $(call ARGS,defaultstring)
-	docker run \
-		--rm \
-		--platform linux/amd64 \
-		--mount type=bind,source=$(PWD),target=/src \
-		-w /src \
-		-it \
-		ghcr.io/miniscruff/changie \
-		merge
+changelog: install
+	npx changie batch $(call ARGS,defaultstring)
+	npx changie merge
+
+.PHONY: install
+install:
+	if [ ! -d ./node_modules/ ]; then \
+		npm ci; \
+	fi
 
 .PHONY: release
 release: clean
