@@ -8,7 +8,14 @@ change: install
 clean:
 	rm -rf \
 		*.zip \
-		node_modules
+		node_modules \
+		dev/public \
+		dev/resources \
+		dev/.hugo_build.lock
+
+.PHONY: dev
+dev:
+	cd dev && hugo serve -DFO
 
 .PHONY: changelog
 changelog: install

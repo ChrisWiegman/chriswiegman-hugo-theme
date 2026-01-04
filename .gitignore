@@ -6,3 +6,9 @@
 
 # Ignore node modules
 node_modules/
+
+# Hugo dev-site output directories
+/dev/data
+/dev/public
+/dev/resources
+/dev/.hugo_build.lock
