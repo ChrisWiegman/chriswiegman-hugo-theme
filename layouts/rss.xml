@@ -60,7 +60,11 @@
 
             {{- $html = replaceRE `href="(/[^"]*)"` (printf `href="%s$1"` $base) $html -}}
             {{- $html = replaceRE `src="(/[^"]*)"`  (printf `src="%s$1"`  $base) $html -}}
-            <description> {{ printf "<![CDATA[" | safeHTML }}{{ .Summary | transform.Plainify | safeHTML }}{{- printf "]]>" | safeHTML }}</description>
+            {{- with .Params.description -}}
+                <description>{{ . | plainify | htmlEscape }}</description>
+            {{- else -}}
+                <description></description>
+            {{- end -}}
             <content:encoded>{{ printf "<![CDATA[" | safeHTML }}{{ $html | safeHTML }}{{- printf "]]>" | safeHTML }}</content:encoded>
         </item>
         {{ end }}
