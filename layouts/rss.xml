@@ -11,11 +11,12 @@
     xmlns:dc="http://purl.org/dc/elements/1.1/"
     xmlns:atom="http://www.w3.org/2005/Atom"
     xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
-    xmlns:media="http://search.yahoo.com/mrss/"
 >
+    <language>{{ or site.Language.LanguageCode }}</language>
     <channel>
         <title>{{ if eq .Title .Site.Title }}{{ .Site.Title }}{{ else }}{{ with .Title }}{{.}} on {{
         end }}{{ .Site.Title }}{{ end }}</title>
+        <link>{{ .Permalink }}</link>
         {{ with .OutputFormats.Get "RSS" -}}
             <atom:link href="{{ .Permalink }}" rel="self" type="{{ .MediaType.Type }}" />
         {{- end }}
@@ -60,12 +61,14 @@
 
             {{- $html = replaceRE `href="(/[^"]*)"` (printf `href="%s$1"` $base) $html -}}
             {{- $html = replaceRE `src="(/[^"]*)"`  (printf `src="%s$1"`  $base) $html -}}
+            {{- $html = replaceRE `(^|[,\s])(/[^,\s"]+)` (printf `$1%s$2` $base) $html -}}
             {{- with .Params.description -}}
                 <description>{{ . | plainify | htmlEscape }}</description>
             {{- else -}}
                 <description></description>
             {{- end -}}
-            <content:encoded>{{ printf "<![CDATA[" | safeHTML }}{{ $html | safeHTML }}{{- printf "]]>" | safeHTML }}</content:encoded>
+            {{- $safe := replace $html "]]>" "]]]]><![CDATA[>" -}}
+            <content:encoded>{{ printf "<![CDATA[" | safeHTML }}{{ $safe | safeHTML }}{{ printf "]]>" | safeHTML }}</content:encoded>
         </item>
         {{ end }}
     </channel>
