@@ -1,0 +1,3 @@
+kind: Bug Fixes
+body: Fix Go output issue due to text not always rending in image alt tags.
+time: 2026-01-06T11:31:09.169219-06:00
