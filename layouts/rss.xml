@@ -16,7 +16,7 @@
         <language>{{ site.Language.LanguageCode | default "en-US" }}</language>
         <title>{{ if eq .Title .Site.Title }}{{ .Site.Title }}{{ else }}{{ with .Title }}{{.}} on {{
         end }}{{ .Site.Title }}{{ end }}</title>
-        <link>{{ .Site.BaseURL }}</link>
+        <link>{{- .Site.BaseURL -}}</link>
         {{ with .OutputFormats.Get "RSS" -}}
             <atom:link href="{{ .Permalink }}" rel="self" type="{{ .MediaType.Type }}" />
         {{- end }}
@@ -44,8 +44,8 @@
                     <enclosure url="{{ $jpg.Permalink }}" length="{{ $length }}" type="image/jpeg" />
                 {{- end -}}
             {{- end -}}
-            <link>{{- .Permalink -}}</link>
-            <guid isPermaLink="true">{{- .Permalink -}}</guid>
+            <link>{{- .Permalink | chomp -}}</link>
+            <guid isPermaLink="true">{{- .Permalink | chomp -}}</guid>
             <dc:creator>{{ "Chris Wiegman" | htmlEscape }}</dc:creator>
             {{- if .Params.categories -}}
             {{- range .Params.categories }}
@@ -71,7 +71,7 @@
             {{- $html = replaceRE `href="(/[^"]*)"` (printf `href="%s$1"` $base) $html -}}
             {{- $html = replaceRE `src="(/[^"]*)"`  (printf `src="%s$1"`  $base) $html -}}
 
-            <content:encoded>{{ "<![CDATA[" | safeHTML }}{{ $html | safeHTML }}{{ "]]>" | safeHTML }}</content:encoded>
+            <content:encoded>{{ printf "<![CDATA[ %s ]]>" $html | safeHTML }}</content:encoded>
         </item>
         {{ end }}
     </channel>
