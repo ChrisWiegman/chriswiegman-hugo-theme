@@ -13,7 +13,7 @@
     xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
 >
     <channel>
-        <language>{{ or site.Language.LanguageCode }}</language>
+        <language>{{ site.Language.LanguageCode | default "en-US" }}</language>
         <title>{{ if eq .Title .Site.Title }}{{ .Site.Title }}{{ else }}{{ with .Title }}{{.}} on {{
         end }}{{ .Site.Title }}{{ end }}</title>
         <link>{{ .Site.BaseURL }}</link>
@@ -24,7 +24,10 @@
 
         <description>{{.Site.Params.Description }}</description>
 
-        {{- $last := (index $pages 0).Date -}}
+        {{- $last := now -}}
+        {{- if gt (len $pages) 0 -}}
+        {{- $last = (index $pages 0).Date -}}
+        {{- end -}}
         <lastBuildDate>{{ $last.Format "Mon, 02 Jan 2006 15:04:05 -0700" }}</lastBuildDate>
 
         <sy:updatePeriod>hourly</sy:updatePeriod>
@@ -41,7 +44,7 @@
                     <enclosure url="{{ $jpg.Permalink }}" length="{{ $length }}" type="image/jpeg" />
                 {{- end -}}
             {{- end -}}
-            <link>{{ .Permalink }}</link>
+            <link>{{ .Permalink | chomp }}</link>
             <dc:creator>{{ printf "<![CDATA[" | safeHTML }}Chris Wiegman{{- printf "]]>" | safeHTML }}</dc:creator>
             {{- if .Params.categories -}}
             {{- range .Params.categories -}}
@@ -55,7 +58,7 @@
             {{- end -}}
             <pubDate>{{ .Date.Format "Mon, 02 Jan 2006 15:04:05 -0700" | safeHTML }}</pubDate>
             {{ with .Site.Author.email }}<author>{{.}}{{ with $.Site.Author.name }} ({{.}}){{end}}</author>{{end}}
-            <guid isPermaLink="true">{{ .Permalink }}</guid>
+            <guid isPermaLink="true">{{ .Permalink | chomp }}</guid>
             {{- $base := strings.TrimSuffix "/" .Site.BaseURL -}}
 
              {{- with .Params.description -}}
@@ -68,8 +71,7 @@
             {{- $html = replaceRE `href="(/[^"]*)"` (printf `href="%s$1"` $base) $html -}}
             {{- $html = replaceRE `src="(/[^"]*)"`  (printf `src="%s$1"`  $base) $html -}}
 
-           {{- $safe := replace $html "]]>" "]]]]><![CDATA[>" -}}
-           <content:encoded>{{ "<![CDATA[" | safeHTML }}{{ $safe | safeHTML }}{{ "]]>" | safeHTML }}</content:encoded>
+           <content:encoded>{{ "<![CDATA[" | safeHTML }}{{ $html | safeHTML }}{{ "]]>" | safeHTML }}</content:encoded>
         </item>
         {{ end }}
     </channel>
