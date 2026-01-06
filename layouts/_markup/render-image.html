@@ -1,16 +1,10 @@
-{{- $isRSS := false -}}
-{{- with .Page -}}
-{{- with .OutputFormat -}}
-{{- $isRSS = eq (lower .Name) "rss" -}}
-{{- end -}}
-{{- end -}}
 {{- $image_file := .Destination -}}
 {{- $image := resources.Get $image_file -}}
 {{- $imgSrc := "" -}}
 {{- $imgSrcSet := slice -}}
 {{- with $widths := site.Params.imageSizes -}}
 {{- range $widths -}}
-{{- $srcUrl := cond $isRSS (printf "%gx" . | $image.Resize).Permalink (printf "%gx" . | $image.Resize).RelPermalink -}}
+{{- $srcUrl := (printf "%gx" . | $image.Resize).Permalink -}}
 {{- if eq $imgSrc "" -}}
 {{- $imgSrc = $srcUrl -}}
 {{- end -}}
