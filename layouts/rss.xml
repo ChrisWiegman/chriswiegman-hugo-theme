@@ -12,11 +12,11 @@
     xmlns:atom="http://www.w3.org/2005/Atom"
     xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
 >
-    <language>{{ or site.Language.LanguageCode }}</language>
     <channel>
+        <language>{{ or site.Language.LanguageCode }}</language>
         <title>{{ if eq .Title .Site.Title }}{{ .Site.Title }}{{ else }}{{ with .Title }}{{.}} on {{
         end }}{{ .Site.Title }}{{ end }}</title>
-        <link>{{ .Permalink }}</link>
+        <link>{{ .Site.BaseURL }}</link>
         {{ with .OutputFormats.Get "RSS" -}}
             <atom:link href="{{ .Permalink }}" rel="self" type="{{ .MediaType.Type }}" />
         {{- end }}
@@ -57,18 +57,19 @@
             {{ with .Site.Author.email }}<author>{{.}}{{ with $.Site.Author.name }} ({{.}}){{end}}</author>{{end}}
             <guid isPermaLink="true">{{ .Permalink }}</guid>
             {{- $base := strings.TrimSuffix "/" .Site.BaseURL -}}
-            {{- $html := .Content -}}
 
-            {{- $html = replaceRE `href="(/[^"]*)"` (printf `href="%s$1"` $base) $html -}}
-            {{- $html = replaceRE `src="(/[^"]*)"`  (printf `src="%s$1"`  $base) $html -}}
-            {{- $html = replaceRE `(^|[,\s])(/[^,\s"]+)` (printf `$1%s$2` $base) $html -}}
-            {{- with .Params.description -}}
+             {{- with .Params.description -}}
                 <description>{{ . | plainify | htmlEscape }}</description>
             {{- else -}}
                 <description></description>
             {{- end -}}
-            {{- $safe := replace $html "]]>" "]]]]><![CDATA[>" -}}
-            <content:encoded>{{ printf "<![CDATA[" | safeHTML }}{{ $safe | safeHTML }}{{ printf "]]>" | safeHTML }}</content:encoded>
+
+            {{- $html := .Content -}}
+            {{- $html = replaceRE `href="(/[^"]*)"` (printf `href="%s$1"` $base) $html -}}
+            {{- $html = replaceRE `src="(/[^"]*)"`  (printf `src="%s$1"`  $base) $html -}}
+
+           {{- $safe := replace $html "]]>" "]]]]><![CDATA[>" -}}
+           <content:encoded>{{ "<![CDATA[" | safeHTML }}{{ $safe | safeHTML }}{{ "]]>" | safeHTML }}</content:encoded>
         </item>
         {{ end }}
     </channel>

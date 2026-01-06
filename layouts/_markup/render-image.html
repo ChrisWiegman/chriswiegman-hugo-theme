@@ -4,7 +4,8 @@
 {{- $imgSrcSet := slice -}}
 {{- with $widths := site.Params.imageSizes -}}
 {{- range $widths -}}
-{{- $srcUrl := (printf "%gx" . | $image.Resize).RelPermalink -}}
+{{- $isRSS := and (isset . "Page") (eq .Page.OutputFormat.Name "RSS") -}}
+{{- $srcUrl := cond $isRSS (printf "%gx" . | $image.Resize).Permalink (printf "%gx" . | $image.Resize).RelPermalink -}}
 {{- if eq $imgSrc "" -}}
 {{- $imgSrc = $srcUrl -}}
 {{- end -}}
