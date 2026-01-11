@@ -63,6 +63,8 @@
     </div>
 
     <div class="content e-content" itemprop="articleBody">
+      {{ .Content }}
+
       {{/* ---- Summary: books read by year (uses most recent finished date) ---- */}}
       {{- $yearCounts := dict -}}
       {{- range $rows -}}
