@@ -1,0 +1,12 @@
+{{ $l := .Params.links }}
+<span class="book-meta book-links">
+    {{ with $l.amazon }}
+    <a href="{{ . }}" rel="nofollow noopener noreferrer" target="_blank">Amazon</a>
+    {{ end }}
+    {{ with $l.openlibrary }}
+    <a href="{{ . }}" rel="nofollow noopener noreferrer" target="_blank">Open Library</a>
+    {{ end }}
+    {{ with $l.goodreads }}
+    <a href="{{ . }}" rel="nofollow noopener noreferrer" target="_blank">Goodreads</a>
+    {{ end }}
+</span>
