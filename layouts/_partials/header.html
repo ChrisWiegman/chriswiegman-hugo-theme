@@ -4,7 +4,7 @@
     {{- $image = resources.Get .Site.Params.HeaderIcon -}}
     {{- $image = $image.Resize "20x webp icon" -}}
     {{- end -}}
-    <span class="site-title"><a href="{{ " /" | absURL }}">{{- if isset .Site.Params "headericon" -}}<img
+    <span class="site-title"><a href="{{ site.Home.Permalink }}">{{- if isset .Site.Params "headericon" -}}<img
                 src="{{$image.Permalink}}" alt="" />{{- end -}}
             {{.Site.Title}}</a></span>
     <ul class="menu">
