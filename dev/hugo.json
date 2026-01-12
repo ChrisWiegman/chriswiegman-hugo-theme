@@ -117,7 +117,7 @@
   },
   "markup": {
     "highlight": {
-      "style": "gruvbox"
+      "noClasses": false
     },
     "goldmark": {
       "parser": {
