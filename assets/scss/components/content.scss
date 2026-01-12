@@ -52,6 +52,10 @@ body {
           margin: 0 0 2rem;
         }
 
+        .highlight {
+          overflow: scroll;
+        }
+
         .highlight,
         blockquote {
           background-color: #282828;
