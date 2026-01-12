@@ -24,17 +24,17 @@
 <link rel="canonical" href="{{ .Permalink }}" />
 {{ $options := (dict "targetPath" "css/main.css" "outputStyle" "compressed") }}
 {{ $style := resources.Get "scss/main.scss" | toCSS $options | minify | fingerprint }}
-<link rel="stylesheet" type="text/css" media="screen" href="{{ $style.RelPermalink }}"
+<link rel="stylesheet" type="text/css" media="screen" href="{{ $style.Permalink }}"
   integrity="{{ $style.Data.Integrity }}" />
 {{- if eq .Type "library" -}}
 {{- $libraryStyle := resources.Get "scss/library.scss" | toCSS $options | minify | fingerprint -}}
-<link rel="stylesheet" href="{{ $libraryStyle.RelPermalink }}" integrity="{{ $libraryStyle.Data.Integrity }}">
+<link rel="stylesheet" href="{{ $libraryStyle.Permalink }}" integrity="{{ $libraryStyle.Data.Integrity }}">
 {{- end -}}
-<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-<link rel="icon" type="image/x-icon" href="/favicon.ico">
-<link rel="manifest" href="/site.webmanifest">
+<link rel="apple-touch-icon" sizes="180x180" href="{{ "/apple-touch-icon.png" | absURL }}">
+<link rel="icon" type="image/png" sizes="32x32" href="{{ "/favicon-32x32.png" | absURL }}">
+<link rel="icon" type="image/png" sizes="16x16" href="{{ "/favicon-16x16.png" | absURL }}">
+<link rel="icon" type="image/x-icon" href="{{ "/favicon.ico" | absURL }}">
+<link rel="manifest" href="{{ "/site.webmanifest" | absURL }}">
 {{- if isset .Site.Params "mobilewebapptitle" -}}
 <meta name="apple-mobile-web-app-title" content="{{ .Site.Params.MobileWebAppTitle }}" />
 {{- end -}}
