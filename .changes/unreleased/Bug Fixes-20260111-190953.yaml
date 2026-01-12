@@ -1,3 +1,0 @@
-kind: Bug Fixes
-body: 'Fix permalinks for issues where the template doesn''t match the URL (ie: 404 page)'
-time: 2026-01-11T19:09:53.850314-06:00
