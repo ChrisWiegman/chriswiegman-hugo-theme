@@ -21,6 +21,7 @@
     {{- $finishedUnix := 0 -}}
     {{- $finishedYear := "" -}}
     {{- $finishedDisplays := slice -}}
+    {{- $finishedRaw := slice -}}
 
     {{- with $book.Params.finished -}}
     {{- if gt (len .) 0 -}}
@@ -32,6 +33,7 @@
     "year" ($t.Format "2006")
     "display" ($t.Format "02 Jan, 2006")
     ) -}}
+    {{- $finishedRaw = $finishedRaw | append . -}}
     {{- end -}}
 
     {{- $finishedItems = sort $finishedItems "unix" "desc" -}}
@@ -54,6 +56,7 @@
     "finishedUnix" $finishedUnix
     "finishedYear" $finishedYear
     "finishedDisplays" $finishedDisplays
+    "finishedRaw" $finishedRaw
     ) -}}
     {{- end -}}
 
@@ -68,10 +71,13 @@
       {{/* ---- Summary: books read by year (uses most recent finished date) ---- */}}
       {{- $yearCounts := dict -}}
       {{- range $rows -}}
-      {{- $y := .finishedYear -}}
+      {{- range $raw := .finishedRaw -}}
+      {{- $t := (time $raw) -}}
+      {{- $y := $t.Format "2006" -}}
       {{- if ne $y "" -}}
       {{- $current := (index $yearCounts $y | default 0) -}}
       {{- $yearCounts = merge $yearCounts (dict $y (add $current 1)) -}}
+      {{- end -}}
       {{- end -}}
       {{- end -}}
 
