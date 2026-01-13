@@ -34,9 +34,17 @@ jobs:
                     echo "content=No changelog found." >> "$GITHUB_OUTPUT"
                   fi
 
+            - name: Prepare theme zip
+              run: |
+                mkdir chriswiegman-hugo-theme
+                cp theme.toml LICENSE.txt README.md chriswiegman-hugo-theme/
+                cp -r archetypes assets layouts chriswiegman-hugo-theme/ 2>/dev/null || true
+                zip -r chriswiegman-hugo-theme.zip chriswiegman-hugo-theme
+
             - name: Create GitHub Release
               uses: softprops/action-gh-release@v2
               with:
-                  tag_name: ${{ github.ref_name }}
-                  name: ${{ steps.vars.outputs.version }}
-                  body: ${{ steps.changelog.outputs.content }}
+                tag_name: ${{ github.ref_name }}
+                name: ${{ steps.vars.outputs.version }}
+                body: ${{ steps.changelog.outputs.content }}
+                files: chriswiegman-hugo-theme.zip
