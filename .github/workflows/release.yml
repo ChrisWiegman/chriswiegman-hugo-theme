@@ -5,7 +5,7 @@ on:
         tags:
             - "*"
 permissions:
-  contents: write
+    contents: write
 
 jobs:
     release:
@@ -25,12 +25,13 @@ jobs:
               run: |
                   FILE=".changes/${{ steps.vars.outputs.version }}.md"
                   if [ -f "$FILE" ]; then
-                    CONTENT=$(cat "$FILE")
-                    echo "content<<EOF" >> $GITHUB_OUTPUT
-                    echo "$CONTENT" >> $GITHUB_OUTPUT
-                    echo "EOF" >> $GITHUB_OUTPUT
+                    {
+                      echo 'content<<EOF'
+                      cat "$FILE"
+                      echo 'EOF'
+                    } >> "$GITHUB_OUTPUT"
                   else
-                    echo "content=No changelog found." >> $GITHUB_OUTPUT
+                    echo "content=No changelog found." >> "$GITHUB_OUTPUT"
                   fi
 
             - name: Create GitHub Release
