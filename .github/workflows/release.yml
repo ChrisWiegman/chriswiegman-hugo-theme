@@ -1,0 +1,41 @@
+name: Create Release from Changelog
+
+on:
+    push:
+        tags:
+            - "*"
+
+jobs:
+    release:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout code
+              uses: actions/checkout@v6
+
+            - name: Set release version
+              id: vars
+              run: |
+                  TAG_NAME="${GITHUB_REF#refs/tags/}"
+                  echo "version=$TAG_NAME" >> $GITHUB_OUTPUT
+
+            - name: Read changelog
+              id: changelog
+              run: |
+                  FILE=".changes/${{ steps.vars.outputs.version }}.md"
+                  if [ -f "$FILE" ]; then
+                    CONTENT=$(cat "$FILE")
+                    echo "content<<EOF" >> $GITHUB_OUTPUT
+                    echo "$CONTENT" >> $GITHUB_OUTPUT
+                    echo "EOF" >> $GITHUB_OUTPUT
+                  else
+                    echo "content=No changelog found." >> $GITHUB_OUTPUT
+                  fi
+
+            - name: Create GitHub Release
+              uses: softprops/action-gh-release@v2
+              with:
+                  tag_name: ${{ github.ref_name }}
+                  name: ${{ steps.vars.outputs.version }}
+                  body: ${{ steps.changelog.outputs.content }}
+              env:
+                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
