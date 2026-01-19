@@ -1,6 +1,7 @@
 {
     "recommendations": [
-        "budparr.language-hugo-vscode"
+        "budparr.language-hugo-vscode",
+        "esbenp.prettier-vscode"
     ],
     "unwantedRecommendations": []
 }

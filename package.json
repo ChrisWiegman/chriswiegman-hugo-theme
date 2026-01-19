@@ -27,6 +27,8 @@
   },
   "devDependencies": {
     "@playwright/test": "^1.57.0",
-    "changie": "^1.24.0"
+    "changie": "^1.24.0",
+    "prettier": "^3.4.2",
+    "prettier-plugin-go-template": "^0.0.15"
   }
 }
