@@ -63,7 +63,7 @@ jobs:
                   key: ${{ runner.os }}-playwright-${{ hashFiles('package-lock.json') }}
 
             - name: Setup Playwright for testing
-              run: npx playwright install --with-deps
+              run: npx playwright install chromium
               env:
                   PLAYWRIGHT_BROWSERS_PATH: ~/.cache/ms-playwright
 

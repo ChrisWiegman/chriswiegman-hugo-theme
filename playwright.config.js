@@ -3,6 +3,12 @@ const { defineConfig } = require("@playwright/test");
 module.exports = defineConfig({
   testDir: "e2e",
   timeout: 30 * 1000,
+  projects: [
+    {
+      name: "chromium",
+      use: { browserName: "chromium" },
+    },
+  ],
   use: {
     baseURL: "http://127.0.0.1:1313",
     trace: "on-first-retry",
