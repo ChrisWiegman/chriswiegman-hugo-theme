@@ -11,3 +11,21 @@ The alternative is to install it as a submodule or go module per the [Hugo docum
 ## Site Configuration
 
 For example configuration see [hugo.json](https://github.com/ChrisWiegman/chriswiegman-hugo-theme/blob/main/dev/hugo.json) in the `dev` directory.
+
+## End-to-end testing
+
+This repo uses Playwright for browser tests against the local `dev` site.
+It requires `hugo` on your PATH.
+
+Install dependencies and browsers:
+
+```sh
+npm install
+npx playwright install
+```
+
+Run the tests:
+
+```sh
+npm run e2e
+```

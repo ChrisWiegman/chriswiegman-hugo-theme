@@ -21,9 +21,12 @@
   "type": "commonjs",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "e2e": "playwright test",
+    "e2e:ci": "playwright test --reporter=dot"
   },
   "devDependencies": {
+    "@playwright/test": "^1.57.0",
     "changie": "^1.24.0"
   }
 }

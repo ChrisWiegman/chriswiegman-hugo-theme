@@ -24,7 +24,7 @@ changelog: install
 
 .PHONY: install
 install:
-	if [ ! -d ./node_modules/ ]; then \
+	if [ ! -d ./node_modules/ ] || [ ! -x ./node_modules/.bin/playwright ]; then \
 		npm ci; \
 	fi
 
@@ -52,3 +52,8 @@ release: clean
 		echo "file not available"; \
 		exit 1; \
 	fi
+
+.PHONY: test
+test: install
+	npx playwright install
+	npm run e2e
