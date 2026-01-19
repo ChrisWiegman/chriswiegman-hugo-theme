@@ -1,0 +1,75 @@
+name: Run End-to-end tests with Playwright
+
+on:
+    push:
+        branches: ["**"]
+
+concurrency:
+    group: ${{ github.workflow }}
+    cancel-in-progress: true
+
+jobs:
+    test:
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v4
+
+            - name: Setup Hugo
+              uses: peaceiris/actions-hugo@v3
+              with:
+                  hugo-version: "latest"
+                  extended: true
+
+            - name: Cache Hugo resources
+              uses: actions/cache@v4
+              with:
+                  path: |
+                      dev/resources
+                  key: ${{ runner.os }}-hugo-resources-${{ hashFiles('**/go.mod', '**/go.sum', '**/package-lock.json', '**/pnpm-lock.yaml', '**/yarn.lock', 'hugo.toml', 'hugo.yaml', 'hugo.json', 'config/**', 'assets/**') }}
+                  restore-keys: |
+                      ${{ runner.os }}-hugo-resources-
+
+            - name: Cache Hugo cacheDir
+              uses: actions/cache@v4
+              with:
+                  path: |
+                      .hugo_cache
+                  key: ${{ runner.os }}-hugo-cachedir-${{ hashFiles('**/go.mod', '**/go.sum', 'hugo.toml', 'hugo.yaml', 'hugo.json', 'config/**') }}
+                  restore-keys: |
+                      ${{ runner.os }}-hugo-cachedir-
+
+            - name: Set up Node (with npm cache)
+              uses: actions/setup-node@v4
+              with:
+                  node-version: "lts/*"
+                  cache: "npm"
+
+            - name: Install dependencies
+              run: npm ci
+
+            - name: Cache Playwright browsers
+              uses: actions/cache@v4
+              with:
+                  path: ~/.cache/ms-playwright
+                  key: ${{ runner.os }}-playwright-${{ hashFiles('package-lock.json') }}
+
+            - name: Setup Playwright for testing
+              run: npx playwright install --with-deps
+              env:
+                  PLAYWRIGHT_BROWSERS_PATH: ~/.cache/ms-playwright
+
+            - name: Run Playwright tests
+              run: npm run e2e
+              env:
+                  PLAYWRIGHT_BROWSERS_PATH: ~/.cache/ms-playwright
+
+            - name: Upload Playwright artifacts on failure
+              if: failure()
+              uses: actions/upload-artifact@v4
+              with:
+                  name: playwright-artifacts
+                  path: |
+                      test-results
+                      playwright-report
