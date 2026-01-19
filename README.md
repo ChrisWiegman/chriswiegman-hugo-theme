@@ -2,30 +2,51 @@
 
 This repo contains the Hugo theme for ChrisWiegman.com.
 
-## Usage
+## Requirements
 
-Your best option for using this theme, if you like the current style, is to download the code and copy it into your hugo `themes` directory. This will ensure that, as I inevitably change it, you won't get behind.
+- [Hugo](https://gohugo.io) (extended)
+- [Node.js](https://nodejs.org/en) + [npm](https://www.npmjs.com) (for Playwright tests and tooling)
 
-The alternative is to install it as a submodule or go module per the [Hugo documentation](https://gohugo.io/documentation/).
+## Using this Theme on Your Site
 
-## Site Configuration
+Your best option for using this theme, if you like the current style, is to fork it or to download the code and copy it into your Hugo `themes` directory. This will ensure that, as I inevitably change it, you won't be forced to change it to any major new style.
 
-For example configuration see [hugo.json](https://github.com/ChrisWiegman/chriswiegman-hugo-theme/blob/main/dev/hugo.json) in the `dev` directory.
+If you fork it, use the [Hugo documentation](https://gohugo.io/documentation/) to install your fork via a submodule.
 
-## End-to-end testing
+### Site Configuration
+
+For an example configuration, see [hugo.json](https://github.com/ChrisWiegman/chriswiegman-hugo-theme/blob/main/dev/hugo.json) in the `dev` directory.
+
+## Local Development
+
+### Running the Development Site
+
+This theme contains a complete development site with some basic content to get you running. You can start this site from your development machine by making sure your local computer has Hugo installed and then running the following:
+
+```sh
+make dev
+```
+
+The site will be available at `http://localhost:1313`.
+
+### End-to-End Testing
 
 This repo uses Playwright for browser tests against the local `dev` site.
 It requires `hugo` on your PATH.
 
-Install dependencies and browsers:
+There's a handy Make target to install and run these tests.
 
 ```sh
-npm install
-npx playwright install
+make test
 ```
 
-Run the tests:
+## Project Structure
 
-```sh
-npm run e2e
-```
+- `dev/`: local development site content and configuration
+- `layouts/`: Hugo templates and partials
+- `assets/`: theme assets (CSS, JS, images)
+- `e2e/`: Playwright end-to-end tests
+
+## Formatting
+
+Templates in `layouts/` are formatted with Prettier using the `go-template` parser. Use the Prettier VS Code extension (configured in `.vscode/settings.json`) to avoid breaking Hugo template markup.
