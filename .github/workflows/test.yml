@@ -3,6 +3,7 @@ name: Run End-to-end tests with Playwright
 on:
     push:
         branches: ["**"]
+    workflow_call:
 
 concurrency:
     group: ${{ github.workflow }}
@@ -51,6 +52,9 @@ jobs:
 
             - name: Install dependencies
               run: npm ci
+
+            - name: Prepare Playwright browser cache
+              run: mkdir -p ~/.cache/ms-playwright
 
             - name: Cache Playwright browsers
               uses: actions/cache@v4

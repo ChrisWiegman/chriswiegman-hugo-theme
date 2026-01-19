@@ -8,11 +8,15 @@ permissions:
     contents: write
 
 jobs:
+    test:
+        uses: ./.github/workflows/test.yml
+
     release:
+        needs: test
         runs-on: ubuntu-latest
         steps:
             - name: Checkout code
-              uses: actions/checkout@v6
+              uses: actions/checkout@v4
 
             - name: Set release version
               id: vars
