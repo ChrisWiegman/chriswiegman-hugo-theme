@@ -30,6 +30,8 @@ test("hugo development post renders key content types", async ({ page }) => {
   );
   await expect(image).toBeVisible();
   await expect(image).toHaveAttribute("src", /dev-image-01\.jpeg/);
+  await expect(image).toHaveAttribute("srcset", /dev-image-01/);
+  await expect(image).toHaveAttribute("sizes", /\(max-width: 850px\)/);
   await expect(page.locator("figure figcaption")).toContainText(
     "This is an image with alt text and a caption",
   );
