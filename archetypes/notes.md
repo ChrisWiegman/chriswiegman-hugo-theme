@@ -1,5 +1,4 @@
 ---
 title: ""
 draft: true
-images: []
 ---
