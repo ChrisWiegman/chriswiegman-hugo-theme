@@ -21,6 +21,12 @@
 {{ printf `
 <link rel="%s" type="%s" href="%s" title="%s" />` .Rel .MediaType.Type .RelPermalink $.Site.Title | safeHTML }}
 {{- end -}}
+{{ with site.GetPage "section" "notes" -}}
+{{- with .OutputFormats.Get "rss" -}}
+{{ printf `
+<link rel="%s" type="%s" href="%s" title="%s" />` .Rel .MediaType.Type .RelPermalink (printf "%s - Personal Notes" $.Site.Title) | safeHTML }}
+{{- end -}}
+{{- end -}}
 <link rel="canonical" href="{{ .Permalink }}" />
 {{ $options := (dict "targetPath" "css/main.css" "outputStyle" "compressed") }}
 {{ $style := resources.Get "scss/main.scss" | toCSS $options | minify | fingerprint }}
