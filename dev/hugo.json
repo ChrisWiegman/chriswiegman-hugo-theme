@@ -29,7 +29,9 @@
   "minify": {
     "minifyOutput": true
   },
-  "paginate": 10,
+  "pagination": {
+    "pagerSize": 10
+  },
   "theme": "chriswiegman-hugo-theme",
   "themesDir": "../..",
   "html": {
