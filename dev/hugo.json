@@ -29,6 +29,7 @@
   "minify": {
     "minifyOutput": true
   },
+  "paginate": 10,
   "theme": "chriswiegman-hugo-theme",
   "themesDir": "../..",
   "html": {
@@ -72,10 +73,16 @@
         "weight": 20
       },
       {
+        "name": "Notes",
+        "title": "The notes page",
+        "pageRef": "/notes",
+        "weight": 30
+      },
+      {
         "name": "RSS",
         "title": "Subscribe to this site in your favorite feed reader",
         "url": "/index.xml",
-        "weight": 30
+        "weight": 40
       }
     ]
   },

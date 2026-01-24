@@ -2,7 +2,7 @@
 <article class="archive">
     <div class="container">
         {{ $pages := where site.RegularPages "Section" "notes" }}
-        {{ $paginator := .Paginate $pages 3 }}
+        {{ $paginator := .Paginate $pages }}
         <div class="content-header">
             <h1 class="title post-title p-name" itemprop="name headline">All Notes</h1>
             <p class="description"><span class="post-count">{{ $paginator.TotalNumberOfElements }}</span> notes found.</p>
