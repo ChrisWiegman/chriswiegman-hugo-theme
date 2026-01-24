@@ -2,13 +2,14 @@
 <article class="archive">
     <div class="container">
         {{ $pages := where site.RegularPages "Section" "notes" }}
+        {{ $paginator := .Paginate $pages 3 }}
         <div class="content-header">
             <h1 class="title post-title p-name" itemprop="name headline">All Notes</h1>
-            <p class="description"><span class="post-count">{{ $pages.Len }}</span> notes found.</p>
+            <p class="description"><span class="post-count">{{ $paginator.TotalNumberOfElements }}</span> notes found.</p>
         </div>
 
         <div class="content e-content" itemprop="articleBody"> <!-- Group by year. -->
-            {{- range $pages.GroupByDate "2006" }}
+            {{- range $paginator.Pages.GroupByDate "2006" }}
             <div class="posts-group">
                 <h2 class="main-header">{{ .Key }}</h2>
                 <div class="notes">
@@ -23,6 +24,16 @@
             </div>
             {{- end }}
         </div>
+        {{ if gt $paginator.TotalPages 1 }}
+        <nav class="navigation prevnext" aria-label="Notes pagination">
+            {{ if $paginator.HasPrev }}
+            <a class="prev" href="{{ $paginator.Prev.URL }}">← Newer Notes</a>
+            {{ end }}
+            {{ if $paginator.HasNext }}
+            <a class="next" href="{{ $paginator.Next.URL }}">Older Notes  →</a>
+            {{ end }}
+        </nav>
+        {{ end }}
     </div>
 </article>
 {{ end }}

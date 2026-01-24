@@ -47,7 +47,7 @@
         </div>
     </div>
     {{if eq .Section "posts"}}
-    <div class="navigation prevnext">
+    <div class="navigation prevnext" aria-label="Posts pagination">
         {{ $pages := .CurrentSection.Pages.ByWeight }}
         {{ with $pages.Prev . }}
         <span class="prev">← <a href="{{ .RelPermalink }}" rel="prev">{{ .Title }}</a></span>

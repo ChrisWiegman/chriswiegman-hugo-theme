@@ -94,7 +94,6 @@
   "enableGitInfo": true,
   "canonifyURLs": true,
   "disableKinds": [
-    "section",
     "taxonomy"
   ],
   "timeout": "90s",
