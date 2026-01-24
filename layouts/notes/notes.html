@@ -1,0 +1,28 @@
+{{ define "main" }}
+<article class="archive">
+    <div class="container">
+        {{ $pages := where site.RegularPages "Section" "notes" }}
+        <div class="content-header">
+            <h1 class="title post-title p-name" itemprop="name headline">All Notes</h1>
+            <p class="description"><span class="post-count">{{ $pages.Len }}</span> notes found.</p>
+        </div>
+
+        <div class="content e-content" itemprop="articleBody"> <!-- Group by year. -->
+            {{- range $pages.GroupByDate "2006" }}
+            <div class="posts-group">
+                <h2 class="main-header">{{ .Key }}</h2>
+                <div class="notes">
+                    {{ range $index, $post := .Pages }}
+                    <div class="note">
+                        <h3 class="note-title">{{$post.Title}}</h3> <span class="note-day">{{ dateFormat "Jan 2" .Date
+                            }}</span>
+                        </div>
+                    {{ .Content }}
+                    {{- end }}
+                </div>
+            </div>
+            {{- end }}
+        </div>
+    </div>
+</article>
+{{ end }}
