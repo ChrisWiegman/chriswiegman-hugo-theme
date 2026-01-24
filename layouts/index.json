@@ -1,5 +1,7 @@
 {{- $.Scratch.Add "index" slice -}}
-{{- range .Site.RegularPages -}}
+{{- $searchPages := where .Site.RegularPages ".Type" "page" -}}
+{{- $searchPosts := where .Site.RegularPages "Section" "posts" -}}
+{{- range (union $searchPages $searchPosts) -}}
     {{- $.Scratch.Add "index" (dict "title" .Title "tags" .Params.tags "categories" .Params.categories "contents" .Plain "permalink" .RelPermalink "date" .Date) -}}
 {{- end -}}
 {{- $.Scratch.Get "index" | jsonify -}}

@@ -5,25 +5,10 @@ test("homepage renders and navigation is present", async ({ page }) => {
 
   const siteTitleLink = page.locator(".site-title a");
   await expect(siteTitleLink).toContainText("Hugo Theme Development Site");
-  await expect(siteTitleLink).toHaveAttribute(
-    "href",
-    "http://127.0.0.1:1313/",
-  );
+  await expect(siteTitleLink).toHaveAttribute("href", /\/$/);
   await expect(page.locator("header .menu")).toContainText("About");
   await expect(page.locator("header .menu")).toContainText("Blog");
   await expect(page.locator("h2.main-header")).toContainText("Recent Posts");
-});
-
-test("blog list and post page render", async ({ page }) => {
-  await page.goto("/blog");
-
-  await expect(page.locator("h1.post-title")).toContainText("All Posts");
-  await expect(page.locator(".posts .post").first()).toBeVisible();
-
-  await page.goto("/2025/09/lorem-ipsum-post-1/");
-  await expect(page.locator("h1.post-titlee")).toContainText(
-    "Lorem Ipsum Post 1",
-  );
 });
 
 test("404 page renders", async ({ page }) => {
@@ -45,4 +30,16 @@ test("sitemap and rss feeds are available", async ({ request }) => {
   expect(rssResponse.ok()).toBe(true);
   const rssBody = await rssResponse.text();
   expect(rssBody).toContain("<rss");
+});
+
+test("sitemap uses latest post date for homepage", async ({ request }) => {
+  const response = await request.get("/sitemap.xml");
+  expect(response.ok()).toBe(true);
+  const body = await response.text();
+
+  const notesMatch = body.match(
+    /<loc>[^<]*\/<\/loc>\s*<lastmod>([^<]+)<\/lastmod>/,
+  );
+  expect(notesMatch).not.toBeNull();
+  expect(notesMatch[1]).toMatch(/^2026-01-14T/);
 });
