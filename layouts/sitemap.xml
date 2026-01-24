@@ -1,0 +1,85 @@
+{{- $pages := where .Site.AllPages "Sitemap.Disable" "ne" true -}}
+{{- $notesPages := where (where site.AllPages "Section" "notes") "Kind" "page" -}}
+{{- $postsPages := where site.RegularPages "Section" "posts" -}}
+{{- $booksPages := slice -}}
+{{- with site.GetPage "books" -}}
+    {{- $booksPages = .Resources.ByType "page" -}}
+{{- else -}}
+    {{- range site.AllPages -}}
+        {{- if and .File (eq .Kind "page") (strings.HasPrefix .File.Dir "books/") -}}
+            {{- $booksPages = $booksPages | append . -}}
+        {{- end -}}
+    {{- end -}}
+{{- end -}}
+{{- $sitePages := site.RegularPages -}}
+{{- $notesDate := "" -}}
+{{- $postsDate := "" -}}
+{{- $booksFinishedDate := time.AsTime "0001-01-01T00:00:00Z" -}}
+{{- $booksFinishedFound := false -}}
+{{- $homeDate := "" -}}
+{{- if gt (len $notesPages) 0 -}}
+    {{- $notesDate = (index ($notesPages.ByDate.Reverse) 0).Date -}}
+{{- end -}}
+{{- if gt (len $postsPages) 0 -}}
+    {{- $postsDate = (index ($postsPages.ByDate.Reverse) 0).Date -}}
+{{- end -}}
+{{- if gt (len $booksPages) 0 -}}
+    {{- range $booksPages -}}
+        {{- $finished := .Params.finished -}}
+        {{- if $finished -}}
+            {{- $finishedList := cond (reflect.IsSlice $finished) $finished (slice $finished) -}}
+            {{- range $finishedList -}}
+                {{- $finishedString := printf "%v" . -}}
+                {{- if and (ne $finishedString "") (not (strings.Contains $finishedString "T")) -}}
+                    {{- $finishedString = printf "%sT00:00:00Z" $finishedString -}}
+                {{- end -}}
+                {{- $finishedTime := time.AsTime $finishedString -}}
+                {{- if and (not $finishedTime.IsZero) (or (not $booksFinishedFound) (gt $finishedTime $booksFinishedDate)) -}}
+                    {{- $booksFinishedDate = $finishedTime -}}
+                    {{- $booksFinishedFound = true -}}
+                {{- end -}}
+            {{- end -}}
+        {{- end -}}
+    {{- end -}}
+{{- end -}}
+{{- if gt (len $sitePages) 0 -}}
+    {{- $homeDate = (index ($sitePages.ByDate.Reverse) 0).Date -}}
+{{- end -}}
+{{- printf "<?xml version=\"1.0\" encoding=\"utf-8\" standalone=\"yes\"?>\n" | safeHTML -}}
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
+{{- range $pages -}}
+    {{- $lastmod := .Date -}}
+    {{- if and (eq .Kind "home") (ne $homeDate "") -}}
+        {{- $lastmod = $homeDate -}}
+    {{- else if and (eq .Kind "section") (eq .Section "notes") (ne $notesDate "") -}}
+        {{- $lastmod = $notesDate -}}
+    {{- else if and (eq .Kind "page") (eq .Type "blog") (ne $postsDate "") -}}
+        {{- $lastmod = $postsDate -}}
+    {{- else if and (eq .Kind "page") (eq .Type "library") -}}
+        {{- if $booksFinishedFound -}}
+            {{- $lastmod = $booksFinishedDate -}}
+        {{- end -}}
+    {{- else if and (eq .Kind "term") (or (eq .Data.Plural "tags") (eq .Data.Plural "categories")) -}}
+        {{- if gt (len .Pages) 0 -}}
+            {{- $lastmod = (index (.Pages.ByDate.Reverse) 0).Date -}}
+        {{- end -}}
+    {{- else if and (eq .Kind "taxonomy") (or (eq .Data.Plural "tags") (eq .Data.Plural "categories")) -}}
+        {{- $taxPages := where site.RegularPages (printf "Params.%s" .Data.Plural) "ne" nil -}}
+        {{- if gt (len $taxPages) 0 -}}
+            {{- $lastmod = (index ($taxPages.ByDate.Reverse) 0).Date -}}
+        {{- end -}}
+    {{- end -}}
+    <url>
+        <loc>{{ .Permalink }}</loc>
+        {{- if not $lastmod.IsZero -}}
+        <lastmod>{{ $lastmod.Format "2006-01-02T15:04:05-07:00" }}</lastmod>
+        {{- end -}}
+        {{- with .Sitemap.ChangeFreq -}}
+        <changefreq>{{ . }}</changefreq>
+        {{- end -}}
+        {{- if ge .Sitemap.Priority 0.0 -}}
+        <priority>{{ .Sitemap.Priority }}</priority>
+        {{- end -}}
+    </url>
+{{- end -}}
+</urlset>
