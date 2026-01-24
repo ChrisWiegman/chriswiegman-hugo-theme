@@ -12,7 +12,8 @@ a {
   text-decoration: none;
 }
 
-a.post {
+a.post,
+div.note {
   grid-gap: 1rem;
   align-items: center;
   border: 1px solid transparent;
@@ -34,18 +35,39 @@ a.post {
     }
   }
 
-  .post-title {
+  .post-title,
+  .note-title {
     color: $text;
     display: grid;
     font-size: 1.2rem;
     margin: 0;
   }
 
+  .note-day,
   .post-day {
     display: block;
     font-size: 0.8rem;
     font-weight: 400;
     text-align: center;
+  }
+
+  .note-title {
+    color: $text-heading;
+    font-size: 1.4rem;
+  }
+
+  .note-day {
+    color: $text-heading
+  }
+}
+
+div .note {
+  &:hover {
+    background: $background;
+
+    .note-day {
+      color: $text-heading;
+    }
   }
 }
 
