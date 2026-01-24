@@ -14,9 +14,6 @@
 {{- else -}}
   {{ .Summary | plainify | truncate 160 }}
 {{- end -}}">
-{{- if not .IsHome -}}
-<meta name="keywords" content="{{ if .IsPage}}{{ range $index, $tag := .Params.tags }}{{ $tag }},{{ end }}{{ else }}{{ range $plural, $terms := .Site.Taxonomies }}{{ range $term, $val := $terms }}{{ printf "%s," $term }}{{ end }}{{ end }}{{ end }}" />
-{{- end -}}
 {{ with .OutputFormats.Get "rss" -}}
 {{ printf `
 <link rel="%s" type="%s" href="%s" title="%s" />` .Rel .MediaType.Type .RelPermalink $.Site.Title | safeHTML }}
