@@ -14,7 +14,7 @@ a {
 
 a.post,
 div.note {
-  grid-gap: 1rem;
+  gap: 1rem;
   align-items: center;
   border: 1px solid transparent;
   display: grid;
@@ -25,7 +25,6 @@ div.note {
   color: $text;
 
   &:hover {
-    border: 1px solid transparent;
     border-radius: 8px;
     background: $dark-opacity;
     color: $text-bright;
@@ -61,7 +60,7 @@ div.note {
   }
 }
 
-div .note {
+div.note {
   &:hover {
     background: $background;
 
@@ -165,13 +164,12 @@ main {
   article,
   .prevnext {
     a {
-      border-top: 2px solid transparent;
       border-bottom: 2px solid $primary;
       color: $link;
+      padding: 5px;
 
       &:hover {
         background: $primary;
-        border-top: 2px solid $primary;
         border-radius: 5px;
         color: $reverse;
       }
@@ -205,11 +203,6 @@ main {
       margin: 0 0 2rem;
     }
 
-    header {
-      padding-top: 2rem;
-      text-align: center;
-    }
-
     .main-header {
       display: flex;
       justify-content: space-between;
@@ -220,7 +213,6 @@ main {
         font-size: 1rem;
 
         &:hover {
-          border-top: 2px solid $primary;
           color: $reverse;
         }
       }

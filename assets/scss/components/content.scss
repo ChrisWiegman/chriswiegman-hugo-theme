@@ -1,126 +1,114 @@
-body {
-  main {
-    article {
+main {
+  article {
+    .content-search {
+      margin: -1.25rem 0 1rem 0;
+    }
 
-      .content-search {
-        margin: -1.25rem 0 1rem 0;
+    .content-header,
+    .content-categories {
+      padding: 0 2rem 2rem 2rem;
+      text-align: center;
+
+      .meta {
+        padding-top: 0.4rem;
       }
 
-      .content-header,
-      .content-categories {
-        padding: 0 2rem 2rem 2rem;
-        text-align: center;
+      .tags,
+      .categories {
+        align-items: center;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        justify-content: center;
+        margin: 0;
 
-        .meta {
-          padding-top: 0.4rem;
-        }
-
-        .tags,
-        .categories {
-          align-items: center;
-          display: flex;
-          flex-wrap: wrap;
-          gap: 0.5rem;
-          justify-content: center;
-          margin: 0;
-
-          a {
-            border: 1px solid $border-light;
-            border-radius: 8px;
-            color: $text-bright;
-            display: inline-block;
-            font-size: 0.9rem;
-            line-height: normal;
-            padding: 0.4rem 0.6rem;
-            vertical-align: middle;
-          }
-
-          a:hover {
-            background: $reverse;
-            border-color: $primary;
-            color: $primary;
-          }
-        }
-      }
-
-      .content {
-
-        p,
-        ul,
-        ol {
-          font-size: 1.3rem;
-          margin: 0 0 2rem;
-        }
-
-        .highlight {
-          overflow: scroll;
-        }
-
-        .highlight,
-        blockquote {
-          background-color: #282828;
-          border-radius: 8px;
+        a {
           border: 1px solid $border-light;
-          font-size: 1.3rem;
-          margin: 2.5em 0;
-
-          pre {
-            width: 95%;
-            margin: 1rem;
-            overflow-x: auto;
-          }
-
-          p {
-            padding: 0 1rem;
-          }
+          border-radius: 8px;
+          color: $text-bright;
+          display: inline-block;
+          font-size: 0.9rem;
+          line-height: normal;
+          padding: 0.4rem 0.6rem;
+          vertical-align: middle;
         }
 
-        blockquote {
-          background-color: $background-code;
-          font-family: monospace;
-
-          p {
-            margin: 0;
-            padding: 1rem;
-          }
-
-          blockquote {
-            border: none;
-            font-style: italic;
-            margin: 0 0 0 2rem;
-
-            p {
-              font-size: 0.8rem;
-            }
-          }
+        a:hover {
+          background: $reverse;
+          border-color: $primary;
+          color: $primary;
         }
       }
     }
 
-    .prevnext {
-      padding-top: 0;
-
-      a {
-        border-bottom: none;
-        font-weight: 600;
+    .content {
+      p,
+      ul,
+      ol {
+        font-size: 1.3rem;
+        margin: 0 0 2rem;
       }
 
-      .prev {
-        max-width: 49%;
-        float: left;
+      .highlight,
+      blockquote {
+        background-color: #282828;
+        border-radius: 8px;
+        border: 1px solid $border-light;
+        font-size: 1.3rem;
+        margin: 2.5em 0;
+
+        pre {
+          width: 95%;
+          margin: 1rem;
+          overflow-x: auto;
+        }
       }
 
-      .next {
-        max-width: 49%;
-        float: right;
-        text-align: right;
-      }
+      blockquote {
+        background-color: $background-code;
+        font-family: monospace;
 
-      &:after {
-        content: " ";
-        display: block;
-        clear: both;
+        p {
+          margin: 0;
+          padding: 1rem;
+        }
+
+        blockquote {
+          border: none;
+          font-style: italic;
+          margin: 0 0 0 2rem;
+
+          p {
+            font-size: 0.8rem;
+          }
+        }
       }
+    }
+  }
+
+  .prevnext {
+    padding-top: 0;
+
+    a {
+      border-bottom: none;
+      font-weight: 600;
+    }
+
+    .prev {
+      max-width: 49%;
+      float: left;
+    }
+
+    .next {
+      max-width: 49%;
+      float: right;
+      text-align: right;
+    }
+
+    &:after {
+      content: " ";
+      display: block;
+      clear: both;
     }
   }
 }

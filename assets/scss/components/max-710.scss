@@ -34,8 +34,6 @@
   }
 
   .home,
-  .single,
-  .page-index,
   .page {
     .content-search form {
       grid-template-columns: auto;
@@ -85,14 +83,7 @@
         a.post h3 {
           font-size: 1rem;
         }
-      }
-    }
-
-    main {
-      article {
-
         .content {
-
           p,
           ol,
           ul,

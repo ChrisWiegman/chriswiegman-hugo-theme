@@ -1,5 +1,33 @@
 /* Generated using: hugo gen chromastyles --style=gruvbox */
 
+.highlight,
+.highlight pre {
+    scrollbar-color: #444 #282828;
+    scrollbar-width: thin;
+}
+
+.highlight pre {
+    overflow: auto;
+}
+
+.highlight::-webkit-scrollbar,
+.highlight pre::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+}
+
+.highlight::-webkit-scrollbar-track,
+.highlight pre::-webkit-scrollbar-track {
+    background: #282828;
+}
+
+.highlight::-webkit-scrollbar-thumb,
+.highlight pre::-webkit-scrollbar-thumb {
+    background: #444;
+    border-radius: 8px;
+    border: 2px solid #282828;
+}
+
 /* Background */ .bg { color:#ebdbb2;background-color:#282828; }
 /* PreWrapper */ .chroma { color:#ebdbb2;background-color:#282828; }
 /* LineLink */ .chroma .lnlinks { outline:none;text-decoration:none;color:inherit }
