@@ -1,0 +1,24 @@
+{{ define "main" }}
+<article class="archive">
+    <div class="container">
+        {{ $pages := .Pages }}
+        <div class="content-header">
+            <h1 class="title post-title p-name" itemprop="name headline">{{ .Title }}</h1>
+            <p class="description"><span class="post-count">{{ $pages.Len }}</span> items found.</p>
+        </div>
+
+        <div class="content e-content" itemprop="articleBody">
+            {{- range $pages.GroupByDate "2006" }}
+            <div class="posts-group">
+                <h2 class="main-header">{{ .Key }}</h2>
+                <div class="posts">
+                    {{ range $index, $post := .Pages }}
+                    {{ partial "post-item.html" (dict "post" $post) }}
+                    {{- end }}
+                </div>
+            </div>
+            {{- end }}
+        </div>
+    </div>
+</article>
+{{ end }}
