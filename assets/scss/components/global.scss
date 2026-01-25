@@ -12,8 +12,7 @@ a {
   text-decoration: none;
 }
 
-a.post,
-article.note {
+a.post {
   gap: 1rem;
   align-items: center;
   border: 1px solid transparent;
@@ -34,39 +33,46 @@ article.note {
     }
   }
 
-  .post-title,
-  .note-title {
+  .post-title {
     color: $text;
     display: grid;
     font-size: 1.2rem;
     margin: 0;
   }
 
-  .note-day,
   .post-day {
     display: block;
     font-size: 0.8rem;
     font-weight: 400;
     text-align: center;
   }
+}
+
+article.note {
+  margin-left: -1rem;
+  margin-right: -1rem;
+  padding: 0.4rem 1rem;
+  color: $text;
 
   .note-title {
     color: $text-heading;
     font-size: 1.4rem;
+    display: inline-block;
+    margin: 0;
   }
 
   .note-day {
-    color: $text-heading
+    color: $text-heading;
+    display: inline-block;
+    font-size: 0.8rem;
+    font-weight: 400;
+    float: right;
   }
-}
 
-article.note {
-  &:hover {
-    background: $background;
-
-    .note-day {
-      color: $text-heading;
-    }
+  &::after {
+    content: "";
+    display: table;
+    clear: both;
   }
 }
 
