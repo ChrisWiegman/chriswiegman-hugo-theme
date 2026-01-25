@@ -139,7 +139,7 @@
         {{ $library := resources.Get "scripts/library.js" }}
         {{ $bundle := slice $library | resources.Concat "js/library.js" }}
         {{ $js := $bundle | resources.Minify }}
-        <script src="{{ $js.RelPermalink }}"></script>
+        <script defer src="{{ $js.RelPermalink }}"></script>
       </div>
     </div>
   </div>

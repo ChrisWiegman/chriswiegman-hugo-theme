@@ -41,36 +41,22 @@ may also specify the following parameters:
   {{- $lang = "text" }}
 {{- end }}
 
-{{- if collections.IsSet .Attributes "copy" }}
-  {{- if in (slice true "true" 1) .Attributes.copy }}
-    {{- $copy = true }}
-  {{- else if in (slice false "false" 0) .Attributes.copy }}
-    {{- $copy = false }}
-  {{- end }}
+{{- with .Attributes.copy }}
+  {{- $copy = in (slice true "true" 1) . }}
 {{- end }}
 
-{{- if collections.IsSet .Attributes "details" }}
-  {{- if in (slice true "true" 1) .Attributes.details }}
-    {{- $details = true }}
-  {{- else if in (slice false "false" 0) .Attributes.details }}
-    {{- $details = false }}
-  {{- end }}
+{{- with .Attributes.details }}
+  {{- $details = in (slice true "true" 1) . }}
 {{- end }}
 
-{{- if collections.IsSet .Attributes "open" }}
-  {{- if in (slice true "true" 1) .Attributes.open }}
+{{- with .Attributes.open }}
+  {{- if in (slice true "true" 1) . }}
     {{- $open = "open" }}
-  {{- else if in (slice false "false" 0) .Attributes.open }}
-    {{- $open = "" }}
   {{- end }}
 {{- end }}
 
-{{- if collections.IsSet .Attributes "trim" }}
-  {{- if in (slice true "true" 1) .Attributes.trim }}
-    {{- $trim = true }}
-  {{- else if in (slice false "false" 0) .Attributes.trim }}
-    {{- $trim = false }}
-  {{- end }}
+{{- with .Attributes.trim }}
+  {{- $trim = in (slice true "true" 1) . }}
 {{- end }}
 
 {{- if $details }}

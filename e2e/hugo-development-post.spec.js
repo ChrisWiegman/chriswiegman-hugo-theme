@@ -3,7 +3,7 @@ const { test, expect } = require("@playwright/test");
 test("hugo development post renders key content types", async ({ page }) => {
   await page.goto("/2026/01/hugo-development-post/");
 
-  await expect(page.locator("h1.post-titlee")).toContainText(
+  await expect(page.locator("h1.post-title")).toContainText(
     "Hugo Development Post",
   );
 

@@ -23,13 +23,13 @@ test("navigation links resolve to content pages", async ({ page }) => {
   await expect(page.locator("footer .menu a[href$='/now/']")).toBeVisible();
 
   await page.goto("/about/");
-  await expect(page.locator("h1.post-titlee")).toContainText("About Me");
+  await expect(page.locator("h1.post-title")).toContainText("About Me");
 
   await page.goto("/uses/");
-  await expect(page.locator("h1.post-titlee")).toContainText("Uses");
+  await expect(page.locator("h1.post-title")).toContainText("Uses");
 
   await page.goto("/now/");
-  await expect(page.locator("h1.post-titlee")).toContainText("Now");
+  await expect(page.locator("h1.post-title")).toContainText("Now");
 });
 
 test("index json output contains post metadata", async ({ request }) => {

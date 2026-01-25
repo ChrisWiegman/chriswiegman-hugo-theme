@@ -51,11 +51,14 @@ main {
 
       .highlight,
       blockquote {
-        background-color: #282828;
         border-radius: 8px;
         border: 1px solid $border-light;
         font-size: 1.3rem;
         margin: 2.5em 0;
+      }
+
+      .highlight {
+        background-color: #282828;
 
         pre {
           width: 95%;
@@ -88,27 +91,19 @@ main {
 
   .prevnext {
     padding-top: 0;
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
 
     a {
       border-bottom: none;
       font-weight: 600;
-    }
-
-    .prev {
+      flex: 1;
       max-width: 49%;
-      float: left;
     }
 
     .next {
-      max-width: 49%;
-      float: right;
       text-align: right;
-    }
-
-    &:after {
-      content: " ";
-      display: block;
-      clear: both;
     }
   }
 }

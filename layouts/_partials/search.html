@@ -6,8 +6,5 @@
     </div>
 </script>
 {{ $search := resources.Get "scripts/search.js" }}
-{{ $plugins := resources.GetRemote "https://releases.jquery.com/git/jquery-3.x-git.js" }}
-{{ $global := resources.GetRemote "https://cdn.jsdelivr.net/npm/fuse.js/dist/fuse.js" }}
-{{ $bundle := slice $plugins $global $search | resources.Concat "js/bundle.js" }}
-{{ $js :=  $bundle | resources.Minify }}
-<script src="{{ $js.RelPermalink }}"></script>
+{{ $js := $search | resources.Minify | fingerprint }}
+<script defer src="{{ $js.RelPermalink }}" integrity="{{ $js.Data.Integrity }}"></script>

@@ -13,7 +13,7 @@ a {
 }
 
 a.post,
-div.note {
+article.note {
   gap: 1rem;
   align-items: center;
   border: 1px solid transparent;
@@ -60,7 +60,7 @@ div.note {
   }
 }
 
-div.note {
+article.note {
   &:hover {
     background: $background;
 

@@ -11,7 +11,8 @@ clean:
 		node_modules \
 		dev/public \
 		dev/resources \
-		dev/.hugo_build.lock
+		dev/.hugo_build.lock \
+		test-results
 
 .PHONY: dev
 dev:

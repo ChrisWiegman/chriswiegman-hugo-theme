@@ -7,7 +7,7 @@ test("blog list and post page render", async ({ page }) => {
   await expect(page.locator(".posts .post").first()).toBeVisible();
 
   await page.goto("/2025/09/lorem-ipsum-post-1/");
-  await expect(page.locator("h1.post-titlee")).toContainText(
+  await expect(page.locator("h1.post-title")).toContainText(
     "Lorem Ipsum Post 1",
   );
 });

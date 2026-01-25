@@ -56,11 +56,15 @@
             }
         }
 
-        .book-header {
+        .book-header,
+        .book {
             display: grid;
             grid-template-columns: minmax(240px, 2fr) minmax(180px, 1.4fr) 120px 1fr 140px;
             gap: 1rem;
+            align-items: center;
+        }
 
+        .book-header {
             padding-bottom: 0.4rem;
             margin-bottom: 0.3rem;
 
@@ -69,7 +73,6 @@
             text-transform: uppercase;
 
             border-bottom: 1px solid rgba(255, 255, 255, 0.12);
-            align-items: center;
 
             // Plain label for Links (not interactive)
             .book-links-header {
@@ -116,17 +119,12 @@
         }
 
         .book {
-            display: grid;
-            grid-template-columns: minmax(240px, 2fr) minmax(180px, 1.4fr) 120px 1fr 140px;
             grid-template-rows: auto auto;
-
-            // Tighter vertical spacing, roomy columns
             gap: 0.25rem 1rem;
 
             margin: 0 -1rem 1rem -1rem;
             padding: 0.4rem 1rem;
 
-            align-items: center;
             border: 1px solid transparent;
             border-radius: 8px;
 

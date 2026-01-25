@@ -1,0 +1,5 @@
+{{- $post := .post -}}
+{{- $dateFormat := .dateFormat | default "Jan 2" -}}
+<a class="post" href="{{ $post.RelPermalink }}">
+    <h3 class="post-title">{{ $post.Title }}</h3> <span class="post-day">{{ dateFormat $dateFormat $post.Date }}</span>
+</a>

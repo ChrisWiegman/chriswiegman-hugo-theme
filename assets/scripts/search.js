@@ -1,81 +1,138 @@
-var fuseOptions = {
-  includeScore: true,
-  ignoreLocation: true,
-  threshold: 0.0,
-  keys: [
-    { name: "title", weight: 0.8 },
-    { name: "contents", weight: 0.5 },
-    { name: "tags", weight: 0.3 },
-    { name: "categories", weight: 0.3 },
-    { name: "date", weight: 0.3 }
-  ]
-};
+(function() {
+  'use strict';
 
-var searchQuery = param("s");
-if (searchQuery) {
-  $("#search").val(searchQuery);
-  $("#search-term").append(searchQuery);
+  // Get search query from URL parameter
+  const searchQuery = getUrlParam('s');
+  const searchInput = document.getElementById('search');
+  const searchTerm = document.getElementById('search-term');
+  const searchCount = document.getElementById('search-count');
+  const searchResults = document.getElementById('search-results');
+
+  if (!searchQuery) {
+    window.location.assign('/blog');
+    return;
+  }
+
+  // Set search query in UI
+  if (searchInput) searchInput.value = searchQuery;
+  if (searchTerm) searchTerm.textContent = searchQuery;
+
+  // Execute search
   executeSearch(searchQuery);
-} else {
-  window.location.assign("/blog");
-}
 
-function executeSearch(searchQuery) {
-  $.getJSON("/index.json", function (data) {
-    var pages = data;
-    var fuse = new Fuse(pages, fuseOptions);
-    var result = fuse.search(searchQuery);
-    $('#search-count').append(result.length)
-    if (result.length > 0) {
-      populateResults(result);
-    } else {
-      $('#search-results').append("<p>No matches found</p>");
-    }
-  });
-}
+  function executeSearch(query) {
+    fetch('/index.json')
+      .then(response => response.json())
+      .then(data => {
+        const results = search(data, query);
 
-function populateResults(result) {
-  $.each(result, function (key, value) {
-    //pull template from hugo templarte definition
-    var templateDefinition = $('#search-result-template').html();
-    let date = new Date(value.item.date);
-    let year = new Intl.DateTimeFormat('en', { year: 'numeric' }).format(date);
-    let month = new Intl.DateTimeFormat('en', { month: 'short' }).format(date);
-    let day = new Intl.DateTimeFormat('en', { day: 'numeric' }).format(date);
-    let displayDate = `${day} ${month}, ${year}`
+        if (searchCount) {
+          searchCount.textContent = results.length;
+        }
 
-    //replace values
-    var output = render(templateDefinition, { key: key, title: value.item.title, link: value.item.permalink, date: displayDate });
-    $('#search-results').append(output);
-
-  });
-}
-
-function param(name) {
-  return decodeURIComponent((location.search.split(name + '=')[1] || '').split('&')[0]).replace(/\+/g, ' ');
-}
-
-function render(templateString, data) {
-  var conditionalMatches, conditionalPattern, copy;
-  conditionalPattern = /\$\{\s*isset ([a-zA-Z]*) \s*\}(.*)\$\{\s*end\s*}/g;
-  //since loop below depends on re.lastInxdex, we use a copy to capture any manipulations whilst inside the loop
-  copy = templateString;
-  while ((conditionalMatches = conditionalPattern.exec(templateString)) !== null) {
-    if (data[conditionalMatches[1]]) {
-      //valid key, remove conditionals, leave contents.
-      copy = copy.replace(conditionalMatches[0], conditionalMatches[2]);
-    } else {
-      //not valid, remove entire section
-      copy = copy.replace(conditionalMatches[0], '');
-    }
+        if (results.length > 0) {
+          populateResults(results);
+        } else {
+          searchResults.innerHTML = '<p>No matches found</p>';
+        }
+      })
+      .catch(error => {
+        console.error('Search error:', error);
+        searchResults.innerHTML = '<p>Error loading search results</p>';
+      });
   }
-  templateString = copy;
-  //now any conditionals removed we can do simple substitution
-  var key, find, re;
-  for (key in data) {
-    find = '\\$\\{\\s*' + key + '\\s*\\}';
-    re = new RegExp(find, 'g');
-    templateString = templateString.replace(re, data[key]);
+
+  function search(pages, query) {
+    const lowerQuery = query.toLowerCase();
+    const results = [];
+
+    pages.forEach(page => {
+      let score = 0;
+
+      // Search in title (highest weight)
+      if (page.title && page.title.toLowerCase().includes(lowerQuery)) {
+        score += 0.8;
+      }
+
+      // Search in contents (medium weight)
+      if (page.contents && page.contents.toLowerCase().includes(lowerQuery)) {
+        score += 0.5;
+      }
+
+      // Search in tags (lower weight)
+      if (page.tags && Array.isArray(page.tags)) {
+        const tagsMatch = page.tags.some(tag =>
+          tag.toLowerCase().includes(lowerQuery)
+        );
+        if (tagsMatch) score += 0.3;
+      }
+
+      // Search in categories (lower weight)
+      if (page.categories && Array.isArray(page.categories)) {
+        const categoriesMatch = page.categories.some(cat =>
+          cat.toLowerCase().includes(lowerQuery)
+        );
+        if (categoriesMatch) score += 0.3;
+      }
+
+      if (score > 0) {
+        results.push({ item: page, score: score });
+      }
+    });
+
+    // Sort by score (highest first)
+    results.sort((a, b) => b.score - a.score);
+
+    return results;
   }
-  return templateString;
-}
+
+  function populateResults(results) {
+    const template = document.getElementById('search-result-template').innerHTML;
+    const fragment = document.createDocumentFragment();
+
+    results.forEach((result, index) => {
+      const date = new Date(result.item.date);
+      const displayDate = new Intl.DateTimeFormat('en', {
+        day: 'numeric',
+        month: 'short',
+        year: 'numeric'
+      }).format(date);
+
+      const html = render(template, {
+        key: index,
+        title: result.item.title,
+        link: result.item.permalink,
+        date: displayDate
+      });
+
+      const wrapper = document.createElement('div');
+      wrapper.innerHTML = html;
+      fragment.appendChild(wrapper.firstElementChild);
+    });
+
+    searchResults.appendChild(fragment);
+  }
+
+  function getUrlParam(name) {
+    const params = new URLSearchParams(window.location.search);
+    return params.get(name) || '';
+  }
+
+  function render(templateString, data) {
+    let result = templateString;
+
+    // Handle conditionals: ${ isset key }content${ end }
+    const conditionalPattern = /\$\{\s*isset\s+([a-zA-Z]*)\s*\}(.*?)\$\{\s*end\s*\}/g;
+    result = result.replace(conditionalPattern, (match, key, content) => {
+      return data[key] ? content : '';
+    });
+
+    // Replace simple variables: ${key}
+    Object.keys(data).forEach(key => {
+      const pattern = new RegExp('\\$\\{\\s*' + key + '\\s*\\}', 'g');
+      result = result.replace(pattern, data[key]);
+    });
+
+    return result;
+  }
+})();

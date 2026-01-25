@@ -5,73 +5,69 @@
     padding: 1rem;
   }
 
-  header,
-  footer {
-    .content {
-      padding: 0 0.2rem;
-      font-size: 0.7rem;
+  header .content,
+  footer .content {
+    padding: 0 0.2rem;
+    font-size: 0.7rem;
 
-      a {
-        padding: 0.2rem 0.4rem;
-      }
-    }
-
-    img {
-      display: none;
+    a {
+      padding: 0.2rem 0.4rem;
     }
   }
 
-  footer {
-    .content {
-      .copyright {
-        text-align: center;
-      }
+  header img,
+  footer img {
+    display: none;
+  }
 
-      ul li {
-        padding: 0;
-      }
+  footer .content {
+    .copyright {
+      text-align: center;
+    }
+
+    ul li {
+      padding: 0;
     }
   }
 
-  .home,
-  .page {
-    .content-search form {
-      grid-template-columns: auto;
-    }
+  .home .content-search form,
+  .page .content-search form {
+    grid-template-columns: auto;
+  }
 
-    main {
-      .hero {
-        padding: 0;
+  .home main .hero,
+  .page main .hero {
+    padding: 0;
 
-        .container {
-          .content {
-            align-items: flex-start;
-            flex-direction: column;
-            display: flex;
+    .container .content {
+      align-items: flex-start;
+      flex-direction: column;
+      display: flex;
 
-            .intro {
-              order: 2;
+      .intro {
+        order: 2;
 
-              h1 {
-                font-size: 1.5rem;
-                margin-bottom: 1rem;
-              }
+        h1 {
+          font-size: 1.5rem;
+          margin-bottom: 1rem;
+        }
 
-              p {
-                font-size: 1rem;
-              }
-            }
-
-            img {
-              order: 1;
-              max-width: 50%;
-              margin: 0 auto 1.5rem auto;
-            }
-          }
+        p {
+          font-size: 1rem;
         }
       }
 
-      article {
+      img {
+        order: 1;
+        max-width: 50%;
+        margin: 0 auto 1.5rem auto;
+      }
+    }
+  }
+
+  .home main,
+  .page main {
+    article {
         .content-header {
           padding: 0 0 2rem 0;
 
@@ -83,6 +79,15 @@
         a.post h3 {
           font-size: 1rem;
         }
+
+        h1 {
+          font-size: 1.8rem;
+        }
+
+        h2 {
+          font-size: 1.5rem;
+        }
+
         .content {
           p,
           ol,
@@ -94,22 +99,9 @@
           }
         }
       }
-    }
 
     .description {
       font-size: 1rem;
-    }
-  }
-
-  main {
-    article {
-      h1 {
-        font-size: 1.8rem;
-      }
-
-      h2 {
-        font-size: 1.5rem;
-      }
     }
   }
 }
