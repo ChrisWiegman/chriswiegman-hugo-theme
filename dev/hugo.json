@@ -27,7 +27,7 @@
     "headerIcon": "images/2025/12/hugo-theme.png"
   },
   "minify": {
-    "minifyOutput": true
+    "minifyOutput": false
   },
   "pagination": {
     "pagerSize": 10
@@ -75,16 +75,22 @@
         "weight": 20
       },
       {
+        "name": "Library",
+        "title": "My reading library",
+        "pageRef": "/library",
+        "weight": 30
+      },
+      {
         "name": "Notes",
         "title": "The notes page",
         "pageRef": "/notes",
-        "weight": 30
+        "weight": 40
       },
       {
         "name": "RSS",
         "title": "Subscribe to this site in your favorite feed reader",
         "url": "/index.xml",
-        "weight": 40
+        "weight": 50
       }
     ]
   },
@@ -109,8 +115,7 @@
   "outputs": {
     "home": [
       "HTML",
-      "RSS",
-      "JSON"
+      "RSS"
     ],
     "section": [
       "html"
