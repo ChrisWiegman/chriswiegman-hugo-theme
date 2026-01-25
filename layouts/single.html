@@ -2,10 +2,12 @@
 <article class="h-entry" itemscope="" itemtype="http://schema.org/BlogPosting">
     <div class="container">
         <div class="content-header">
-            {{if eq .Section "posts"}}
-            <div class="meta"><time class="dt-published">{{ dateFormat "Monday, 2 January, 2006" .Date }}</time></div>
-            {{ end }}
             <h1 class="post-title" itemprop="name headline">{{ .Title }}</h1>
+            {{if eq .Section "posts"}}
+            <div class="meta">
+                <time class="dt-published">{{ dateFormat "Monday, 2 January, 2006" .Date }}</time> | <span class="reading-time">{{ .ReadingTime }} min read</span>
+            </div>
+            {{ end }}
             {{if eq .Section "posts"}}{{if .Params.tags }}
             <div class="tags">
                 {{ range .Params.tags }}
