@@ -26,7 +26,7 @@
     "e2e:ci": "playwright test --reporter=dot"
   },
   "devDependencies": {
-    "@playwright/test": "^1.58.0",
+    "@playwright/test": "^1.58.2",
     "changie": "^1.24.0",
     "prettier": "^3.8.1",
     "prettier-plugin-go-template": "^0.0.15"
