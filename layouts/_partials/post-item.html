@@ -1,5 +1,6 @@
 {{- $post := .post -}}
 {{- $dateFormat := .dateFormat | default "Jan 2" -}}
-<a class="post" href="{{ $post.RelPermalink }}">
-    <h3 class="post-title">{{ $post.Title }}</h3> <span class="post-day">{{ dateFormat $dateFormat $post.Date }}</span>
+{{- $isDraft := .isDraft | default false -}}
+<a class="post" href="{{ $post.RelPermalink }}"{{ if $isDraft }} style="border:1px dashed #fdb54a;border-radius:8px;background:rgba(253,181,74,0.1)"{{ end }}>
+    <h3 class="post-title"{{ if $isDraft }} style="color:#fdb54a"{{ end }}>{{ if $isDraft }}[DRAFT] {{ end }}{{ $post.Title }}</h3> <span class="post-day">{{ if $post.Date.IsZero }}—{{ else }}{{ dateFormat $dateFormat $post.Date }}{{ end }}</span>
 </a>

@@ -1,14 +1,15 @@
 {{ define "main" }}
+{{- $showPostMeta := or (eq .Section "posts") (and (eq .Section "drafts") hugo.IsDevelopment) -}}
 <article class="h-entry" itemscope="" itemtype="http://schema.org/BlogPosting">
     <div class="container">
         <div class="content-header">
-            <h1 class="post-title" itemprop="name headline">{{ .Title }}</h1>
-            {{if eq .Section "posts"}}
+            <h1 class="post-title" itemprop="name headline">{{ if and (eq .Section "drafts") hugo.IsDevelopment }}[DRAFT] {{ end }}{{ .Title }}</h1>
+            {{if $showPostMeta }}
             <div class="meta">
-                <time class="dt-published">{{ dateFormat "Monday, 2 January, 2006" .Date }}</time> | <span class="reading-time">{{ .ReadingTime }} min read</span>
+                {{ if .Date.IsZero }}<span>Unpublished Draft</span>{{ else }}<time class="dt-published">{{ dateFormat "Monday, 2 January, 2006" .Date }}</time>{{ end }} | <span class="reading-time">{{ .ReadingTime }} min read</span>
             </div>
             {{ end }}
-            {{if eq .Section "posts"}}{{if .Params.tags }}
+            {{if $showPostMeta }}{{if .Params.tags }}
             <div class="tags">
                 {{ range .Params.tags }}
                 <a href="{{ "/tags/" | relLangURL }}{{ . | urlize }}" title="{{ . }}">{{ . }}</a>
