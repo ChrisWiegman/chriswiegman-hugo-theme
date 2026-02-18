@@ -30,7 +30,7 @@
         <sy:updatePeriod>hourly</sy:updatePeriod>
         <sy:updateFrequency>1</sy:updateFrequency>
 
-        {{- $pagerSize := site.Config.Pagination.PagerSize | default 10 -}}
+        {{- $pagerSize := 25 -}}
         {{- $base := strings.TrimSuffix "/" site.BaseURL -}}
         {{ range $index, $page := $pages }}
         <item>
