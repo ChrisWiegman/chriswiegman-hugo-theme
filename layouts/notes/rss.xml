@@ -30,8 +30,8 @@
         <sy:updatePeriod>hourly</sy:updatePeriod>
         <sy:updateFrequency>1</sy:updateFrequency>
 
-        {{- $paginator := .Paginate $pages -}}
-        {{- $pagerSize := $paginator.PagerSize | default 10 -}}
+        {{- $pagerSize := site.Config.Pagination.PagerSize | default 10 -}}
+        {{- $base := strings.TrimSuffix "/" site.BaseURL -}}
         {{ range $index, $page := $pages }}
         <item>
             <title>{{ $page.Title }}</title>
@@ -45,15 +45,12 @@
             <guid isPermaLink="false">{{ $page.File.Path }}</guid>
             <dc:creator>{{ "Chris Wiegman" | htmlEscape }}</dc:creator>
             <pubDate>{{ $page.Date.Format "Mon, 02 Jan 2006 15:04:05 -0700" | safeHTML }}</pubDate>
-            {{ with $page.Site.Author.email }}<author>{{.}}{{ with $.Site.Author.name }} ({{.}}){{end}}</author>{{end}}
-
             {{- with $page.Summary -}}
                 <description>{{ . | plainify | htmlEscape }}</description>
             {{- else -}}
                 <description/>
             {{- end -}}
 
-            {{- $base := strings.TrimSuffix "/" $page.Site.BaseURL -}}
             {{- $html := $page.Content -}}
             {{- $html = replaceRE `href="(/[^"]*)"` (printf `href="%s$1"` $base) $html -}}
             {{- $html = replaceRE `src="(/[^"]*)"`  (printf `src="%s$1"`  $base) $html -}}
