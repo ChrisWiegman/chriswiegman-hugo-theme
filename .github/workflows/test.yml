@@ -15,7 +15,7 @@ jobs:
 
         steps:
             - name: Checkout
-              uses: actions/checkout@v4
+              uses: actions/checkout@v6
 
             - name: Setup Hugo
               uses: peaceiris/actions-hugo@v3
@@ -24,7 +24,7 @@ jobs:
                   extended: true
 
             - name: Cache Hugo resources
-              uses: actions/cache@v4
+              uses: actions/cache@v5
               with:
                   path: |
                       dev/resources
@@ -36,7 +36,7 @@ jobs:
               run: mkdir -p .hugo_cache
 
             - name: Cache Hugo cacheDir
-              uses: actions/cache@v4
+              uses: actions/cache@v5
               with:
                   path: |
                       .hugo_cache
@@ -45,7 +45,7 @@ jobs:
                       ${{ runner.os }}-hugo-cachedir-
 
             - name: Set up Node (with npm cache)
-              uses: actions/setup-node@v4
+              uses: actions/setup-node@v6
               with:
                   node-version: "lts/*"
                   cache: "npm"
@@ -57,7 +57,7 @@ jobs:
               run: mkdir -p ~/.cache/ms-playwright
 
             - name: Cache Playwright browsers
-              uses: actions/cache@v4
+              uses: actions/cache@v5
               with:
                   path: ~/.cache/ms-playwright
                   key: ${{ runner.os }}-playwright-${{ hashFiles('package-lock.json') }}
@@ -74,7 +74,7 @@ jobs:
 
             - name: Upload Playwright artifacts on failure
               if: failure()
-              uses: actions/upload-artifact@v4
+              uses: actions/upload-artifact@v6
               with:
                   name: playwright-artifacts
                   path: |
