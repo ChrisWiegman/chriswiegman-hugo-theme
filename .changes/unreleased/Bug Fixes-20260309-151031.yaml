@@ -1,0 +1,3 @@
+kind: Bug Fixes
+body: Fix unclosed span tag in 404.html
+time: 2026-03-09T15:10:31.28052-05:00
