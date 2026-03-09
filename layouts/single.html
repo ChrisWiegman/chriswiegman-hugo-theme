@@ -23,16 +23,16 @@
             {{- with $featured_image := index .Params.images 0 -}}
             {{- $image := resources.Get $featured_image -}}
             {{- with $image -}}
-            {{- $imgSrcSet := slice -}}
+            {{- $webpSrcSet := slice -}}
             {{- with $widths := site.Params.imageSizes -}}
             {{- range $widths -}}
-            {{- $srcUrl := (printf "%gx" . | $image.Resize).RelPermalink -}}
-            {{- $imgSrcSet = $imgSrcSet | append (printf "%s %gw" $srcUrl .) -}}
+            {{- $webpUrl := ($image.Resize (printf "%gx webp" .)).RelPermalink -}}
+            {{- $webpSrcSet = $webpSrcSet | append (printf "%s %gw" $webpUrl .) -}}
             {{- end -}}
-            {{- $imgSrcSet = (delimit $imgSrcSet ",") -}}
+            {{- $webpSrcSet = (delimit $webpSrcSet ",") -}}
             {{- end -}}
             <figure>
-                <img width="{{ $image.Width }}" height="{{ $image.Height }}" src="{{ $image.RelPermalink }}" alt="{{ $.Title }}" decoding="async" fetchpriority="high"{{ if $imgSrcSet }} srcset="{{ $imgSrcSet }}" sizes="{{ site.Params.imageSizeString }}"{{ end }} />
+                <img width="{{ $image.Width }}" height="{{ $image.Height }}" src="{{ $image.RelPermalink }}" alt="{{ $.Title }}" decoding="async" fetchpriority="high"{{ if $webpSrcSet }} srcset="{{ $webpSrcSet }}" sizes="{{ site.Params.imageSizeString }}"{{ end }} />
             </figure>
             {{- end -}}
             {{- end -}}
