@@ -9,8 +9,6 @@
 
         {{ partial "form.html" . }}
 
-        {{ partial "filter.html" . }}
-
         <div class="content e-content" itemprop="articleBody"> <!-- Group by year. -->
             {{- range $pages.GroupByDate "2006" }}
             <div class="posts-group">

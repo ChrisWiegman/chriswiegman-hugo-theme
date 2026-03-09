@@ -1,3 +1,18 @@
+.skip-link {
+  position: absolute;
+  top: -100%;
+  left: 0;
+  background: $navbar;
+  color: $text-bright;
+  padding: 0.5rem 1rem;
+  z-index: 9999;
+  text-decoration: none;
+
+  &:focus {
+    top: 0;
+  }
+}
+
 body {
   -webkit-font-smoothing: antialiased;
   margin: 0;
@@ -8,7 +23,9 @@ body {
   background: $background;
 }
 
-a {
+header a,
+footer a,
+main a {
   text-decoration: none;
 }
 

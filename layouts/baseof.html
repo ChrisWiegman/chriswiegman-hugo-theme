@@ -1,15 +1,15 @@
 <!DOCTYPE html>
 <html lang="{{ or site.Language.LanguageCode }}" dir="{{ or site.Language.LanguageDirection `ltr` }}">
-{{- $ := .Content -}}
 <head>
     {{ partial "head.html" . }}
 </head>
 
 <body class="{{ .Kind }}">
+    <a class="skip-link" href="#main">Skip to main content</a>
     <header>
         {{ partial "header.html" . }}
     </header>
-    <main>
+    <main id="main">
         {{ block "main" . }}{{ end }}
     </main>
     <footer>
