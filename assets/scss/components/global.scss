@@ -29,6 +29,16 @@ main a {
   text-decoration: none;
 }
 
+a.post.post--draft {
+  border: 1px dashed $primary;
+  border-radius: 8px;
+  background: rgba(200, 128, 74, 0.08);
+
+  .post-title {
+    color: $primary;
+  }
+}
+
 a.post {
   gap: 1rem;
   align-items: center;
@@ -41,6 +51,7 @@ a.post {
   color: $text;
 
   &:hover {
+    border-color: $border-light;
     border-radius: 8px;
     background: $dark-opacity;
     color: $text-bright;
@@ -135,6 +146,7 @@ header {
   left: 0;
   width: 100%;
   background: $navbar;
+  border-bottom: 1px solid $border;
   height: 60px;
   z-index: 2000;
 
@@ -187,13 +199,12 @@ main {
   article,
   .prevnext {
     a {
-      border-bottom: 2px solid $primary;
+      border-bottom: 1px solid $link;
       color: $link;
 
       &:hover {
-        background: $primary;
-        border-radius: 5px;
-        color: $reverse;
+        color: $primary;
+        border-bottom-color: $primary;
       }
     }
 
@@ -235,7 +246,7 @@ main {
         font-size: 1rem;
 
         &:hover {
-          color: $reverse;
+          color: $primary;
         }
       }
     }
@@ -246,6 +257,7 @@ footer {
   border-bottom: none;
   width: 100%;
   background: $navbar;
+  border-top: 1px solid $border;
   padding: 1rem 0;
 
   .content {

@@ -16,7 +16,7 @@
         }
 
         .summary-card {
-            border: 1px solid rgba(255, 255, 255, 0.12);
+            border: 1px solid $border-light;
             border-radius: 10px;
             padding: 0.8rem 0.9rem;
             background: $dark-opacity;
@@ -72,7 +72,7 @@
             letter-spacing: 0.06em;
             text-transform: uppercase;
 
-            border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+            border-bottom: 1px solid $border-light;
 
             // Plain label for Links (not interactive)
             .book-links-header {
@@ -111,7 +111,7 @@
                 }
 
                 &:focus-visible {
-                    outline: 2px solid rgba(255, 255, 255, 0.4);
+                    outline: 2px solid $link;
                     outline-offset: 2px;
                     border-radius: 2px;
                 }

@@ -25,16 +25,15 @@ main {
         a {
           border: 1px solid $border-light;
           border-radius: 8px;
-          color: $text-bright;
+          color: $text;
           display: inline-block;
-          font-size: 0.9rem;
+          font-size: 0.85rem;
           line-height: normal;
-          padding: 0.4rem 0.6rem;
+          padding: 0.3rem 0.6rem;
           vertical-align: middle;
         }
 
         a:hover {
-          background: $reverse;
           border-color: $primary;
           color: $primary;
         }
@@ -58,7 +57,7 @@ main {
       }
 
       .highlight {
-        background-color: #282828;
+        background-color: $background-code;
 
         pre {
           width: 95%;

@@ -1,22 +1,22 @@
 {{ define "main" }}
 {{- $showPostMeta := or (eq .Section "posts") (and (eq .Section "drafts") hugo.IsDevelopment) -}}
 {{- $isBlogPost := or (eq .Section "posts") (eq .Section "drafts") -}}
-<article class="h-entry"{{ if $isBlogPost }} itemscope="" itemtype="http://schema.org/BlogPosting"{{ end }}>
+<article class="h-entry"{{ if $isBlogPost }} itemscope itemtype="http://schema.org/BlogPosting"{{ end }}>
     <div class="container">
         <div class="content-header">
             <h1 class="post-title" itemprop="name headline">{{ if and (eq .Section "drafts") hugo.IsDevelopment }}[DRAFT] {{ end }}{{ .Title }}</h1>
-            {{if $showPostMeta }}
+            {{- if $showPostMeta }}
             <div class="meta">
                 {{ if .Date.IsZero }}<span>Unpublished Draft</span>{{ else }}<time class="dt-published">{{ dateFormat "Monday, 2 January, 2006" .Date }}</time>{{ end }} | <span class="reading-time">{{ .ReadingTime }} min read</span>
             </div>
-            {{ end }}
-            {{if $showPostMeta }}{{if .Params.tags }}
+            {{- if .Params.tags }}
             <div class="tags">
                 {{ range .Params.tags }}
                 <a href="{{ "/tags/" | relLangURL }}{{ . | urlize }}" title="{{ . }}">{{ . }}</a>
                 {{ end }}
             </div>
-            {{ end }}{{ end }}
+            {{ end }}
+            {{ end }}
         </div>
 
         <div class="content e-content" itemprop="articleBody">

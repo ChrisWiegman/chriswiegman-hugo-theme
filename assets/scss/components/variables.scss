@@ -1,16 +1,16 @@
-$primary: #fdb54a;
-$secondary: #ffd479;
-$background: #2E383C;
-$background-code: #2b303b;
-$border: #111;
-$border-light: #444;
-$dark-opacity: rgba(0, 0, 0, 0.2);
-$link: #fff;
-$navbar: #181818;
-$navbar-hover: #272727;
-$reverse: $border;
-$text: #D3C6AA;
-$text-bright: #fff;
-$text-heading: $primary;
+$primary:         #c8804a;  // warm terracotta
+$secondary:       #a88060;  // muted sienna for h3
+$background:      #1a1816;  // warm near-black
+$background-code: #282828;  // gruvbox dark (matches syntax highlighter)
+$border:          #2e2b28;
+$border-light:    #4a4540;
+$dark-opacity:    rgba(255, 255, 255, 0.05);
+$link:            #d4a87a;  // warm amber
+$navbar:          #252220;
+$navbar-hover:    #332e2b;
+$reverse:         $background;
+$text:            #cec6bc;  // warm stone
+$text-bright:     #ede6dd;  // warm near-white
+$text-heading:    $primary;
 
 $font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
