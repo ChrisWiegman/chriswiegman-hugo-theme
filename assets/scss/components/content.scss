@@ -58,11 +58,10 @@ main {
 
       .highlight {
         background-color: $background-code;
+        overflow-x: auto;
 
         pre {
-          width: 95%;
           margin: 1rem;
-          overflow-x: auto;
         }
       }
 
