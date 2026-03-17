@@ -87,13 +87,38 @@ test("clicking active filter toggles it off", async ({ page }) => {
   await expect(page.locator("[data-filter-clear]")).toHaveAttribute("hidden", "");
 });
 
-test("summary card shows correct year counts", async ({ page }) => {
+test("summary cards show correct year and author counts", async ({ page }) => {
   await page.goto("/library/");
 
   await expect(page.locator(".library-summary")).toBeVisible();
+
+  // Year summary
   await expect(page.locator(".summary-card[data-filter-year='2024']")).toBeVisible();
   await expect(page.locator(".summary-card[data-filter-year='2024'] .summary-count")).toContainText("3");
+  await expect(page.locator(".summary-card[data-filter-year='2025'] .summary-count")).toContainText("1");
   await expect(page.locator(".summary-card[data-filter-year='2026'] .summary-count")).toContainText("1");
+
+  // Author summary
+  await expect(page.locator(".summary-grid-authors")).toBeVisible();
+  await expect(page.locator(".summary-card[data-filter-author='elliot ackerman']")).toBeVisible();
+  await expect(page.locator(".summary-card[data-filter-author='elliot ackerman'] .summary-count")).toContainText("3");
+});
+
+test("author summary card filters books", async ({ page }) => {
+  await page.goto("/library/");
+
+  const authorCard = page.locator(".summary-card[data-filter-author='elliot ackerman']");
+  await expect(authorCard).toBeVisible();
+  await authorCard.click();
+
+  await expect(authorCard).toHaveAttribute("aria-pressed", "true");
+
+  const visibleBooks = page.locator(".books .book:visible");
+  await expect(visibleBooks).toHaveCount(3);
+
+  await expect(page.locator(".book-count")).toContainText("3");
+  await expect(page.locator("[data-filter-label]")).toContainText("by Elliot Ackerman");
+  await expect(page.locator("[data-filter-clear]")).toBeVisible();
 });
 
 test("sitemap uses latest finished date for library", async ({ request }) => {
