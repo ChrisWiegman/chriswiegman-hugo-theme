@@ -16,10 +16,39 @@
         }
 
         .summary-card {
+            all: unset;
+            display: block;
+            box-sizing: border-box;
             border: 1px solid $border-light;
             border-radius: 10px;
             padding: 0.8rem 0.9rem;
             background: $dark-opacity;
+            cursor: pointer;
+            text-align: left;
+            transition: border-color 120ms ease, background 120ms ease;
+
+            &:hover {
+                border-color: $link;
+                color: $text-bright;
+            }
+
+            &[aria-pressed="true"] {
+                border-color: $link;
+                background: $link;
+                color: $background;
+
+                .summary-year,
+                .summary-count,
+                .summary-label {
+                    color: $background;
+                    opacity: 1;
+                }
+            }
+
+            &:focus-visible {
+                outline: 2px solid $link;
+                outline-offset: 2px;
+            }
         }
 
         .summary-year {
@@ -38,6 +67,23 @@
             opacity: 0.75;
             font-size: 0.85rem;
             margin-top: 0.25rem;
+        }
+    }
+
+    .filter-clear {
+        all: unset;
+        font-size: 1rem;
+        color: $link;
+        cursor: pointer;
+
+        &:hover {
+            color: $primary;
+        }
+
+        &:focus-visible {
+            outline: 2px solid $link;
+            outline-offset: 2px;
+            border-radius: 2px;
         }
     }
 
@@ -118,6 +164,10 @@
             }
         }
 
+        .book[hidden] {
+            display: none !important;
+        }
+
         .book {
             grid-template-rows: auto auto;
             gap: 0.25rem 1rem;
@@ -154,6 +204,28 @@
             .book-author {
                 grid-column: 2;
                 grid-row: 2;
+                background: none;
+                border: none;
+                padding: 0;
+                font: inherit;
+                color: inherit;
+                text-align: left;
+                cursor: pointer;
+
+                &:hover {
+                    color: $text-bright;
+                }
+
+                &[aria-pressed="true"] {
+                    color: $link;
+                    font-weight: 600;
+                }
+
+                &:focus-visible {
+                    outline: 2px solid $link;
+                    outline-offset: 2px;
+                    border-radius: 2px;
+                }
             }
 
             .book-rating {
@@ -161,6 +233,26 @@
                 grid-row: 2;
                 white-space: nowrap;
                 letter-spacing: 0.1em;
+                background: none;
+                border: none;
+                padding: 0;
+                font: inherit;
+                color: inherit;
+                cursor: pointer;
+
+                &:hover {
+                    color: $text-bright;
+                }
+
+                &[aria-pressed="true"] {
+                    color: $link;
+                }
+
+                &:focus-visible {
+                    outline: 2px solid $link;
+                    outline-offset: 2px;
+                    border-radius: 2px;
+                }
             }
 
             .book-links {
@@ -327,6 +419,13 @@
                     min-width: 0;
                     white-space: normal;
                     overflow-wrap: anywhere;
+                    background: none;
+                    border: none;
+                    padding: 0;
+                    font: inherit;
+                    color: inherit;
+                    text-align: left;
+                    cursor: pointer;
                 }
 
                 .book-rating {
@@ -334,6 +433,12 @@
                     grid-row: 2;
                     justify-self: end;
                     white-space: nowrap;
+                    background: none;
+                    border: none;
+                    padding: 0;
+                    font: inherit;
+                    color: inherit;
+                    cursor: pointer;
                 }
 
                 .book-links {

@@ -54,10 +54,8 @@
     const updateHint = (key, dir) => {
         if (!hint) return;
         const dirText = dir === 1 ? "ascending" : "descending";
-        const prettyDir = dir === 1 ? "oldest first" : "newest first";
         const name = labelFor(key);
 
-        // Special-case wording for numeric sorts
         const extra = (key === "finished")
             ? (dir === -1 ? "newest first" : "oldest first")
             : (key === "rating")
@@ -97,7 +95,7 @@
         saveState(key, dir);
     };
 
-    // Click handlers
+    // Sort click handlers
     let activeKey = null;
     let dir = 1;
 
@@ -111,6 +109,125 @@
             applySort(activeKey, dir);
         });
     });
+
+    // Unified filter
+    let activeFilter = null; // { type: 'year' | 'author' | 'rating', value: string }
+    const countEl = document.querySelector(".book-count");
+    const totalCount = getRows().length;
+    const clearBtn = document.querySelector("[data-filter-clear]");
+
+    const yearButtons = Array.from(document.querySelectorAll(".summary-card[data-filter-year]"));
+    const authorButtons = Array.from(root.querySelectorAll("[data-filter-author]"));
+    const ratingButtons = Array.from(root.querySelectorAll("[data-filter-rating]"));
+    const filterLabel = document.querySelector("[data-filter-label]");
+
+    const syncFilterUI = () => {
+        yearButtons.forEach(b =>
+            b.setAttribute("aria-pressed",
+                activeFilter?.type === "year" && b.dataset.filterYear === activeFilter.value ? "true" : "false"
+            )
+        );
+        authorButtons.forEach(b =>
+            b.setAttribute("aria-pressed",
+                activeFilter?.type === "author" && b.dataset.filterAuthor === activeFilter.value ? "true" : "false"
+            )
+        );
+        ratingButtons.forEach(b =>
+            b.setAttribute("aria-pressed",
+                activeFilter?.type === "rating" && b.dataset.filterRating === activeFilter.value ? "true" : "false"
+            )
+        );
+
+        if (countEl?.previousSibling?.nodeType === Node.TEXT_NODE) {
+            countEl.previousSibling.textContent = activeFilter ? "You're viewing " : "You're viewing all ";
+        }
+
+        if (filterLabel) {
+            if (!activeFilter) {
+                filterLabel.hidden = true;
+                filterLabel.textContent = "";
+            } else {
+                let label = "";
+                switch (activeFilter.type) {
+                    case "year":
+                        label = ` read in ${activeFilter.value}`;
+                        break;
+                    case "author": {
+                        const btn = authorButtons.find(b => b.dataset.filterAuthor === activeFilter.value);
+                        label = btn ? ` by ${btn.textContent.trim()}` : "";
+                        break;
+                    }
+                    case "rating": {
+                        const btn = ratingButtons.find(b => b.dataset.filterRating === activeFilter.value);
+                        label = btn ? ` rated ${btn.textContent.trim()}` : "";
+                        break;
+                    }
+                }
+                filterLabel.textContent = label;
+                filterLabel.hidden = false;
+            }
+        }
+
+        if (clearBtn) clearBtn.hidden = !activeFilter;
+    };
+
+    const applyFilter = () => {
+        getRows().forEach(row => {
+            if (!activeFilter) {
+                row.hidden = false;
+                return;
+            }
+            let visible;
+            switch (activeFilter.type) {
+                case "year":
+                    visible = (row.dataset.years || "").split(" ").includes(activeFilter.value);
+                    break;
+                case "author":
+                    visible = row.dataset.author === activeFilter.value;
+                    break;
+                case "rating":
+                    visible = row.dataset.rating === activeFilter.value;
+                    break;
+                default:
+                    visible = true;
+            }
+            row.hidden = !visible;
+        });
+
+        if (countEl) {
+            const count = activeFilter
+                ? getRows().filter(r => !r.hidden).length
+                : totalCount;
+            countEl.textContent = count;
+            countEl.nextSibling.textContent = count === 1 ? " book" : " books";
+        }
+    };
+
+    const setFilter = (type, value) => {
+        activeFilter = (activeFilter?.type === type && activeFilter?.value === value)
+            ? null
+            : { type, value };
+        syncFilterUI();
+        applyFilter();
+    };
+
+    yearButtons.forEach(btn =>
+        btn.addEventListener("click", () => setFilter("year", btn.dataset.filterYear))
+    );
+    authorButtons.forEach(btn =>
+        btn.addEventListener("click", () => setFilter("author", btn.dataset.filterAuthor))
+    );
+    ratingButtons.forEach(btn =>
+        btn.addEventListener("click", () => setFilter("rating", btn.dataset.filterRating))
+    );
+
+    if (clearBtn) {
+        clearBtn.addEventListener("click", () => {
+            activeFilter = null;
+            syncFilterUI();
+            applyFilter();
+        });
+    }
 
     // Default sort: Finished (descending), but restore saved sort if present
     const saved = loadState();

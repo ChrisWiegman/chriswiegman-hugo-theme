@@ -62,7 +62,7 @@
 
     <div class="content-header">
       <h1 class="title post-title p-name" itemprop="name headline">My Library</h1>
-      <p class="description">My library currently contains <span class="book-count">{{ len $rows }}</span> books.</p>
+      <p class="description">You're viewing all <span class="book-count">{{ len $rows }}</span> {{ if eq (len $rows) 1 }}book{{ else }}books{{ end }}<span data-filter-label hidden></span>.</p>
     </div>
 
     <div class="content e-content" itemprop="articleBody">
@@ -92,17 +92,17 @@
         <h2 class="main-header">Reading Summary</h2>
         <div class="summary-grid">
           {{- range $yearRows -}}
-          <div class="summary-card">
+          <button type="button" class="summary-card" data-filter-year="{{ .year }}" aria-pressed="false">
             <div class="summary-year">{{ .year }}</div>
             <div class="summary-count">{{ .count }}</div>
             <div class="summary-label">books</div>
-          </div>
+          </button>
           {{- end -}}
         </div>
       </section>
       {{- end -}}
 
-      <h2 class="main-header">All Books</h2>
+      <h2 class="main-header"><span>All Books</span> <button type="button" class="filter-clear" data-filter-clear hidden>View All</button></h2>
 
       <div class="books" data-library-table>
         <div class="book-header">
@@ -117,12 +117,14 @@
         {{- $row := . -}}
         {{- $book := $row.page -}}
 
+        {{- $years := slice -}}
+        {{- range $row.finishedRaw -}}{{- $years = $years | append ((time .).Format "2006") -}}{{- end -}}
         <div class="book" data-title="{{ $row.titleKey }}" data-author="{{ $row.authorKey }}"
-          data-rating="{{ $row.rating }}" data-finished="{{ $row.finishedUnix }}">
+          data-rating="{{ $row.rating }}" data-finished="{{ $row.finishedUnix }}" data-years="{{ delimit $years " " }}">
           <h3 class="book-title">{{ $row.title }}</h3>
-          <span class="book-meta book-author">{{ $row.author }}</span>
+          <button type="button" class="book-meta book-author" data-filter-author="{{ $row.authorKey }}">{{ $row.author }}</button>
 
-          {{ partial "books/rating.html" (dict "rating" $row.rating) }}
+          <button type="button" class="book-meta book-rating" data-filter-rating="{{ $row.rating }}" aria-label="Rating: {{ $row.rating }} out of 5">{{- range seq 1 5 -}}{{- if le . $row.rating -}}★{{- else -}}☆{{- end -}}{{- end -}}</button>
           {{ partial "books/links.html" $book }}
 
           <span class="book-meta book-date">
