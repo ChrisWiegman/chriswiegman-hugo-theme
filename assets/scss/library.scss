@@ -8,11 +8,28 @@
     .library-summary {
         margin: 1.5rem 0 2rem 0;
 
+        .summary-section-label {
+            font-size: 0.8rem;
+            font-weight: 600;
+            letter-spacing: 0.07em;
+            text-transform: uppercase;
+            opacity: 0.6;
+            margin: 1.2rem 0 0.5rem 0;
+
+            &:first-of-type {
+                margin-top: 0.4rem;
+            }
+        }
+
         .summary-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
             gap: 0.8rem;
-            margin-top: 0.6rem;
+            margin-top: 0.4rem;
+        }
+
+        .summary-grid-authors {
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
         }
 
         .summary-card {
@@ -38,6 +55,8 @@
                 color: $background;
 
                 .summary-year,
+                .summary-name,
+                .summary-stars,
                 .summary-count,
                 .summary-label {
                     color: $background;
@@ -51,10 +70,22 @@
             }
         }
 
-        .summary-year {
+        .summary-year,
+        .summary-name,
+        .summary-stars {
             font-weight: 600;
             font-size: 1rem;
             margin-bottom: 0.25rem;
+        }
+
+        .summary-name {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .summary-stars {
+            letter-spacing: 0.05em;
         }
 
         .summary-count {
@@ -74,6 +105,7 @@
         all: unset;
         font-size: 1rem;
         color: $link;
+        text-decoration: underline;
         cursor: pointer;
 
         &:hover {
@@ -303,6 +335,10 @@
             .summary-grid {
                 grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
                 gap: 0.6rem;
+            }
+
+            .summary-grid-authors {
+                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
             }
 
             .summary-card {

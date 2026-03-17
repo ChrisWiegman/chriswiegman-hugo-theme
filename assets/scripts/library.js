@@ -117,8 +117,8 @@
     const clearBtn = document.querySelector("[data-filter-clear]");
 
     const yearButtons = Array.from(document.querySelectorAll(".summary-card[data-filter-year]"));
-    const authorButtons = Array.from(root.querySelectorAll("[data-filter-author]"));
-    const ratingButtons = Array.from(root.querySelectorAll("[data-filter-rating]"));
+    const authorButtons = Array.from(document.querySelectorAll("[data-filter-author]"));
+    const ratingButtons = Array.from(document.querySelectorAll("[data-filter-rating]"));
     const filterLabel = document.querySelector("[data-filter-label]");
 
     const syncFilterUI = () => {
@@ -153,13 +153,13 @@
                         label = ` read in ${activeFilter.value}`;
                         break;
                     case "author": {
-                        const btn = authorButtons.find(b => b.dataset.filterAuthor === activeFilter.value);
-                        label = btn ? ` by ${btn.textContent.trim()}` : "";
+                        const rowBtn = document.querySelector(`.book-author[data-filter-author="${CSS.escape(activeFilter.value)}"]`);
+                        label = rowBtn ? ` by ${rowBtn.textContent.trim()}` : "";
                         break;
                     }
                     case "rating": {
-                        const btn = ratingButtons.find(b => b.dataset.filterRating === activeFilter.value);
-                        label = btn ? ` rated ${btn.textContent.trim()}` : "";
+                        const n = Number(activeFilter.value);
+                        label = ` rated ${"★".repeat(n)}${"☆".repeat(5 - n)}`;
                         break;
                     }
                 }

@@ -62,13 +62,14 @@
 
     <div class="content-header">
       <h1 class="title post-title p-name" itemprop="name headline">My Library</h1>
-      <p class="description">You're viewing all <span class="book-count">{{ len $rows }}</span> {{ if eq (len $rows) 1 }}book{{ else }}books{{ end }}<span data-filter-label hidden></span>.</p>
+      <p class="description">You're viewing all <span class="book-count">{{ len $rows }}</span> {{ if eq (len $rows) 1
+        }}book{{ else }}books{{ end }}<span data-filter-label hidden></span>.</p>
     </div>
 
     <div class="content e-content" itemprop="articleBody">
       {{ .Content }}
 
-      {{/* ---- Summary: books read by year (uses most recent finished date) ---- */}}
+      {{/* ---- Summary: books read by year ---- */}}
       {{- $yearCounts := dict -}}
       {{- range $rows -}}
       {{- range $raw := .finishedRaw -}}
@@ -87,9 +88,47 @@
       {{- end -}}
       {{- $yearRows = sort $yearRows "year" "desc" -}}
 
+      {{/* ---- Summary: top 10 authors ---- */}}
+      {{- $authorCounts := dict -}}
+      {{- $authorNames := dict -}}
+      {{- range $rows -}}
+      {{- if ne .author "" -}}
+      {{- $key := .authorKey -}}
+      {{- $current := (index $authorCounts $key | default 0) -}}
+      {{- $authorCounts = merge $authorCounts (dict $key (add $current 1)) -}}
+      {{- $authorNames = merge $authorNames (dict $key .author) -}}
+      {{- end -}}
+      {{- end -}}
+
+      {{- $authorRows := slice -}}
+      {{- range $key, $count := $authorCounts -}}
+      {{- $name := index $authorNames $key -}}
+      {{- $authorRows = $authorRows | append (dict "key" $key "name" $name "count" $count) -}}
+      {{- end -}}
+      {{- $authorRows = sort $authorRows "count" "desc" -}}
+      {{- $topAuthors := first 12 $authorRows -}}
+
+      {{/* ---- Summary: books by rating ---- */}}
+      {{- $ratingCounts := dict -}}
+      {{- range $rows -}}
+      {{- if gt .rating 0 -}}
+      {{- $r := string .rating -}}
+      {{- $current := (index $ratingCounts $r | default 0) -}}
+      {{- $ratingCounts = merge $ratingCounts (dict $r (add $current 1)) -}}
+      {{- end -}}
+      {{- end -}}
+
+      {{- $ratingRows := slice -}}
+      {{- range $r, $count := $ratingCounts -}}
+      {{- $ratingRows = $ratingRows | append (dict "rating" $r "ratingInt" (int $r) "count" $count) -}}
+      {{- end -}}
+      {{- $ratingRows = sort $ratingRows "rating" "desc" -}}
+
       {{- if gt (len $yearRows) 0 -}}
       <section class="library-summary" aria-label="Reading summary">
         <h2 class="main-header">Reading Summary</h2>
+
+        <h3 class="summary-section-label">By Year</h3>
         <div class="summary-grid">
           {{- range $yearRows -}}
           <button type="button" class="summary-card" data-filter-year="{{ .year }}" aria-pressed="false">
@@ -99,10 +138,39 @@
           </button>
           {{- end -}}
         </div>
+
+        {{- if gt (len $topAuthors) 0 -}}
+        <h3 class="summary-section-label">Top Authors</h3>
+        <div class="summary-grid summary-grid-authors">
+          {{- range $topAuthors -}}
+          <button type="button" class="summary-card" data-filter-author="{{ .key }}" aria-pressed="false">
+            <div class="summary-name">{{ .name }}</div>
+            <div class="summary-count">{{ .count }}</div>
+            <div class="summary-label">books</div>
+          </button>
+          {{- end -}}
+        </div>
+        {{- end -}}
+
+        {{- if gt (len $ratingRows) 0 -}}
+        <h3 class="summary-section-label">By Rating</h3>
+        <div class="summary-grid">
+          {{- range $ratingRows -}}
+          {{- $ri := .ratingInt -}}
+          <button type="button" class="summary-card" data-filter-rating="{{ .rating }}" aria-pressed="false">
+            <div class="summary-stars">{{- range seq 1 5 -}}{{- if le . $ri -}}★{{- else -}}☆{{- end -}}{{- end -}}
+            </div>
+            <div class="summary-count">{{ .count }}</div>
+            <div class="summary-label">books</div>
+          </button>
+          {{- end -}}
+        </div>
+        {{- end -}}
       </section>
       {{- end -}}
 
-      <h2 class="main-header"><span>All Books</span> <button type="button" class="filter-clear" data-filter-clear hidden>View All</button></h2>
+      <h2 class="main-header"><span>All Books</span> <button type="button" class="filter-clear" data-filter-clear
+          hidden>View All</button></h2>
 
       <div class="books" data-library-table>
         <div class="book-header">
@@ -122,9 +190,12 @@
         <div class="book" data-title="{{ $row.titleKey }}" data-author="{{ $row.authorKey }}"
           data-rating="{{ $row.rating }}" data-finished="{{ $row.finishedUnix }}" data-years="{{ delimit $years " " }}">
           <h3 class="book-title">{{ $row.title }}</h3>
-          <button type="button" class="book-meta book-author" data-filter-author="{{ $row.authorKey }}">{{ $row.author }}</button>
+          <button type="button" class="book-meta book-author" data-filter-author="{{ $row.authorKey }}">{{ $row.author
+            }}</button>
 
-          <button type="button" class="book-meta book-rating" data-filter-rating="{{ $row.rating }}" aria-label="Rating: {{ $row.rating }} out of 5">{{- range seq 1 5 -}}{{- if le . $row.rating -}}★{{- else -}}☆{{- end -}}{{- end -}}</button>
+          <button type="button" class="book-meta book-rating" data-filter-rating="{{ $row.rating }}"
+            aria-label="Rating: {{ $row.rating }} out of 5">{{- range seq 1 5 -}}{{- if le . $row.rating -}}★{{- else
+            -}}☆{{- end -}}{{- end -}}</button>
           {{ partial "books/links.html" $book }}
 
           <span class="book-meta book-date">
