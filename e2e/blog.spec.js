@@ -10,6 +10,10 @@ test("blog list and post page render", async ({ page }) => {
   await expect(page.locator("h1.post-title")).toContainText(
     "Lorem Ipsum Post 1",
   );
+
+  const time = page.locator("time.dt-published");
+  await expect(time).toHaveAttribute("datetime", /^\d{4}-\d{2}-\d{2}T/);
+  await expect(time).toHaveAttribute("itemprop", "datePublished");
 });
 
 test("sitemap uses latest post date for blog page", async ({ request }) => {

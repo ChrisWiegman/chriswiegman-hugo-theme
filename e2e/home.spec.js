@@ -11,6 +11,13 @@ test("homepage renders and navigation is present", async ({ page }) => {
   await expect(page.locator("h2.main-header")).toContainText("Recent Posts");
 });
 
+test("theme-color meta tag is present", async ({ page }) => {
+  await page.goto("/");
+
+  const themeColor = page.locator("meta[name='theme-color']");
+  await expect(themeColor).toHaveAttribute("content", "#1a1816");
+});
+
 test("404 page renders", async ({ page }) => {
   const response = await page.goto("/this-does-not-exist/");
 
