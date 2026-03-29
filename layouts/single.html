@@ -7,7 +7,7 @@
             <h1 class="post-title" itemprop="name headline">{{ if and (eq .Section "drafts") hugo.IsDevelopment }}[DRAFT] {{ end }}{{ .Title }}</h1>
             {{- if $showPostMeta }}
             <div class="meta">
-                {{ if .Date.IsZero }}<span>Unpublished Draft</span>{{ else }}<time class="dt-published">{{ dateFormat "Monday, 2 January, 2006" .Date }}</time>{{ end }} | <span class="reading-time">{{ .ReadingTime }} min read</span>
+                {{ if .Date.IsZero }}<span>Unpublished Draft</span>{{ else }}<time class="dt-published" itemprop="datePublished" datetime="{{ .Date.Format "2006-01-02T15:04:05Z07:00" }}">{{ dateFormat "Monday, 2 January, 2006" .Date }}</time>{{ end }} | <span class="reading-time">{{ .ReadingTime }} min read</span>
             </div>
             {{- if .Params.tags }}
             <div class="tags">
