@@ -1,3 +1,0 @@
-kind: Bug Fixes
-body: Remove fetchpriority=high from content images in render-image.html; reserved for LCP elements only
-time: 2026-03-29T09:18:12.097999-05:00

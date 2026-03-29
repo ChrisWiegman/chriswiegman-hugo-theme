@@ -1,3 +1,0 @@
-kind: Bug Fixes
-body: 'Remove deprecated call to .Site.AllPages '
-time: 2026-03-29T09:04:42.319378-05:00
