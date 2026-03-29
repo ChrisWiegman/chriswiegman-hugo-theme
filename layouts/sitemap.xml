@@ -1,11 +1,11 @@
-{{- $pages := where .Site.AllPages "Sitemap.Disable" "ne" true -}}
-{{- $notesPages := where (where site.AllPages "Section" "notes") "Kind" "page" -}}
+{{- $pages := where site.Pages "Sitemap.Disable" "ne" true -}}
+{{- $notesPages := where (where site.Pages "Section" "notes") "Kind" "page" -}}
 {{- $postsPages := where site.RegularPages "Section" "posts" -}}
 {{- $booksPages := slice -}}
 {{- with site.GetPage "books" -}}
     {{- $booksPages = .Resources.ByType "page" -}}
 {{- else -}}
-    {{- range site.AllPages -}}
+    {{- range site.Pages -}}
         {{- if and .File (eq .Kind "page") (strings.HasPrefix .File.Dir "books/") -}}
             {{- $booksPages = $booksPages | append . -}}
         {{- end -}}
