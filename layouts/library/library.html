@@ -94,9 +94,11 @@
       {{- range $rows -}}
       {{- if ne .author "" -}}
       {{- $key := .authorKey -}}
+      {{- $authorNames = merge $authorNames (dict $key .author) -}}
+      {{- range .finishedRaw -}}
       {{- $current := (index $authorCounts $key | default 0) -}}
       {{- $authorCounts = merge $authorCounts (dict $key (add $current 1)) -}}
-      {{- $authorNames = merge $authorNames (dict $key .author) -}}
+      {{- end -}}
       {{- end -}}
       {{- end -}}
 
@@ -113,8 +115,10 @@
       {{- range $rows -}}
       {{- if gt .rating 0 -}}
       {{- $r := string .rating -}}
+      {{- range .finishedRaw -}}
       {{- $current := (index $ratingCounts $r | default 0) -}}
       {{- $ratingCounts = merge $ratingCounts (dict $r (add $current 1)) -}}
+      {{- end -}}
       {{- end -}}
       {{- end -}}
 
