@@ -3,23 +3,23 @@
 {{- $isBlogPost := or (eq .Section "posts") (eq .Section "drafts") -}}
 <article class="h-entry"{{ if $isBlogPost }} itemscope itemtype="http://schema.org/BlogPosting"{{ end }}>
     <div class="container">
-        <div class="content-header">
+        <header class="content-header">
             <h1 class="post-title" itemprop="name headline">{{ if and (eq .Section "drafts") hugo.IsDevelopment }}[DRAFT] {{ end }}{{ .Title }}</h1>
             {{- if $showPostMeta }}
-            <div class="meta">
+            <p class="meta">
                 {{ if .Date.IsZero }}<span>Unpublished Draft</span>{{ else }}<time class="dt-published" itemprop="datePublished" datetime="{{ .Date.Format "2006-01-02T15:04:05Z07:00" }}">{{ dateFormat "Monday, 2 January, 2006" .Date }}</time>{{ end }} | <span class="reading-time">{{ .ReadingTime }} min read</span>
-            </div>
+            </p>
             {{- if .Params.tags }}
-            <div class="tags">
+            <nav class="tags" aria-label="Tags">
                 {{ range .Params.tags }}
                 <a href="{{ "/tags/" | relLangURL }}{{ . | urlize }}" title="{{ . }}">{{ . }}</a>
                 {{ end }}
-            </div>
+            </nav>
             {{ end }}
             {{ end }}
-        </div>
+        </header>
 
-        <div class="content e-content" itemprop="articleBody">
+        <section class="content e-content" itemprop="articleBody">
             {{- with $featured_image := index .Params.images 0 -}}
             {{- $image := resources.Get $featured_image -}}
             {{- with $image -}}
@@ -37,7 +37,7 @@
             {{- end -}}
             {{- end -}}
             {{ .Content}}
-        </div>
+        </section>
     </div>
     {{if eq .Section "posts"}}
     <nav class="navigation prevnext" aria-label="Posts pagination">

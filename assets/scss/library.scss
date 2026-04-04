@@ -160,13 +160,11 @@
                 cursor: default;
             }
 
-            // Only buttons are interactive
             .book-sort {
                 all: unset;
                 font: inherit;
                 color: inherit;
                 line-height: inherit;
-
                 padding: 0.2rem 0.4rem;
                 border: 1px solid transparent;
                 cursor: default;
@@ -218,9 +216,32 @@
                 color: $text-bright;
             }
 
-            .book-meta {
+            .book-author,
+            .book-rating,
+            .book-links,
+            .book-date {
                 font-size: 0.8rem;
                 font-weight: 400;
+            }
+
+            .book-author,
+            .book-rating {
+                background: none;
+                border: none;
+                color: inherit;
+                cursor: pointer;
+                font: inherit;
+                padding: 0;
+
+                &:hover {
+                    color: $text-bright;
+                }
+
+                &:focus-visible {
+                    outline: 2px solid $link;
+                    outline-offset: 2px;
+                    border-radius: 2px;
+                }
             }
 
             .book-title {
@@ -236,54 +257,22 @@
             .book-author {
                 grid-column: 2;
                 grid-row: 2;
-                background: none;
-                border: none;
-                padding: 0;
-                font: inherit;
-                color: inherit;
                 text-align: left;
-                cursor: pointer;
-
-                &:hover {
-                    color: $text-bright;
-                }
 
                 &[aria-pressed="true"] {
                     color: $link;
                     font-weight: 600;
-                }
-
-                &:focus-visible {
-                    outline: 2px solid $link;
-                    outline-offset: 2px;
-                    border-radius: 2px;
                 }
             }
 
             .book-rating {
                 grid-column: 3;
                 grid-row: 2;
-                white-space: nowrap;
                 letter-spacing: 0.1em;
-                background: none;
-                border: none;
-                padding: 0;
-                font: inherit;
-                color: inherit;
-                cursor: pointer;
-
-                &:hover {
-                    color: $text-bright;
-                }
+                white-space: nowrap;
 
                 &[aria-pressed="true"] {
                     color: $link;
-                }
-
-                &:focus-visible {
-                    outline: 2px solid $link;
-                    outline-offset: 2px;
-                    border-radius: 2px;
                 }
             }
 
@@ -453,15 +442,9 @@
                     justify-self: start;
 
                     min-width: 0;
-                    white-space: normal;
                     overflow-wrap: anywhere;
-                    background: none;
-                    border: none;
-                    padding: 0;
-                    font: inherit;
-                    color: inherit;
                     text-align: left;
-                    cursor: pointer;
+                    white-space: normal;
                 }
 
                 .book-rating {
@@ -469,12 +452,6 @@
                     grid-row: 2;
                     justify-self: end;
                     white-space: nowrap;
-                    background: none;
-                    border: none;
-                    padding: 0;
-                    font: inherit;
-                    color: inherit;
-                    cursor: pointer;
                 }
 
                 .book-links {

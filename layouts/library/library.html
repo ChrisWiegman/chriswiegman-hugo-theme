@@ -60,11 +60,11 @@
     ) -}}
     {{- end -}}
 
-    <div class="content-header">
+    <header class="content-header">
       <h1 class="title post-title p-name" itemprop="name headline">My Library</h1>
       <p class="description">You're viewing all <span class="book-count">{{ len $rows }}</span> {{ if eq (len $rows) 1
         }}book{{ else }}books{{ end }}<span data-filter-label hidden></span>.</p>
-    </div>
+    </header>
 
     <div class="content e-content" itemprop="articleBody">
       {{ .Content }}
@@ -129,7 +129,7 @@
       {{- $ratingRows = sort $ratingRows "rating" "desc" -}}
 
       {{- if gt (len $yearRows) 0 -}}
-      <section class="library-summary" aria-label="Reading summary">
+      <section class="library-summary">
         <h2 class="main-header">Reading Summary</h2>
 
         <h3 class="summary-section-label">By Year</h3>
@@ -173,7 +173,7 @@
       </section>
       {{- end -}}
 
-      <h2 class="main-header"><span>All Books</span> <button type="button" class="filter-clear" data-filter-clear
+      <h2 class="main-header">All Books <button type="button" class="filter-clear" data-filter-clear
           hidden>View All</button></h2>
 
       <div class="books" data-library-table>
@@ -194,18 +194,17 @@
         <div class="book" data-title="{{ $row.titleKey }}" data-author="{{ $row.authorKey }}"
           data-rating="{{ $row.rating }}" data-finished="{{ $row.finishedUnix }}" data-years="{{ delimit $years " " }}">
           <h3 class="book-title">{{ $row.title }}</h3>
-          <button type="button" class="book-meta book-author" data-filter-author="{{ $row.authorKey }}">{{ $row.author
-            }}</button>
+          <button type="button" class="book-author" data-filter-author="{{ $row.authorKey }}">{{ $row.author }}</button>
 
-          <button type="button" class="book-meta book-rating" data-filter-rating="{{ $row.rating }}"
+          <button type="button" class="book-rating" data-filter-rating="{{ $row.rating }}"
             aria-label="Rating: {{ $row.rating }} out of 5">{{- range seq 1 5 -}}{{- if le . $row.rating -}}★{{- else
             -}}☆{{- end -}}{{- end -}}</button>
           {{ partial "books/links.html" $book }}
 
-          <span class="book-meta book-date">
+          <span class="book-date">
             {{- if gt (len $row.finishedDisplays) 0 -}}
-            {{- range $row.finishedDisplays -}}
-            <span class="date">{{ . }}</span>
+            {{- range $index, $display := $row.finishedDisplays -}}
+            <span class="date">{{ $display }}</span>
             {{- end -}}
             {{- else -}}
             <span class="date date-empty">—</span>

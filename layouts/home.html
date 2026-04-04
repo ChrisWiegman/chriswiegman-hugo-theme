@@ -3,7 +3,7 @@
     {{ .Content }}
 
     <div class="container">
-        <h2 class="main-header"><span>Recent Posts</span> <a href="/blog">View All</a></h2>
+        <h2 class="main-header">Recent Posts <a href="/blog">View All</a></h2>
         {{- $posts := where site.RegularPages "Type" "in" site.Params.mainSections }}
         {{/* In development mode, prepend drafts to the homepage */}}
         {{- if hugo.IsDevelopment }}
@@ -11,10 +11,13 @@
             {{- range $drafts }}
             {{ partial "post-item.html" (dict "post" . "dateFormat" "2 Jan" "isDraft" true) }}
             {{- end }}
-        {{- end }}
-        {{ range $index, $post := first 10 $posts }}
-        {{ .Render "title" }}
-        {{ partial "post-item.html" (dict "post" $post "dateFormat" "2 Jan") }}
+            {{ range first 10 $posts }}
+            {{ partial "post-item.html" (dict "post" . "dateFormat" "2 Jan") }}
+            {{- end }}
+        {{- else }}
+            {{ range first 10 $posts }}
+            {{ partial "post-item.html" (dict "post" . "dateFormat" "2 Jan") }}
+            {{- end }}
         {{- end }}
     </div>
 </article>

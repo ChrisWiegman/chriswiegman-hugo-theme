@@ -29,7 +29,8 @@
 {{ $style := resources.Get "scss/main.scss" | toCSS $options | minify | fingerprint }}
 <link rel="stylesheet" href="{{ $style.Permalink }}" integrity="{{ $style.Data.Integrity }}" />
 {{- if eq .Type "library" -}}
-{{- $libraryStyle := resources.Get "scss/library.scss" | toCSS $options | minify | fingerprint -}}
+{{- $libraryOptions := (dict "targetPath" "css/library.css" "outputStyle" "compressed") -}}
+{{- $libraryStyle := resources.Get "scss/library.scss" | toCSS $libraryOptions | minify | fingerprint -}}
 <link rel="stylesheet" href="{{ $libraryStyle.Permalink }}" integrity="{{ $libraryStyle.Data.Integrity }}" />
 {{- end -}}
 {{- if .Page.Store.Get "needsChroma" -}}

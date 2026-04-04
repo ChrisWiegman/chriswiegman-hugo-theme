@@ -4,7 +4,7 @@
 		<li><a title="{{ .Title }}" href="{{ .URL | absURL }}">{{ .Name }}</a></li>
 		{{ end }}
 	</ul>
-	<div class="copyright"> <span class="copyright-date">Copyright© {{ now.Year }}</span>{{- if isset .Site.Params
+	<div class="copyright">Copyright© {{ now.Year }}{{- if isset .Site.Params
 		"license" }} | <a title="{{ .Site.Params.License.Title }}" href="{{ .Site.Params.License.Link | absURL }}"
 			rel="license">{{ .Site.Params.License.Name }}</a>{{- end -}}{{- if isset .Site.Params "policies"}} |
 		<a href="{{ .Site.Params.Policies | absURL }}">Policies</a>{{- end -}}
