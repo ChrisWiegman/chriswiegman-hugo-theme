@@ -13,11 +13,6 @@
   }
 }
 
-ul,
-ol {
-  padding-left: 1.5rem;
-}
-
 body {
   -webkit-font-smoothing: antialiased;
   margin: 0;
@@ -28,22 +23,13 @@ body {
   background: $background;
 }
 
-body > header a,
-body > footer a,
+header a,
+footer a,
 main a {
   text-decoration: none;
 }
 
-.menu,
-.posts,
-.categories,
-.summary-grid {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-
-.post.post--draft {
+a.post.post--draft {
   border: 1px dashed $primary;
   border-radius: 8px;
   background: rgba(200, 128, 74, 0.08);
@@ -53,10 +39,9 @@ main a {
   }
 }
 
-.post {
+a.post {
   gap: 1rem;
   align-items: center;
-  border-bottom: none;
   border: 1px solid transparent;
   display: grid;
   grid-template-columns: auto 60px;
@@ -97,26 +82,26 @@ article.note {
   padding: 0.4rem 1rem;
   color: $text;
 
+  .note-title {
+    color: $text-heading;
+    font-size: 1.4rem;
+    display: inline-block;
+    margin: 0;
+  }
+
+  .note-day {
+    color: $text-heading;
+    display: inline-block;
+    font-size: 0.8rem;
+    font-weight: 400;
+    float: right;
+  }
+
   &::after {
     content: "";
     display: table;
     clear: both;
   }
-}
-
-.note-title {
-  color: $text-heading;
-  display: inline-block;
-  font-size: 1.4rem;
-  margin: 0;
-}
-
-.note-day {
-  color: $text-heading;
-  display: inline-block;
-  font-size: 0.8rem;
-  font-weight: 400;
-  float: right;
 }
 
 h1,
@@ -139,8 +124,8 @@ h3:not(:first-child) {
   margin-top: 3rem;
 }
 
-body > header,
-body > footer {
+header,
+footer {
   .content {
     ul {
       justify-content: flex-end;
@@ -155,7 +140,7 @@ body > footer {
   }
 }
 
-body > header {
+header {
   position: fixed;
   top: 0;
   left: 0;
@@ -199,67 +184,6 @@ body > header {
   }
 }
 
-.main-header {
-  align-items: center;
-  border-bottom: 1px solid $border-light;
-  display: flex;
-  justify-content: space-between;
-
-  a,
-  button {
-    font-size: 1rem;
-  }
-
-  a:hover {
-    color: $primary;
-  }
-}
-
-body > footer {
-  border-bottom: none;
-  width: 100%;
-  background: $navbar;
-  border-top: 1px solid $border;
-  padding: 1rem 0;
-
-  .content {
-    align-items: center;
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-
-    a {
-      color: $text;
-
-      &:hover {
-        color: $text-bright;
-        background: $navbar-hover;
-      }
-    }
-
-    .menu {
-      margin: 0;
-
-      li {
-        padding: 0.25rem 1rem;
-      }
-    }
-
-    .copyright,
-    .copyright a {
-      font-size: 0.7rem;
-
-      a {
-        border-bottom: 1px solid $text;
-      }
-    }
-
-    .copyright {
-      display: inline-block;
-    }
-  }
-}
-
 .container,
 .prevnext {
   margin-left: auto;
@@ -272,8 +196,9 @@ main {
   margin-top: 60px;
   min-height: calc(100vh - 145px);
 
-  :is(article, .prevnext) {
-    a:not(.post) {
+  article,
+  .prevnext {
+    a {
       border-bottom: 1px solid $link;
       color: $link;
 
@@ -309,6 +234,66 @@ main {
     p,
     ul {
       margin: 0 0 2rem;
+    }
+
+    .main-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid $border-light;
+
+      a {
+        font-size: 1rem;
+
+        &:hover {
+          color: $primary;
+        }
+      }
+    }
+  }
+}
+
+footer {
+  border-bottom: none;
+  width: 100%;
+  background: $navbar;
+  border-top: 1px solid $border;
+  padding: 1rem 0;
+
+  .content {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+
+    a {
+      color: $text;
+
+      &:hover {
+        color: $text-bright;
+        background: $navbar-hover;
+      }
+    }
+
+    ul {
+      margin: 0;
+
+      li {
+        padding: 0.25rem 1rem;
+      }
+    }
+
+    .copyright,
+    .copyright a {
+      font-size: 0.7rem;
+
+      a {
+        border-bottom: 1px solid $text;
+      }
+    }
+
+    .copyright {
+      display: inline-block;
     }
   }
 }

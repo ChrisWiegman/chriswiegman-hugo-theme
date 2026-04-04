@@ -1,9 +1,8 @@
-<nav class="content-categories" aria-label="Category filters">
-    <p class="categories-label">Filter Posts:</p>
-    <ul class="categories">
-        <li><a href="/blog" class="category">All Posts</a></li>
+<div class="content-categories">
+    <div class="categories"> Filter Posts:
+        <a href="/blog" class="category">All Posts</a>
         {{ range $name, $taxonomy := .Site.Taxonomies.categories }}
-        <li><a href="/categories/{{ $name }}/" class="category">{{ title $name }}</a></li>
+        <a href="/categories/{{ $name }}/" class="category">{{ title $name }}</a>
         {{- end }}
-    </ul>
-</nav>
+    </div>
+</div>

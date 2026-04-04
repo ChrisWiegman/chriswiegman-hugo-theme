@@ -33,12 +33,12 @@
         if (results.length > 0) {
           populateResults(results);
         } else {
-          searchResults.innerHTML = '<li class="post-list-item"><p>No matches found</p></li>';
+          searchResults.innerHTML = '<p>No matches found</p>';
         }
       })
       .catch(error => {
         console.error('Search error:', error);
-        searchResults.innerHTML = '<li class="post-list-item"><p>Error loading search results</p></li>';
+        searchResults.innerHTML = '<p>Error loading search results</p>';
       });
   }
 
@@ -105,9 +105,9 @@
         date: displayDate
       });
 
-      const wrapper = document.createElement('template');
-      wrapper.innerHTML = html.trim();
-      fragment.appendChild(wrapper.content.firstElementChild);
+      const wrapper = document.createElement('div');
+      wrapper.innerHTML = html;
+      fragment.appendChild(wrapper.firstElementChild);
     });
 
     searchResults.appendChild(fragment);

@@ -1,10 +1,10 @@
 {{ define "main" }}
 <article class="archive">
     <div class="container">
-        <header class="content-header">
+        <div class="content-header">
             <h1 class="title post-title p-name" itemprop="name headline">{{ .Title }}</h1>
             <p class="description"><span class="post-count">{{ .Pages.Len }}</span> items found.</p>
-        </header>
+        </div>
         {{ partial "posts-grouped.html" .Pages }}
     </div>
 </article>

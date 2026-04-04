@@ -3,12 +3,12 @@
     <div class="container">
         {{ $pages := where site.RegularPages "Section" "notes" }}
         {{ $paginator := .Paginate $pages }}
-        <header class="content-header">
+        <div class="content-header">
             <h1 class="title post-title p-name" itemprop="name headline">All Notes</h1>
             <p class="description"><span class="post-count">{{ $paginator.TotalNumberOfElements }}</span> notes found.</p>
-        </header>
+        </div>
 
-        <div class="content e-content" itemprop="articleBody">
+        <div class="content e-content" itemprop="articleBody"> <!-- Group by year. -->
             {{- range $paginator.Pages.GroupByDate "2006" }}
             <div class="posts-group">
                 <h2 class="main-header">{{ .Key }}</h2>
