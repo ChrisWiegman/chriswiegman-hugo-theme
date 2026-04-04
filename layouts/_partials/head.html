@@ -28,6 +28,10 @@
 {{ $options := (dict "targetPath" "css/main.css" "outputStyle" "compressed") }}
 {{ $style := resources.Get "scss/main.scss" | toCSS $options | minify | fingerprint }}
 <link rel="stylesheet" href="{{ $style.Permalink }}" integrity="{{ $style.Data.Integrity }}" />
+{{- if not .IsHome -}}
+{{- $pageStyle := resources.Get "scss/page.scss" | toCSS $options | minify | fingerprint -}}
+<link rel="stylesheet" href="{{ $pageStyle.Permalink }}" integrity="{{ $pageStyle.Data.Integrity }}" />
+{{- end -}}
 {{- if eq .Type "library" -}}
 {{- $libraryStyle := resources.Get "scss/library.scss" | toCSS $options | minify | fingerprint -}}
 <link rel="stylesheet" href="{{ $libraryStyle.Permalink }}" integrity="{{ $libraryStyle.Data.Integrity }}" />

@@ -1,12 +1,10 @@
-<div class="content e-content" itemprop="articleBody">
-    {{- range .GroupByDate "2006" }}
-    <div class="posts-group">
-        <h2 class="main-header">{{ .Key }}</h2>
-        <div class="posts">
-            {{- range .Pages }}
-            {{ partial "post-item.html" (dict "post" .) }}
-            {{- end }}
-        </div>
-    </div>
-    {{- end }}
+{{- range .GroupByDate "2006" }}
+<div class="posts-group">
+    <h2 class="main-header">{{ .Key }}</h2>
+    <ul class="posts">
+        {{- range .Pages }}
+        <li>{{ partial "post-item.html" (dict "post" .) }}</li>
+        {{- end }}
+    </ul>
 </div>
+{{- end }}

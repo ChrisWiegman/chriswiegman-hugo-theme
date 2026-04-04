@@ -5,9 +5,10 @@
     padding: 1rem;
   }
 
-  header .content,
-  footer .content {
-    padding: 0 0.2rem;
+  header,
+  footer {
+    padding-left: 0.2rem;
+    padding-right: 0.2rem;
     font-size: 0.7rem;
 
     a {
@@ -20,7 +21,7 @@
     display: none;
   }
 
-  footer .content {
+  footer {
     .copyright {
       text-align: center;
     }

@@ -76,31 +76,14 @@ a.post {
   }
 }
 
-article.note {
-  margin-left: -1rem;
-  margin-right: -1rem;
-  padding: 0.4rem 1rem;
-  color: $text;
+ul.posts,
+ul.notes {
+  list-style: none;
+  margin: 0;
+  padding: 0;
 
-  .note-title {
-    color: $text-heading;
-    font-size: 1.4rem;
-    display: inline-block;
-    margin: 0;
-  }
-
-  .note-day {
-    color: $text-heading;
-    display: inline-block;
-    font-size: 0.8rem;
-    font-weight: 400;
-    float: right;
-  }
-
-  &::after {
-    content: "";
-    display: table;
-    clear: both;
+  li {
+    display: block;
   }
 }
 
@@ -126,16 +109,14 @@ h3:not(:first-child) {
 
 header,
 footer {
-  .content {
-    ul {
-      justify-content: flex-end;
-      gap: 0.5rem;
-      padding: 0;
-      list-style: none;
+  ul {
+    justify-content: flex-end;
+    gap: 0.5rem;
+    padding: 0;
+    list-style: none;
 
-      li {
-        display: inline;
-      }
+    li {
+      display: inline;
     }
   }
 }
@@ -149,38 +130,35 @@ header {
   border-bottom: 1px solid $border;
   height: 60px;
   z-index: 2000;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  font-weight: 600;
+  padding: 0 1.5rem;
+  justify-content: space-between;
 
-  .content {
-    display: flex;
+  a {
+    color: $text;
+    gap: 0.5rem;
+    padding: 0.5rem;
+    border-radius: 8px;
+    font-size: 0.9rem;
     align-items: center;
-    font-weight: 600;
-    padding: 0 1.5rem;
-    height: 100%;
-    justify-content: space-between;
 
-    a {
-      color: $text;
-      gap: 0.5rem;
-      padding: 0.5rem;
-      border-radius: 8px;
-      font-size: 0.9rem;
-      align-items: center;
-
-      &:hover {
-        color: $text-bright;
-        background: $navbar-hover;
-      }
+    &:hover {
+      color: $text-bright;
+      background: $navbar-hover;
     }
+  }
 
-    .menu {
-      text-align: center;
-    }
+  .menu {
+    text-align: center;
+  }
 
-    img {
-      max-height: 20px;
-      max-width: 25px;
-      margin: 0 5px 5px 0;
-    }
+  img {
+    max-height: 20px;
+    max-width: 25px;
+    margin: 0 5px 5px 0;
   }
 }
 
@@ -259,41 +237,39 @@ footer {
   background: $navbar;
   border-top: 1px solid $border;
   padding: 1rem 0;
+  box-sizing: border-box;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
 
-  .content {
-    align-items: center;
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
+  a {
+    color: $text;
+
+    &:hover {
+      color: $text-bright;
+      background: $navbar-hover;
+    }
+  }
+
+  ul {
+    margin: 0;
+
+    li {
+      padding: 0.25rem 1rem;
+    }
+  }
+
+  .copyright,
+  .copyright a {
+    font-size: 0.7rem;
 
     a {
-      color: $text;
-
-      &:hover {
-        color: $text-bright;
-        background: $navbar-hover;
-      }
+      border-bottom: 1px solid $text;
     }
+  }
 
-    ul {
-      margin: 0;
-
-      li {
-        padding: 0.25rem 1rem;
-      }
-    }
-
-    .copyright,
-    .copyright a {
-      font-size: 0.7rem;
-
-      a {
-        border-bottom: 1px solid $text;
-      }
-    }
-
-    .copyright {
-      display: inline-block;
-    }
+  .copyright {
+    display: inline-block;
   }
 }

@@ -4,22 +4,22 @@
         {{ $pages := where site.RegularPages "Section" "notes" }}
         {{ $paginator := .Paginate $pages }}
         <div class="content-header">
-            <h1 class="title post-title p-name" itemprop="name headline">All Notes</h1>
+            <h1 class="post-title p-name">All Notes</h1>
             <p class="description"><span class="post-count">{{ $paginator.TotalNumberOfElements }}</span> notes found.</p>
         </div>
 
-        <div class="content e-content" itemprop="articleBody"> <!-- Group by year. -->
+        <div class="content">
             {{- range $paginator.Pages.GroupByDate "2006" }}
             <div class="posts-group">
                 <h2 class="main-header">{{ .Key }}</h2>
-                <div class="notes">
+                <ul class="notes">
                     {{ range $index, $post := .Pages }}
-                    <article class="note"{{ with $post.File }} id="{{ .ContentBaseName }}"{{ end }}>
+                    <li><article class="note"{{ with $post.File }} id="{{ .ContentBaseName }}"{{ end }}>
                         <h3 class="note-title">{{$post.Title}}</h3> <span class="note-day">{{ dateFormat "Jan 2" .Date }}</span>
                         {{ .Content }}
-                    </article>
+                    </article></li>
                     {{- end }}
-                </div>
+                </ul>
             </div>
             {{- end }}
         </div>
