@@ -1,8 +1,7 @@
 {{ define "main" }}
 <article class="archive">
     <div class="container">
-        {{ $pages := where site.RegularPages "Section" "notes" }}
-        {{ $paginator := .Paginate $pages }}
+        {{ $paginator := .Paginator }}
         <div class="content-header">
             <h1 class="post-title p-name">All Notes</h1>
             <p class="description"><span class="post-count">{{ $paginator.TotalNumberOfElements }}</span> notes found.</p>
