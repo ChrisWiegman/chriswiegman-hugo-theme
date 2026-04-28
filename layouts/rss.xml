@@ -13,7 +13,7 @@
     xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
 >
     <channel>
-        <language>{{ site.Language.LanguageCode | default "en-US" }}</language>
+        <language>{{ site.Language.Locale | default "en-US" }}</language>
         <title>{{ if eq .Title .Site.Title }}{{ .Site.Title }}{{ else }}{{ with .Title }}{{.}} on {{
         end }}{{ .Site.Title }}{{ end }}</title>
         <link>{{- .Site.BaseURL -}}</link>

@@ -102,7 +102,7 @@
       "limit": 30
     }
   },
-  "languageCode": "en-us",
+  "locale": "en-us",
   "disableHugoGeneratorInject": true,
   "cleanDestinationDir": true,
   "enableRobotsTXT": true,
