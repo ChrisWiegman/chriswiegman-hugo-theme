@@ -17,7 +17,7 @@ test("hugo development post renders key content types", async ({ page }) => {
   );
 
   const externalLink = page.locator(
-    ".content a[href='https://github.com/ChrisWiegman/chriswiegman-hugo-theme']",
+    ".content a[href='https://github.com/ChrisWiegman/kana-hugo-theme']",
   );
   await expect(externalLink).toHaveText("link");
 

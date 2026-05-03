@@ -14,7 +14,7 @@ date: 2026-01-14T08:00:00-06:00
 
 This is a [link](/2025/12/lorem-ipsum-post-7/) to an internal post.
 
-This is an external [link](https://github.com/ChrisWiegman/chriswiegman-hugo-theme)
+This is an external [link](https://github.com/ChrisWiegman/kana-hugo-theme)
 
 ``` php
 add_action( 'some_wp_action', __return_false );

@@ -1,5 +1,5 @@
 {
-  "name": "chriswiegman-hugo-theme",
+  "name": "kana-hugo-theme",
   "version": "2.5.0",
   "description": "Developer tooling for the Hugo theme for chriswiegman.com",
   "keywords": [
@@ -8,13 +8,13 @@
     "Changelog",
     "Tools"
   ],
-  "homepage": "https://github.com/ChrisWiegman/chriswiegman-hugo-theme#readme",
+  "homepage": "https://github.com/ChrisWiegman/kana-hugo-theme#readme",
   "bugs": {
-    "url": "https://github.com/ChrisWiegman/chriswiegman-hugo-theme/issues"
+    "url": "https://github.com/ChrisWiegman/kana-hugo-theme/issues"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ChrisWiegman/chriswiegman-hugo-theme.git"
+    "url": "git+https://github.com/ChrisWiegman/kana-hugo-theme.git"
   },
   "license": "MIT",
   "author": "Chris Wiegman",

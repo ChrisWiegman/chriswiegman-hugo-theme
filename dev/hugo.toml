@@ -1,35 +1,35 @@
-title                    = "Hugo Theme Development Site"
-baseURL                  = "https://hugo.chriswiegman.com"
-relativeURLs             = true
-locale                   = "en-us"
+title = "Hugo Theme Development Site"
+baseURL = "https://hugo.chriswiegman.com"
+relativeURLs = true
+locale = "en-us"
 disableHugoGeneratorInject = true
-cleanDestinationDir      = true
-enableRobotsTXT          = true
-enableGitInfo            = true
-canonifyURLs             = true
-disableKinds             = ["taxonomy"]
-timeout                  = "90s"
-theme                    = "chriswiegman-hugo-theme"
-themesDir                = "../.."
+cleanDestinationDir = true
+enableRobotsTXT = true
+enableGitInfo = true
+canonifyURLs = true
+disableKinds = ["taxonomy"]
+timeout = "90s"
+theme = "kana-hugo-theme"
+themesDir = "../.."
 
 [params]
-mainSections    = ["posts"]
-OpenGraph       = true
-TwitterCards    = true
+mainSections = ["posts"]
+OpenGraph = true
+TwitterCards = true
 MobileWebAppTitle = "Hugo"
-FediverseCreator  = "@chris@mastodon.chriswiegman.com"
-author          = "Chris Wiegman"
-description     = "A development site for the Hugo theme I use on my own site."
-subtitle        = "A minimalistic Hugo theme"
-imageSizes      = [850, 710, 300]
+FediverseCreator = "@chris@mastodon.chriswiegman.com"
+author = "Chris Wiegman"
+description = "A development site for the Hugo theme I use on my own site."
+subtitle = "A minimalistic Hugo theme"
+imageSizes = [850, 710, 300]
 imageSizeString = "(max-width: 300px) 300w, (max-width: 710px) 710w, 850w"
-policies        = "/policies"
-headerIcon      = "images/2025/12/hugo-theme.png"
+policies = "/policies"
+headerIcon = "images/2025/12/hugo-theme.png"
 
 [params.license]
-name  = "MIT Licensed"
+name = "MIT Licensed"
 title = "The theme code is licensed under the MIT license."
-link  = "https://github.com/ChrisWiegman/chriswiegman-hugo-theme/blob/main/LICENSE.txt"
+link = "https://github.com/ChrisWiegman/kana-hugo-theme/blob/main/LICENSE.txt"
 
 [minify]
 minifyOutput = false
@@ -38,57 +38,57 @@ minifyOutput = false
 pagerSize = 10
 
 [html]
-keepDefaultAttrVals  = false
-keepDocumentTags     = false
-keepEndTags          = false
-keepSpecialComments  = false
+keepDefaultAttrVals = false
+keepDocumentTags = false
+keepEndTags = false
+keepSpecialComments = false
 
 [[menus.main]]
-name    = "About"
-title   = "About the author"
+name = "About"
+title = "About the author"
 pageRef = "/about"
-weight  = 10
+weight = 10
 
 [[menus.main]]
-name    = "Blog"
-title   = "A list of all blog posts on this site"
+name = "Blog"
+title = "A list of all blog posts on this site"
 pageRef = "/blog"
-weight  = 20
+weight = 20
 
 [[menus.main]]
-name   = "Contact"
-title  = "Reach me via email"
-url    = "mailto:contact@chriswiegman.com"
+name = "Contact"
+title = "Reach me via email"
+url = "mailto:contact@chriswiegman.com"
 weight = 30
 
 [[menus.footer]]
-name    = "Uses"
-title   = "A great place for a uses page"
+name = "Uses"
+title = "A great place for a uses page"
 pageRef = "/uses"
-weight  = 10
+weight = 10
 
 [[menus.footer]]
-name    = "Now"
-title   = "The obligatory now page"
+name = "Now"
+title = "The obligatory now page"
 pageRef = "/now"
-weight  = 20
+weight = 20
 
 [[menus.footer]]
-name    = "Library"
-title   = "My reading library"
+name = "Library"
+title = "My reading library"
 pageRef = "/library"
-weight  = 30
+weight = 30
 
 [[menus.footer]]
-name    = "Notes"
-title   = "The notes page"
+name = "Notes"
+title = "The notes page"
 pageRef = "/notes"
-weight  = 40
+weight = 40
 
 [[menus.footer]]
-name   = "RSS"
-title  = "Subscribe to this site in your favorite feed reader"
-url    = "/index.xml"
+name = "RSS"
+title = "Subscribe to this site in your favorite feed reader"
+url = "/index.xml"
 weight = 50
 
 [permalinks]
@@ -98,10 +98,10 @@ posts = "/:year/:month/:slug/"
 limit = 30
 
 [outputs]
-home     = ["HTML", "RSS", "JSON"]
-section  = ["html"]
+home = ["HTML", "RSS", "JSON"]
+section = ["html"]
 taxonomy = ["html"]
-term     = ["html"]
+term = ["html"]
 
 [markup.highlight]
 noClasses = false

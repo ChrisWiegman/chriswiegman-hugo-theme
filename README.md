@@ -15,7 +15,7 @@ If you fork it, use the [Hugo documentation](https://gohugo.io/documentation/) t
 
 ### Site Configuration
 
-For a full example configuration, see [hugo.toml](https://github.com/ChrisWiegman/chriswiegman-hugo-theme/blob/main/dev/hugo.toml) in the `dev` directory.
+For a full example configuration, see [hugo.toml](https://github.com/ChrisWiegman/kana-hugo-theme/blob/main/dev/hugo.toml) in the `dev` directory.
 
 #### Theme Parameters
 

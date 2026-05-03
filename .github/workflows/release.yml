@@ -40,10 +40,10 @@ jobs:
 
             - name: Prepare theme zip
               run: |
-                mkdir chriswiegman-hugo-theme
-                cp theme.toml LICENSE.txt README.md chriswiegman-hugo-theme/
-                cp -r archetypes assets layouts chriswiegman-hugo-theme/ 2>/dev/null || true
-                zip -r chriswiegman-hugo-theme.zip chriswiegman-hugo-theme
+                mkdir kana-hugo-theme
+                cp theme.toml LICENSE.txt README.md kana-hugo-theme/
+                cp -r archetypes assets layouts kana-hugo-theme/ 2>/dev/null || true
+                zip -r kana-hugo-theme.zip kana-hugo-theme
 
             - name: Create GitHub Release
               uses: softprops/action-gh-release@v2
@@ -51,4 +51,4 @@ jobs:
                 tag_name: ${{ github.ref_name }}
                 name: ${{ steps.vars.outputs.version }}
                 body: ${{ steps.changelog.outputs.content }}
-                files: chriswiegman-hugo-theme.zip
+                files: kana-hugo-theme.zip
