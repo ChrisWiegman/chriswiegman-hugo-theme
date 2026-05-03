@@ -35,7 +35,7 @@ install:
 
 .PHONY: release
 release: clean
-	@echo "Building release file: chriswiegman-hugo-theme.$(call ARGS,defaultstring).zip"
+	@echo "Building release file: kana-hugo-theme.$(call ARGS,defaultstring).zip"
 	THEME_VERSION=$(call ARGS,defaultstring) && \
 		cd ../ && \
 		zip \
@@ -51,12 +51,17 @@ release: clean
 		--exclude="*README.md" \
 		--exclude="*CHANGELOG.md" \
 		--exclude="*.zip" \
-		chriswiegman-hugo-theme/chriswiegman-hugo-theme.$(call ARGS,defaultstring).zip \
-		chriswiegman-hugo-theme/*
-	if [ ! -f ./chriswiegman-hugo-theme.$(call ARGS,defaultstring).zip  ]; then \
+		kana-hugo-theme/kana-hugo-theme.$(call ARGS,defaultstring).zip \
+		kana-hugo-theme/*
+	if [ ! -f ./kana-hugo-theme.$(call ARGS,defaultstring).zip  ]; then \
 		echo "file not available"; \
 		exit 1; \
 	fi
+
+.PHONY: screenshots
+screenshots: install
+	npx playwright install chromium
+	node scripts/screenshots.mjs
 
 .PHONY: test
 test: install
