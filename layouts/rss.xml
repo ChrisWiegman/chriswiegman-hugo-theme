@@ -46,7 +46,7 @@
             {{- end -}}
             <link>{{- .Permalink | chomp -}}</link>
             <guid isPermaLink="true">{{- .Permalink | chomp -}}</guid>
-            <dc:creator>{{ "Chris Wiegman" | htmlEscape }}</dc:creator>
+            <dc:creator>{{ .Site.Params.Author | htmlEscape }}</dc:creator>
             {{- if .Params.categories -}}
             {{- range .Params.categories }}
                 <category>{{ . | htmlEscape }}</category>
