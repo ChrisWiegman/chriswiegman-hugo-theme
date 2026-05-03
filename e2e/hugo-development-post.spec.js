@@ -32,7 +32,7 @@ test("hugo development post renders key content types", async ({ page }) => {
   await expect(image).toHaveAttribute("src", /dev-image-01\.jpeg/);
   await expect(image).toHaveAttribute("srcset", /dev-image-01/);
   await expect(image).toHaveAttribute("srcset", /\.webp/);
-  await expect(image).toHaveAttribute("sizes", /\(max-width: 850px\)/);
+  await expect(image).toHaveAttribute("sizes", /\(max-width: 300px\)/);
   await expect(image).toHaveAttribute("loading", "lazy");
   await expect(image).not.toHaveAttribute("fetchpriority");
   await expect(page.locator("figure figcaption")).toContainText(
