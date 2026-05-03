@@ -2,8 +2,8 @@
 {{- $imgSrcSet := slice -}}
 {{- with $widths := site.Params.imageSizes -}}
 {{- range $widths -}}
-{{- $srcUrl := (printf "%gx webp" . | $image.Resize).Permalink -}}
-{{- $imgSrcSet = $imgSrcSet | append (printf "%s %gw" $srcUrl .) -}}
+{{- $srcUrl := (printf "%vx webp" . | $image.Resize).Permalink -}}
+{{- $imgSrcSet = $imgSrcSet | append (printf "%s %vw" $srcUrl .) -}}
 {{- end -}}
 {{- $imgSrcSet = (delimit $imgSrcSet ",") -}}
 {{- end -}}

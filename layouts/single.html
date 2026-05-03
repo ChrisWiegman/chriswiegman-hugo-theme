@@ -26,8 +26,8 @@
             {{- $webpSrcSet := slice -}}
             {{- with $widths := site.Params.imageSizes -}}
             {{- range $widths -}}
-            {{- $webpUrl := ($image.Resize (printf "%gx webp" .)).RelPermalink -}}
-            {{- $webpSrcSet = $webpSrcSet | append (printf "%s %gw" $webpUrl .) -}}
+            {{- $webpUrl := ($image.Resize (printf "%vx webp" .)).RelPermalink -}}
+            {{- $webpSrcSet = $webpSrcSet | append (printf "%s %vw" $webpUrl .) -}}
             {{- end -}}
             {{- $webpSrcSet = (delimit $webpSrcSet ",") -}}
             {{- end -}}
