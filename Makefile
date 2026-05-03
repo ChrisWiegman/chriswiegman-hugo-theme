@@ -42,14 +42,23 @@ release: clean
 		--verbose \
 		--recurse-paths \
 		--exclude="*.changes/*" \
+		--exclude="*.changie.yaml" \
+		--exclude="*.claude/*" \
 		--exclude="*.git/*" \
 		--exclude="*.github/*" \
-		--exclude="*.vscode/*" \
-		--exclude="*.changie.yml" \
 		--exclude="*.gitignore" \
+		--exclude="*.vscode/*" \
+		--exclude="*dev/*" \
+		--exclude="*e2e/*" \
 		--exclude="*Makefile" \
-		--exclude="*README.md" \
+		--exclude="*node_modules/*" \
+		--exclude="*package.json" \
+		--exclude="*package-lock.json" \
+		--exclude="*playwright.config.js" \
+		--exclude="*scripts/*" \
+		--exclude="*test-results/*" \
 		--exclude="*CHANGELOG.md" \
+		--exclude="*README.md" \
 		--exclude="*.zip" \
 		kana-hugo-theme/kana-hugo-theme.$(call ARGS,defaultstring).zip \
 		kana-hugo-theme/*
