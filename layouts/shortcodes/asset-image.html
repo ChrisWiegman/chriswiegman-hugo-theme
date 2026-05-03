@@ -1,0 +1,7 @@
+{{- $src := .Get 0 -}}
+{{- $width := .Get 1 | default "225" -}}
+{{- $height := .Get 2 | default "225" -}}
+{{- $alt := .Get 3 | default "" -}}
+{{- $image := resources.Get $src -}}
+{{- $image = $image.Resize (printf "%sx%s webp" $width $height) -}}
+<img src="{{ $image.RelPermalink }}" width="{{ $width }}" height="{{ $height }}" alt="{{ $alt }}" />
