@@ -27,6 +27,25 @@ test("404 page renders", async ({ page }) => {
   );
 });
 
+test("homepage hero image renders via asset-image shortcode", async ({
+  page,
+}) => {
+  await page.goto("/");
+
+  const heroImg = page.locator("article.hero .content img");
+  await expect(heroImg).toBeVisible();
+  await expect(heroImg).toHaveAttribute("src", /\.webp/);
+  await expect(heroImg).toHaveAttribute("width", "225");
+  await expect(heroImg).toHaveAttribute("height", "225");
+});
+
+test("rss feed uses author from site config", async ({ request }) => {
+  const response = await request.get("/index.xml");
+  expect(response.ok()).toBe(true);
+  const body = await response.text();
+  expect(body).toContain("<dc:creator>Chris Wiegman</dc:creator>");
+});
+
 test("sitemap and rss feeds are available", async ({ request }) => {
   const sitemapResponse = await request.get("/sitemap.xml");
   expect(sitemapResponse.ok()).toBe(true);
