@@ -1,7 +1,7 @@
 {
     "recommendations": [
-        "budparr.language-hugo-vscode",
-        "esbenp.prettier-vscode"
+        "GoHugoIO.gotmplfmt",
+        "tamasfe.even-better-toml"
     ],
     "unwantedRecommendations": []
 }
