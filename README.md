@@ -15,7 +15,25 @@ If you fork it, use the [Hugo documentation](https://gohugo.io/documentation/) t
 
 ### Site Configuration
 
-For an example configuration, see [hugo.json](https://github.com/ChrisWiegman/chriswiegman-hugo-theme/blob/main/dev/hugo.json) in the `dev` directory.
+For a full example configuration, see [hugo.toml](https://github.com/ChrisWiegman/chriswiegman-hugo-theme/blob/main/dev/hugo.toml) in the `dev` directory.
+
+#### Theme Parameters
+
+| Parameter | Type | Description |
+|---|---|---|
+| `author` | string | Author name used as `dc:creator` in RSS feeds |
+| `description` | string | Site description for meta tags |
+| `subtitle` | string | Subtitle appended to the homepage title tag |
+| `imageSizes` | int[] | Image widths (px) to generate in srcset (e.g. `[850, 710, 300]`) |
+| `imageSizeString` | string | The HTML `sizes` attribute for responsive images. Must be ordered **smallest breakpoint first** with no-condition default last (e.g. `(max-width: 300px) 300w, (max-width: 710px) 710w, 850w`) |
+| `mainSections` | string[] | Content sections included in the homepage post list and RSS feed |
+| `OpenGraph` | bool | Emit Open Graph meta tags |
+| `TwitterCards` | bool | Emit Twitter Card meta tags |
+| `FediverseCreator` | string | Fediverse handle for `fediverse:creator` meta tag (e.g. `@user@instance.social`) |
+| `MobileWebAppTitle` | string | `apple-mobile-web-app-title` meta value |
+| `headerIcon` | string | Path (relative to `assets/`) to the icon shown in the site header |
+| `license` | object | `name`, `title`, and `link` shown in the footer |
+| `policies` | string | Path to a policies page linked in the footer |
 
 ## Local Development
 
