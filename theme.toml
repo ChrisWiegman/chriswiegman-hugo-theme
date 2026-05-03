@@ -1,13 +1,14 @@
-name = "Chris Wiegman's Hugo Theme"
+name = "Kana Theme"
 license = "MIT"
-licenselink = "https://github.com/ChrisWiegman/chriswiegman-hugo-theme/blob/main/LICENSE.txt"
-description = "The ever-evolving Hugo theme in use at chriswiegman.com"
-homepage = "https://github.com/ChrisWiegman/chriswiegman-hugo-theme"
-tags = ["blog", "minimal"]
+licenselink = "https://github.com/ChrisWiegman/kana-hugo-theme/blob/main/LICENSE.txt"
+description = "A warm, earthy dark theme."
+homepage = "https://github.com/ChrisWiegman/kana-hugo-theme"
+demosite = "https://chriswiegman.com"
+tags = ["blog", "minimal","dark"]
 features = ["search"]
 min_version = "0.152.0"
 
 # If the theme has a single author
 [author]
-    name = "Chris Wiegman"
-    homepage = "https://chriswiegman.com"
+name = "Chris Wiegman"
+homepage = "https://chriswiegman.com"
