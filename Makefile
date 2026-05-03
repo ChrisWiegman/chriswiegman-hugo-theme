@@ -8,6 +8,7 @@ change: install
 clean:
 	rm -rf \
 		*.zip \
+		bin \
 		node_modules \
 		dev/public \
 		dev/resources \
@@ -27,6 +28,9 @@ changelog: install
 install:
 	if [ ! -d ./node_modules/ ] || [ ! -x ./node_modules/.bin/playwright ]; then \
 		npm ci; \
+	fi
+	if ! command -v gotmplfmt > /dev/null 2>&1; then \
+		go install github.com/gohugoio/gotmplfmt@latest; \
 	fi
 
 .PHONY: release
