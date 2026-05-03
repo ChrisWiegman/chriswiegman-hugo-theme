@@ -1,223 +1,231 @@
 {{ define "main" }}
 <article class="library">
-  <div class="container">
-    {{- $booksPage := site.GetPage "books" -}}
-    {{- $books := $booksPage.Resources.ByType "page" -}}
+	<div class="container">
+		{{- $booksPage := site.GetPage "books" -}}
+		{{- $books := $booksPage.Resources.ByType "page" -}}
 
-    {{/* ---- Build normalized row model once (used by summary + list) ---- */}}
-    {{- $rows := slice -}}
+		{{/* ---- Build normalized row model once (used by summary + list) ---- */}}
+		{{- $rows := slice -}}
 
-    {{- range $books -}}
-    {{- $book := . -}}
+		{{- range $books -}}
+			{{- $book := . -}}
 
-    {{- $title := $book.Title -}}
-    {{- $titleKey := lower (trim $title " ") -}}
+			{{- $title := $book.Title -}}
+			{{- $titleKey := lower (trim $title " ") -}}
 
-    {{- $author := default "" $book.Params.author -}}
-    {{- $authorKey := lower (trim $author " ") -}}
+			{{- $author := default "" $book.Params.author -}}
+			{{- $authorKey := lower (trim $author " ") -}}
 
-    {{- $rating := int (default 0 $book.Params.rating) -}}
+			{{- $rating := int (default 0 $book.Params.rating) -}}
 
-    {{- $finishedUnix := 0 -}}
-    {{- $finishedYear := "" -}}
-    {{- $finishedDisplays := slice -}}
-    {{- $finishedRaw := slice -}}
+			{{- $finishedUnix := 0 -}}
+			{{- $finishedYear := "" -}}
+			{{- $finishedDisplays := slice -}}
+			{{- $finishedRaw := slice -}}
 
-    {{- with $book.Params.finished -}}
-    {{- if gt (len .) 0 -}}
-    {{- $finishedItems := slice -}}
-    {{- range . -}}
-    {{- $t := time . -}}
-    {{- $finishedItems = $finishedItems | append (dict
-    "unix" $t.Unix
-    "year" ($t.Format "2006")
-    "display" ($t.Format "02 Jan, 2006")
-    ) -}}
-    {{- $finishedRaw = $finishedRaw | append . -}}
-    {{- end -}}
+			{{- with $book.Params.finished -}}
+				{{- if gt (len .) 0 -}}
+					{{- $finishedItems := slice -}}
+					{{- range . -}}
+						{{- $t := time . -}}
+						{{- $finishedItems = $finishedItems | append (dict
+							"unix" $t.Unix
+							"year" ($t.Format "2006")
+							"display" ($t.Format "02 Jan, 2006")
+							)
+						-}}
+						{{- $finishedRaw = $finishedRaw | append . -}}
+					{{- end -}}
 
-    {{- $finishedItems = sort $finishedItems "unix" "desc" -}}
-    {{- $finishedUnix = (index $finishedItems 0).unix -}}
-    {{- $finishedYear = (index $finishedItems 0).year -}}
+					{{- $finishedItems = sort $finishedItems "unix" "desc" -}}
+					{{- $finishedUnix = (index $finishedItems 0).unix -}}
+					{{- $finishedYear = (index $finishedItems 0).year -}}
 
-    {{- range $finishedItems -}}
-    {{- $finishedDisplays = $finishedDisplays | append .display -}}
-    {{- end -}}
-    {{- end -}}
-    {{- end -}}
+					{{- range $finishedItems -}}
+						{{- $finishedDisplays = $finishedDisplays | append .display -}}
+					{{- end -}}
+				{{- end -}}
+			{{- end -}}
 
-    {{- $rows = $rows | append (dict
-    "page" $book
-    "title" $title
-    "titleKey" $titleKey
-    "author" $author
-    "authorKey" $authorKey
-    "rating" $rating
-    "finishedUnix" $finishedUnix
-    "finishedYear" $finishedYear
-    "finishedDisplays" $finishedDisplays
-    "finishedRaw" $finishedRaw
-    ) -}}
-    {{- end -}}
+			{{- $rows = $rows | append (dict
+				"page" $book
+				"title" $title
+				"titleKey" $titleKey
+				"author" $author
+				"authorKey" $authorKey
+				"rating" $rating
+				"finishedUnix" $finishedUnix
+				"finishedYear" $finishedYear
+				"finishedDisplays" $finishedDisplays
+				"finishedRaw" $finishedRaw
+				)
+			-}}
+		{{- end -}}
 
-    <div class="content-header">
-      <h1 class="post-title p-name">My Library</h1>
-      <p class="description">You're viewing all <span class="book-count">{{ len $rows }}</span> {{ if eq (len $rows) 1
-        }}book{{ else }}books{{ end }}<span data-filter-label hidden></span>.</p>
-    </div>
+		<div class="content-header">
+			<h1 class="post-title p-name">My Library</h1>
+			<p class="description">You're viewing all <span class="book-count">{{ len $rows }}</span>
+				{{ if eq (len $rows) 1 }}book
+				{{ else }}books
+				{{ end }}<span data-filter-label hidden></span>.</p>
+		</div>
 
-    <div class="content e-content" itemprop="articleBody">
-      {{ .Content }}
+		<div class="content e-content" itemprop="articleBody">
+			{{ .Content }}
 
-      {{/* ---- Summary: books read by year ---- */}}
-      {{- $yearCounts := dict -}}
-      {{- range $rows -}}
-      {{- range $raw := .finishedRaw -}}
-      {{- $t := (time $raw) -}}
-      {{- $y := $t.Format "2006" -}}
-      {{- if ne $y "" -}}
-      {{- $current := (index $yearCounts $y | default 0) -}}
-      {{- $yearCounts = merge $yearCounts (dict $y (add $current 1)) -}}
-      {{- end -}}
-      {{- end -}}
-      {{- end -}}
+			{{/* ---- Summary: books read by year ---- */}}
+			{{- $yearCounts := dict -}}
+			{{- range $rows -}}
+				{{- range $raw := .finishedRaw -}}
+					{{- $t := (time $raw) -}}
+					{{- $y := $t.Format "2006" -}}
+					{{- if ne $y "" -}}
+						{{- $current := (index $yearCounts $y | default 0) -}}
+						{{- $yearCounts = merge $yearCounts (dict $y (add $current 1)) -}}
+					{{- end -}}
+				{{- end -}}
+			{{- end -}}
 
-      {{- $yearRows := slice -}}
-      {{- range $year, $count := $yearCounts -}}
-      {{- $yearRows = $yearRows | append (dict "year" $year "count" $count) -}}
-      {{- end -}}
-      {{- $yearRows = sort $yearRows "year" "desc" -}}
+			{{- $yearRows := slice -}}
+			{{- range $year, $count := $yearCounts -}}
+				{{- $yearRows = $yearRows | append (dict "year" $year "count" $count) -}}
+			{{- end -}}
+			{{- $yearRows = sort $yearRows "year" "desc" -}}
 
-      {{/* ---- Summary: top 10 authors ---- */}}
-      {{- $authorCounts := dict -}}
-      {{- $authorNames := dict -}}
-      {{- range $rows -}}
-      {{- if ne .author "" -}}
-      {{- $key := .authorKey -}}
-      {{- $authorNames = merge $authorNames (dict $key .author) -}}
-      {{- range .finishedRaw -}}
-      {{- $current := (index $authorCounts $key | default 0) -}}
-      {{- $authorCounts = merge $authorCounts (dict $key (add $current 1)) -}}
-      {{- end -}}
-      {{- end -}}
-      {{- end -}}
+			{{/* ---- Summary: top 10 authors ---- */}}
+			{{- $authorCounts := dict -}}
+			{{- $authorNames := dict -}}
+			{{- range $rows -}}
+				{{- if ne .author "" -}}
+					{{- $key := .authorKey -}}
+					{{- $authorNames = merge $authorNames (dict $key .author) -}}
+					{{- range .finishedRaw -}}
+						{{- $current := (index $authorCounts $key | default 0) -}}
+						{{- $authorCounts = merge $authorCounts (dict $key (add $current 1)) -}}
+					{{- end -}}
+				{{- end -}}
+			{{- end -}}
 
-      {{- $authorRows := slice -}}
-      {{- range $key, $count := $authorCounts -}}
-      {{- $name := index $authorNames $key -}}
-      {{- $authorRows = $authorRows | append (dict "key" $key "name" $name "count" $count) -}}
-      {{- end -}}
-      {{- $authorRows = sort $authorRows "count" "desc" -}}
-      {{- $topAuthors := first 12 $authorRows -}}
+			{{- $authorRows := slice -}}
+			{{- range $key, $count := $authorCounts -}}
+				{{- $name := index $authorNames $key -}}
+				{{- $authorRows = $authorRows | append (dict "key" $key "name" $name "count" $count) -}}
+			{{- end -}}
+			{{- $authorRows = sort $authorRows "count" "desc" -}}
+			{{- $topAuthors := first 12 $authorRows -}}
 
-      {{/* ---- Summary: books by rating ---- */}}
-      {{- $ratingCounts := dict -}}
-      {{- range $rows -}}
-      {{- if gt .rating 0 -}}
-      {{- $r := string .rating -}}
-      {{- range .finishedRaw -}}
-      {{- $current := (index $ratingCounts $r | default 0) -}}
-      {{- $ratingCounts = merge $ratingCounts (dict $r (add $current 1)) -}}
-      {{- end -}}
-      {{- end -}}
-      {{- end -}}
+			{{/* ---- Summary: books by rating ---- */}}
+			{{- $ratingCounts := dict -}}
+			{{- range $rows -}}
+				{{- if gt .rating 0 -}}
+					{{- $r := string .rating -}}
+					{{- range .finishedRaw -}}
+						{{- $current := (index $ratingCounts $r | default 0) -}}
+						{{- $ratingCounts = merge $ratingCounts (dict $r (add $current 1)) -}}
+					{{- end -}}
+				{{- end -}}
+			{{- end -}}
 
-      {{- $ratingRows := slice -}}
-      {{- range $r, $count := $ratingCounts -}}
-      {{- $ratingRows = $ratingRows | append (dict "rating" $r "ratingInt" (int $r) "count" $count) -}}
-      {{- end -}}
-      {{- $ratingRows = sort $ratingRows "rating" "desc" -}}
+			{{- $ratingRows := slice -}}
+			{{- range $r, $count := $ratingCounts -}}
+				{{- $ratingRows = $ratingRows | append (dict "rating" $r "ratingInt" (int $r) "count" $count) -}}
+			{{- end -}}
+			{{- $ratingRows = sort $ratingRows "rating" "desc" -}}
 
-      {{- if gt (len $yearRows) 0 -}}
-      <section class="library-summary" aria-label="Reading summary">
-        <h2 class="main-header">Reading Summary</h2>
+			{{- if gt (len $yearRows) 0 -}}
+				<section class="library-summary" aria-label="Reading summary">
+					<h2 class="main-header">Reading Summary</h2>
 
-        <h3 class="summary-section-label">By Year</h3>
-        <div class="summary-grid">
-          {{- range $yearRows -}}
-          <button type="button" class="summary-card" data-filter-year="{{ .year }}" aria-pressed="false">
-            <div class="summary-year">{{ .year }}</div>
-            <div class="summary-count">{{ .count }}</div>
-            <div class="summary-label">books</div>
-          </button>
-          {{- end -}}
-        </div>
+					<h3 class="summary-section-label">By Year</h3>
+					<div class="summary-grid">
+						{{- range $yearRows -}}
+							<button type="button" class="summary-card" data-filter-year="{{ .year }}" aria-pressed="false">
+								<div class="summary-year">{{ .year }}</div>
+								<div class="summary-count">{{ .count }}</div>
+								<div class="summary-label">books</div>
+							</button>
+						{{- end -}}
+					</div>
 
-        {{- if gt (len $topAuthors) 0 -}}
-        <h3 class="summary-section-label">Top Authors</h3>
-        <div class="summary-grid summary-grid-authors">
-          {{- range $topAuthors -}}
-          <button type="button" class="summary-card" data-filter-author="{{ .key }}" aria-pressed="false">
-            <div class="summary-name">{{ .name }}</div>
-            <div class="summary-count">{{ .count }}</div>
-            <div class="summary-label">books</div>
-          </button>
-          {{- end -}}
-        </div>
-        {{- end -}}
+					{{- if gt (len $topAuthors) 0 -}}
+						<h3 class="summary-section-label">Top Authors</h3>
+						<div class="summary-grid summary-grid-authors">
+							{{- range $topAuthors -}}
+								<button type="button" class="summary-card" data-filter-author="{{ .key }}" aria-pressed="false">
+									<div class="summary-name">{{ .name }}</div>
+									<div class="summary-count">{{ .count }}</div>
+									<div class="summary-label">books</div>
+								</button>
+							{{- end -}}
+						</div>
+					{{- end -}}
 
-        {{- if gt (len $ratingRows) 0 -}}
-        <h3 class="summary-section-label">By Rating</h3>
-        <div class="summary-grid">
-          {{- range $ratingRows -}}
-          {{- $ri := .ratingInt -}}
-          <button type="button" class="summary-card" data-filter-rating="{{ .rating }}" aria-pressed="false">
-            <div class="summary-stars">{{- range seq 1 5 -}}{{- if le . $ri -}}★{{- else -}}☆{{- end -}}{{- end -}}
-            </div>
-            <div class="summary-count">{{ .count }}</div>
-            <div class="summary-label">books</div>
-          </button>
-          {{- end -}}
-        </div>
-        {{- end -}}
-      </section>
-      {{- end -}}
+					{{- if gt (len $ratingRows) 0 -}}
+						<h3 class="summary-section-label">By Rating</h3>
+						<div class="summary-grid">
+							{{- range $ratingRows -}}
+								{{- $ri := .ratingInt -}}
+								<button type="button" class="summary-card" data-filter-rating="{{ .rating }}" aria-pressed="false">
+									<div class="summary-stars">{{- range seq 1 5 -}}{{- if le . $ri -}}★{{- else -}}☆{{- end -}}{{- end -}}
+									</div>
+									<div class="summary-count">{{ .count }}</div>
+									<div class="summary-label">books</div>
+								</button>
+							{{- end -}}
+						</div>
+					{{- end -}}
+				</section>
+			{{- end -}}
 
-      <h2 class="main-header"><span>All Books</span> <button type="button" class="filter-clear" data-filter-clear
-          hidden>View All</button></h2>
+			<h2 class="main-header"><span>All Books</span> <button type="button" class="filter-clear" data-filter-clear
+					hidden>View All</button>
+			</h2>
 
-      <div class="books" data-library-table>
-        <div class="book-header">
-          <button type="button" class="book-sort" data-sort="title" aria-sort="none">Title</button>
-          <button type="button" class="book-sort" data-sort="author" aria-sort="none">Author</button>
-          <button type="button" class="book-sort" data-sort="rating" aria-sort="none">Rating</button>
-          <span class="book-links-header">Links</span>
-          <button type="button" class="book-sort" data-sort="finished" aria-sort="none">Finished</button>
-        </div>
+			<div class="books" data-library-table>
+				<div class="book-header">
+					<button type="button" class="book-sort" data-sort="title" aria-sort="none">Title</button>
+					<button type="button" class="book-sort" data-sort="author" aria-sort="none">Author</button>
+					<button type="button" class="book-sort" data-sort="rating" aria-sort="none">Rating</button>
+					<span class="book-links-header">Links</span>
+					<button type="button" class="book-sort" data-sort="finished" aria-sort="none">Finished</button>
+				</div>
 
-        {{- range $rows -}}
-        {{- $row := . -}}
-        {{- $book := $row.page -}}
+				{{- range $rows -}}
+					{{- $row := . -}}
+					{{- $book := $row.page -}}
 
-        {{- $years := slice -}}
-        {{- range $row.finishedRaw -}}{{- $years = $years | append ((time .).Format "2006") -}}{{- end -}}
-        <div class="book" data-title="{{ $row.titleKey }}" data-author="{{ $row.authorKey }}"
-          data-rating="{{ $row.rating }}" data-finished="{{ $row.finishedUnix }}" data-years="{{ delimit $years " " }}">
-          <h3 class="book-title">{{ $row.title }}</h3>
-          <button type="button" class="book-meta book-author" data-filter-author="{{ $row.authorKey }}">{{ $row.author
-            }}</button>
+					{{- $years := slice -}}
+					{{- range $row.finishedRaw -}}{{- $years = $years | append ((time .).Format "2006") -}}{{- end -}}
+					<div class="book" data-title="{{ $row.titleKey }}" data-author="{{ $row.authorKey }}"
+						data-rating="{{ $row.rating }}" data-finished="{{ $row.finishedUnix }}" data-years="{{ delimit $years " " }}">
+						<h3 class="book-title">{{ $row.title }}</h3>
+						<button type="button" class="book-meta book-author" data-filter-author="{{ $row.authorKey }}">{{ $row.author }}</button>
 
-          <button type="button" class="book-meta book-rating" data-filter-rating="{{ $row.rating }}"
-            aria-label="Rating: {{ $row.rating }} out of 5">{{- range seq 1 5 -}}{{- if le . $row.rating -}}★{{- else
-            -}}☆{{- end -}}{{- end -}}</button>
-          {{ partial "books/links.html" $book }}
+						<button type="button" class="book-meta book-rating" data-filter-rating="{{ $row.rating }}"
+							aria-label="Rating: {{ $row.rating }} out of 5">
+							{{- range seq 1 5 -}}
+								{{- if le . $row.rating -}}★
+								{{- else -}}☆
+								{{- end -}}
+							{{- end -}}</button>
+						{{ partial "books/links.html" $book }}
 
-          <span class="book-meta book-date">
-            {{- if gt (len $row.finishedDisplays) 0 -}}
-            {{- range $row.finishedDisplays -}}
-            <span class="date">{{ . }}</span>
-            {{- end -}}
-            {{- else -}}
-            <span class="date date-empty">—</span>
-            {{- end -}}
-          </span>
-        </div>
-        {{- end -}}
-      </div>
-    </div>
-  </div>
-  {{- $library := resources.Get "scripts/library.js" -}}
-  {{- $js := $library | resources.Minify -}}
-  <script defer src="{{ $js.RelPermalink }}"></script>
+						<span class="book-meta book-date">
+							{{- if gt (len $row.finishedDisplays) 0 -}}
+								{{- range $row.finishedDisplays -}}
+									<span class="date">{{ . }}</span>
+								{{- end -}}
+							{{- else -}}
+								<span class="date date-empty">—</span>
+							{{- end -}}
+						</span>
+					</div>
+				{{- end -}}
+			</div>
+		</div>
+	</div>
+	{{- $library := resources.Get "scripts/library.js" -}}
+	{{- $js := $library | resources.Minify -}}
+	<script defer src="{{ $js.RelPermalink }}"></script>
 </article>
 {{- end -}}

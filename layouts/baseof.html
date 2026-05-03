@@ -1,21 +1,21 @@
 <!DOCTYPE html>
 <html lang="{{ or site.Language.Locale }}" dir="{{ or site.Language.Direction `ltr` }}">
 
-<head>
-    {{ partial "head.html" . }}
-</head>
+	<head>
+		{{ partial "head.html" . }}
+	</head>
 
-<body class="{{ .Kind }}">
-    <a class="skip-link" href="#main">Skip to main content</a>
-    <header>
-        {{ partial "header.html" . }}
-    </header>
-    <main id="main">
-        {{ block "main" . }}{{ end }}
-    </main>
-    <footer>
-        {{ partial "footer.html" . }}
-    </footer>
-</body>
+	<body class="{{ .Kind }}">
+		<a class="skip-link" href="#main">Skip to main content</a>
+		<header>
+			{{ partial "header.html" . }}
+		</header>
+		<main id="main">
+			{{ block "main" . }}{{ end }}
+		</main>
+		<footer>
+			{{ partial "footer.html" . }}
+		</footer>
+	</body>
 
 </html>

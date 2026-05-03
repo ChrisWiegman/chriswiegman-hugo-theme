@@ -1,21 +1,21 @@
 {{ define "main" }}
 <article class="hero">
-    {{ .Content }}
+	{{ .Content }}
 
-    <div class="container">
-        <h2 class="main-header"><span>Recent Posts</span> <a href="/blog">View All</a></h2>
-        {{- $posts := where site.RegularPages "Type" "in" site.Params.mainSections }}
-        {{/* In development mode, prepend drafts to the homepage */}}
-        {{- if hugo.IsDevelopment }}
-            {{- $drafts := where site.RegularPages "Type" "drafts" }}
-            {{- range $drafts }}
-            {{ partial "post-item.html" (dict "post" . "dateFormat" "2 Jan" "isDraft" true) }}
-            {{- end }}
-        {{- end }}
-        {{ range $index, $post := first 10 $posts }}
-        {{ .Render "title" }}
-        {{ partial "post-item.html" (dict "post" $post "dateFormat" "2 Jan") }}
-        {{- end }}
-    </div>
+	<div class="container">
+		<h2 class="main-header"><span>Recent Posts</span> <a href="/blog">View All</a></h2>
+		{{- $posts := where site.RegularPages "Type" "in" site.Params.mainSections }}
+		{{/* In development mode, prepend drafts to the homepage */}}
+		{{- if hugo.IsDevelopment }}
+			{{- $drafts := where site.RegularPages "Type" "drafts" }}
+			{{- range $drafts }}
+				{{ partial "post-item.html" (dict "post" . "dateFormat" "2 Jan" "isDraft" true) }}
+			{{- end }}
+		{{- end }}
+		{{ range $index, $post := first 10 $posts }}
+			{{ .Render "title" }}
+			{{ partial "post-item.html" (dict "post" $post "dateFormat" "2 Jan") }}
+		{{- end }}
+	</div>
 </article>
 {{ end }}
