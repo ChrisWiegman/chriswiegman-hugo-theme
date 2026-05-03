@@ -2,9 +2,9 @@ name = "Kana Theme"
 license = "MIT"
 licenselink = "https://github.com/ChrisWiegman/kana-hugo-theme/blob/main/LICENSE.txt"
 description = "A warm, earthy dark theme."
-homepage = "https://github.com/ChrisWiegman/kana-hugo-theme"
+homepage = "https://kana.sh"
 demosite = "https://chriswiegman.com"
-tags = ["blog", "minimal","dark"]
+tags = ["blog", "minimal", "dark"]
 features = ["search"]
 min_version = "0.152.0"
 
