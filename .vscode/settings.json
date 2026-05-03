@@ -1,6 +1,7 @@
 {
   "editor.formatOnSave": true,
   "[html]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
-  }
+    "editor.defaultFormatter": "gohugoio.gotmplfmt"
+  },
+  "gotmplfmt.binaryPath": "${workspaceFolder}/bin/gotmplfmt"
 }
